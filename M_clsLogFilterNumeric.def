@@ -1,0 +1,92 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+'---------------------------------------------------------------------------------------
+' Module    : clsLogFilterNumeric
+' Author    : K.Gundermann
+' Date      : 04.02.2012
+' Purpose   : Matches Numeric Values
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Public Enum e_EntryFilter_Numeric
+  IgnoreNumber
+  EqualTo
+  
+  GreaterThan
+  LowerThan
+  
+  Between
+  NotBetween
+End Enum
+
+
+Public Entry As String
+Public Match As e_EntryFilter_Numeric
+Public Value1 As Long
+Public Value2 As Long
+
+Public Function MatchesNumber(ByVal TheValue As Long) As Boolean
+  Select Case Me.Match
+      Case IgnoreNumber:  MatchesNumber = True
+      Case EqualTo:       MatchesNumber = (TheValue = Me.Value1)
+      Case GreaterThan:   MatchesNumber = (TheValue > Me.Value1)
+      Case LowerThan:     MatchesNumber = (TheValue < Me.Value1)
+      Case Between:       MatchesNumber = ((TheValue >= Me.Value1) And (TheValue <= Me.Value2))
+      Case NotBetween:    MatchesNumber = Not ((TheValue >= Me.Value1) And (TheValue <= Me.Value2))
+  End Select
+End Function
+
+Public Property Get Self() As clsLogFilterNumeric
+  Set Self = Me
+End Property
+
+Public Function ToString() As String
+  If Me.Match <> IgnoreNumber Then
+    ToString = Entry & " " & MatchToString & " " & ValueToString
+  End If
+End Function
+
+Public Sub FromString(ByVal TheString As String)
+  ' TODO: Parse TheString
+End Sub
+
+Public Function MatchToString() As String
+  Select Case Me.Match
+      Case IgnoreNumber:  MatchToString = ""
+      Case EqualTo:       MatchToString = "="
+      Case GreaterThan:   MatchToString = ">"
+      Case LowerThan:     MatchToString = "<"
+      Case Between:       MatchToString = "Between"
+      Case NotBetween:    MatchToString = "Not Between"
+  End Select
+End Function
+
+Public Property Let MatchFromString(ByVal TheMatch As String)
+  Select Case Trim$(TheMatch)
+    Case "":              Me.Match = IgnoreNumber
+    Case "=":             Me.Match = EqualTo
+    Case ">":             Me.Match = GreaterThan
+    Case "<":             Me.Match = LowerThan
+    Case "Between":       Me.Match = Between
+    Case "Not Between":   Me.Match = NotBetween
+  End Select
+End Property
+
+Public Function ValueToString() As String
+  Select Case Me.Match
+      Case IgnoreString:    ValueToString = ""
+      Case EqualTo, _
+            GreaterThan, _
+            LowerThan: ValueToString = str(Me.Value1)
+      Case Between, _
+            NotBetween: ValueToString = str(Me.Value1) & " AND" & str(Me.Value2)
+  End Select
+End Function
+
+Public Property Let ValueFromString(ByVal TheValue As String)
+
+End Property

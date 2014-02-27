@@ -1,0 +1,23 @@
+Option Compare Database
+Option Explicit
+
+Private m_OSFacade      As OS__Facade
+Private m_UtilsFacade   As Utils__Facade
+Private m_LoggerFacade  As Logger__Facade
+
+
+
+Public Property Get OS() As OS__Facade
+  If m_OSFacade Is Nothing Then Set m_OSFacade = New OS__Facade
+  Set OS = m_OSFacade
+End Property
+
+Public Property Get Utils() As Utils__Facade
+  If m_UtilsFacade Is Nothing Then Set m_UtilsFacade = New Utils__Facade
+  Set Utils = m_UtilsFacade
+End Property
+
+Public Property Get Logger() As Logger__Facade
+  If m_LoggerFacade Is Nothing Then Set m_LoggerFacade = New Logger__Facade
+  Set Logger = m_LoggerFacade
+End Property

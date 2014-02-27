@@ -1,0 +1,32 @@
+Option Compare Database
+Option Explicit
+
+' #############################################################################################
+' ###  Conversion from C-Strings
+
+' From Access 97 Developer's Handbook
+' by Litwin, Getz, and Gilbert (Sybex)
+' Copyright 1997.  All rights reserved.
+
+' See also http://oreilly.com/catalog/win32api/chapter/ch06.html
+
+
+Public Function TrimNull(ByVal strString As String) As String
+    ' Remove any Nulls that strings returned from the Windows API
+    ' might happen to have embedded.  Don't send this function a
+    ' Null string.  It won't like it.
+
+    Dim intPos As Integer
+
+    intPos = InStr(strString, vbNullChar)
+    If intPos > 0 Then
+        TrimNull = Left$(strString, intPos - 1)
+    Else
+        TrimNull = strString
+    End If
+End Function
+
+
+Public Function IsNullString(ByVal Value As String) As Boolean
+  IsNullString = (Value = vbNullString)
+End Function

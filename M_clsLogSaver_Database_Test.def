@@ -1,0 +1,31 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Compare Text
+Option Explicit
+
+'AccUnit:TestClass
+
+Private objLog_Database As clsLogSaver_Database
+
+Public Sub Setup()
+  Set objLog_Database = New clsLogSaver_Database
+End Sub
+
+Public Sub Teardown()
+  Set objLog_Database = Nothing
+End Sub
+
+'AccUnit:Ignore   Wie kann ich den Datenbankzugriff testen wenn ich doch in der StahlUtils-Library noch keine Tabellen deklariert habe ??
+Public Sub StartingADatabaseLogger_WIllAddAnEntryToSessionTable()
+   ' Arrange
+   Dim lCountSession As Long
+   
+   ' Act
+   lCountSession = DCount("*", objLog_Database.TablenameSessions)
+   objLog_Database.StartLog
+   
+   ' Assert
+   Assert.That DCount("*", objLog_Database.TablenameSessions), Iz.EqualTo(lCountSession + 1)
+End Sub

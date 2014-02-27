@@ -1,0 +1,79 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+'---------------------------------------------------------------------------------------
+' Module    : clsLogEntry
+' Author    : K.Gundermann + Paul Rohorzka
+' Date      : 17.01.2012
+' Purpose   : Defines a Log Entry
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+
+Public Enum e_Severity
+  Sev_Critical = 1
+  Sev_Error = 2
+  Sev_Informational = 4
+  Sev_Trace = 8
+  Sev_Debug = 16
+  
+  Sev_All = 1 + 2 + 4 + 8 + 16
+End Enum
+
+Public Enum e_EventType
+  Evt_Status = 1
+  Evt_Entering = 2
+  Evt_Leaving = 4
+  Evt_Creating = 8
+  Evt_Destroying = 16
+  
+  Evt_All = 1 + 2 + 4 + 8 + 16
+  Evt_EnterLeave = 2 + 4
+  Evt_CreateDestroy = 8 + 16
+End Enum
+
+
+Public Timestamp      As clsDateTime
+Public Category       As String
+Public FromModule     As String
+Public FromProcedure  As String
+Public EntryType      As e_EventType
+Public Severity       As e_Severity
+Public MessageNumber  As Long
+Public MessageText    As String
+Public MessageDisplayed As Boolean
+Public AdditionalInfo As String
+
+Public Property Get SeverityText() As String
+  Select Case Severity
+      Case Sev_Critical:      SeverityText = "Critical"
+      Case Sev_Error:         SeverityText = "Error"
+      Case Sev_Informational: SeverityText = "Information"
+      Case Sev_Trace:         SeverityText = "Trace"
+      Case Sev_Debug:         SeverityText = "Debug"
+      Case Else:              SeverityText = "Unknown"
+  End Select
+End Property
+
+Public Property Get TraceEventText() As String
+  If Me.Severity = Sev_Trace Then
+    Select Case EntryType
+      Case Evt_Creating:    TraceEventText = "Create"
+      Case Evt_Destroying:  TraceEventText = "Destroy"
+      Case Evt_Entering:    TraceEventText = "Enter"
+      Case Evt_Leaving:     TraceEventText = "Leave"
+      Case Evt_Status:      TraceEventText = "Status"
+    End Select
+  End If
+End Property
+
+Public Property Get Self() As clsLogEntry
+  Set Self = Me
+End Property
+
+Private Sub Class_Initialize()
+  Set Timestamp = OS.Time.GetDateTime
+End Sub

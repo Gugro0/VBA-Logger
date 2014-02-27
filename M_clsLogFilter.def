@@ -1,0 +1,279 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+'---------------------------------------------------------------------------------------
+' Module    : clsLogFilter
+' Author    : K.Gundermann
+' Date      : 19.01.2012
+' Purpose   : defines Matcher for a LogEntry
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Public CategoryMatcher      As clsLogFilterString
+Public ModuleMatcher        As clsLogFilterString
+Public ProcedureMatcher     As clsLogFilterString
+Public EntryTypeMatcher     As clsLogFilterBitmap
+Public SeverityMatcher      As clsLogFilterBitmap
+Public MessageNumberMatcher As clsLogFilterNumeric
+Public MessageTextMatcher   As clsLogFilterString
+
+' -----------------------------------------------------------------------------
+' ----  Create Matcher
+
+Public Function WithCategory(ByVal Match As e_EntryFilter_String, ByVal Value As String) As clsLogFilter
+  With New clsLogFilterString
+    .Entry = "Category"
+    .Match = Match
+    .Value = Value
+    Set CategoryMatcher = .Self
+  End With
+  Set WithCategory = Me
+End Function
+Public Function WithCategory2(ByVal Match As String, ByVal Value As String) As clsLogFilter
+  With New clsLogFilterString
+    .Entry = "Category"
+    .MatchFromString = Match
+    .Value = Value
+    Set CategoryMatcher = .Self
+  End With
+  Set WithCategory2 = Me
+End Function
+
+Public Function WithModule(ByVal Match As e_EntryFilter_String, ByVal Value As String) As clsLogFilter
+  With New clsLogFilterString
+    .Entry = "Module"
+    .Match = Match
+    .Value = Value
+    Set ModuleMatcher = .Self
+  End With
+  Set WithModule = Me
+End Function
+Public Function WithModule2(ByVal Match As String, ByVal Value As String) As clsLogFilter
+  With New clsLogFilterString
+    .Entry = "Module"
+    .MatchFromString = Match
+    .Value = Value
+    Set ModuleMatcher = .Self
+  End With
+  Set WithModule2 = Me
+End Function
+
+Public Function WithProcedure(ByVal Match As e_EntryFilter_String, ByVal Value As String) As clsLogFilter
+  With New clsLogFilterString
+    .Entry = "Procedure"
+    .Match = Match
+    .Value = Value
+    Set ProcedureMatcher = .Self
+  End With
+  Set WithProcedure = Me
+End Function
+Public Function WithProcedure2(ByVal Match As String, ByVal Value As String) As clsLogFilter
+  With New clsLogFilterString
+    .Entry = "Procedure"
+    .MatchFromString = Match
+    .Value = Value
+    Set ProcedureMatcher = .Self
+  End With
+  Set WithProcedure2 = Me
+End Function
+
+
+Public Function WithType(ByVal TheType As e_EventType) As clsLogFilter
+  With New clsLogFilterBitmap
+    .Entry = "Severity"
+    .Value = TheType
+    Set EntryTypeMatcher = .Self
+  End With
+  Set WithType = Me
+End Function
+
+Public Function WithSeverity(ByVal TheSeverity As e_Severity) As clsLogFilter
+  With New clsLogFilterBitmap
+    .Entry = "Severity"
+    .Value = TheSeverity
+    Set SeverityMatcher = .Self
+  End With
+  Set WithSeverity = Me
+End Function
+
+Public Function WithMessageNumber(ByVal Match As e_EntryFilter_Numeric, ByVal Value1 As Long, Optional ByVal Value2 As Long) As clsLogFilter
+  With New clsLogFilterNumeric
+    .Entry = "MessageNumber"
+    .Match = Match
+    .Value1 = Value1
+    .Value2 = Value2
+    Set MessageNumberMatcher = .Self
+  End With
+  Set WithMessageNumber = Me
+End Function
+Public Function WithMessageNumber2(ByVal Match As String, ByVal Value1 As Long, Optional ByVal Value2 As Long) As clsLogFilter
+  With New clsLogFilterNumeric
+    .Entry = "MessageNumber"
+    .MatchFromString = Match
+    .Value1 = Value1
+    .Value2 = Value2
+    Set MessageNumberMatcher = .Self
+  End With
+  Set WithMessageNumber2 = Me
+End Function
+
+
+Public Function WithMessageText(ByVal Match As e_EntryFilter_String, ByVal Value As String) As clsLogFilter
+  With New clsLogFilterString
+    .Entry = "MessageText"
+    .Match = Match
+    .Value = Value
+    Set MessageTextMatcher = .Self
+  End With
+  Set WithMessageText = Me
+End Function
+Public Function WithMessageText2(ByVal Match As String, ByVal Value As String) As clsLogFilter
+  With New clsLogFilterString
+    .Entry = "MessageText"
+    .MatchFromString = Match
+    .Value = Value
+    Set MessageTextMatcher = .Self
+  End With
+  Set WithMessageText2 = Me
+End Function
+
+' -----------------------------------------------------------------------------
+' ----  Evaluate Matcher
+
+Public Function IsMatch(ByRef objEntry As clsLogEntry) As Boolean
+  If Not MatchesCategory(objEntry) Then Exit Function
+  If Not MatchesModule(objEntry) Then Exit Function
+  If Not MatchesProcedure(objEntry) Then Exit Function
+  If Not MatchesType(objEntry) Then Exit Function
+  If Not MatchesSeverity(objEntry) Then Exit Function
+  If Not MatchesNumber(objEntry) Then Exit Function
+  If Not MatchesText(objEntry) Then Exit Function
+  IsMatch = True
+End Function
+
+' -----------------------------------------------------------------------------
+
+Private Function MatchesCategory(ByRef objEntry As clsLogEntry) As Boolean
+  If Me.CategoryMatcher Is Nothing Then
+    MatchesCategory = True
+  Else
+    MatchesCategory = Me.CategoryMatcher.MatchesString(objEntry.Category)
+  End If
+End Function
+
+' -----------------------------------------------------------------------------
+
+Private Function MatchesModule(ByRef objEntry As clsLogEntry) As Boolean
+  If Me.ModuleMatcher Is Nothing Then
+    MatchesModule = True
+  Else
+    MatchesModule = Me.ModuleMatcher.MatchesString(objEntry.FromModule)
+  End If
+End Function
+
+' -----------------------------------------------------------------------------
+
+Private Function MatchesProcedure(ByRef objEntry As clsLogEntry) As Boolean
+  If Me.ProcedureMatcher Is Nothing Then
+    MatchesProcedure = True
+  Else
+    MatchesProcedure = Me.ProcedureMatcher.MatchesString(objEntry.FromProcedure)
+  End If
+End Function
+
+
+' -----------------------------------------------------------------------------
+
+Private Function MatchesType(ByRef objEntry As clsLogEntry) As Boolean
+  If EntryTypeMatcher Is Nothing Then
+    MatchesType = True
+  Else
+    If objEntry.EntryType = 0 Then
+      ' No Type for this Entry ?!
+      MatchesType = True
+    Else
+      MatchesType = EntryTypeMatcher.MatchesBitmap(objEntry.EntryType)
+    End If
+  End If
+End Function
+
+' -----------------------------------------------------------------------------
+
+Private Function MatchesSeverity(ByRef objEntry As clsLogEntry) As Boolean
+  If SeverityMatcher Is Nothing Then
+    MatchesSeverity = True
+  Else
+    If objEntry.Severity = 0 Then
+      ' No Severity for this Entry ?!
+      MatchesSeverity = False
+    Else
+      MatchesSeverity = SeverityMatcher.MatchesBitmap(objEntry.Severity)
+    End If
+  End If
+End Function
+
+Private Function MatchesNumber(ByRef objEntry As clsLogEntry) As Boolean
+  If Me.MessageNumberMatcher Is Nothing Then
+    MatchesNumber = True
+  Else
+    MatchesNumber = MessageNumberMatcher.MatchesNumber(objEntry.MessageNumber)
+  End If
+End Function
+
+Private Function MatchesText(ByRef objEntry As clsLogEntry) As Boolean
+  If Me.MessageTextMatcher Is Nothing Then
+    MatchesText = True
+  Else
+    MatchesText = Me.MessageTextMatcher.MatchesString(objEntry.MessageText)
+  End If
+End Function
+
+' --------------------------------------------------------------------------------
+' --- Display Matchers as String
+
+Public Function ToString() As String
+  ToString = Join(Array(Severity_ToString, MessageNumberMatcher_ToString, MessageTextMatcher_ToString), " AND ")
+End Function
+
+Private Function Category_ToString() As String
+  If Not (Me.CategoryMatcher Is Nothing) Then
+    Category_ToString = Me.CategoryMatcher.ToString
+  End If
+End Function
+Private Function Module_ToString() As String
+  If Not (Me.ModuleMatcher Is Nothing) Then
+    Module_ToString = Me.ModuleMatcher.ToString
+  End If
+End Function
+Private Function Procedure_ToString() As String
+  If Not (Me.ProcedureMatcher Is Nothing) Then
+    Procedure_ToString = Me.ProcedureMatcher.ToString
+  End If
+End Function
+
+Private Function EntryType_ToString() As String
+  If Not (Me.EntryTypeMatcher Is Nothing) Then
+    EntryType_ToString = Me.EntryTypeMatcher.ToString("Status", "Enter", "Leave", "Create", "Destroy")
+  End If
+End Function
+
+Private Function Severity_ToString() As String
+  If Not (Me.SeverityMatcher Is Nothing) Then
+    Severity_ToString = Me.SeverityMatcher.ToString("Critical", "Error", "Informational", "Trace", "Debug")
+  End If
+End Function
+
+Private Function MessageNumberMatcher_ToString() As String
+  If Not (Me.MessageNumberMatcher Is Nothing) Then
+    MessageNumberMatcher_ToString = Me.MessageNumberMatcher.ToString
+  End If
+End Function
+
+Private Function MessageTextMatcher_ToString() As String
+  If Not (Me.MessageTextMatcher Is Nothing) Then
+    MessageTextMatcher_ToString = Me.MessageTextMatcher.ToString
+  End If
+End Function

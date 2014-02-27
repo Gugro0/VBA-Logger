@@ -1,0 +1,130 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : clsOS_DirSearcher
+' Author    : K.Gundermann
+' Date      : 17.01.2012
+' Purpose   : Sample Class for recursive Searching of Files
+' ATTENTION : This class is only for demonstrationg the logger feature.
+'             it is not intended to be used in a production environment !!!!
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Public Event FileFound(ByVal DirName As String, ByVal Filename As String)
+
+Private Const MAX_PATH = 260
+
+' Private WithEvents objSubDir As clsOS_DirSearcher
+Private strFolder As String
+Private objSubDir As clsOS_DirSearcher
+Dim objFileMatcher As clsOS_FileMatcher
+
+Private WithEvents c_Ping As clsPing
+Attribute c_Ping.VB_VarHelpID = -1
+
+Private Type WIN32_FIND_DATA
+  dwFileAttributes As Long
+  ftCreationTime As FILETIME
+  ftLastAccessTime As FILETIME
+  ftLastWriteTime As FILETIME
+  nFileSizeHigh As Long
+  nFileSizeLow As Long
+  dwReserved0 As Long
+  dwReserved1 As Long
+  cFileName As String * MAX_PATH
+  cAlternate As String * 14
+End Type
+
+' FindFirstFile : http://msdn.microsoft.com/en-us/library/aa364418(VS.85).aspx
+Private Declare Function FindFirstFile _
+  Lib "kernel32" Alias "FindFirstFileA" ( _
+  ByVal lpFileName As String, _
+  ByRef lpFindFileData As WIN32_FIND_DATA _
+) As Long
+' FindNextFile : http://msdn.microsoft.com/en-us/library/aa364428(v=VS.85).aspx
+Private Declare Function FindNextFile _
+  Lib "kernel32" Alias "FindNextFileA" ( _
+  ByVal hFindFile As Long, _
+  ByRef lpFindFileData As WIN32_FIND_DATA _
+) As Long
+
+
+
+Public Sub SearchDir4File(ByVal DirName As String, ByVal NamePattern As String, ByRef colFileNames As Collection)
+
+  Dim lngFileHandle As Long
+  Dim strFile As String
+  Dim typWFD As WIN32_FIND_DATA
+
+  Logger.Log.Trace "OS", Me, "SearchDir4File", Evt_Entering, DirName & "\" & NamePattern
+  
+  strFolder = AddTrailingSlash(DirName)
+  If colFileNames Is Nothing Then Set colFileNames = New Collection
+  
+  If NamePattern = vbNullString Then NamePattern = "*"
+  
+  lngFileHandle = FindFirstFile(strFolder & "*", typWFD)
+  
+  If lngFileHandle <> INVALID_HANDLE_VALUE Then
+    Do
+      With typWFD
+        ' If we've found a subfolder, call the routine
+        ' again, passing it the subfolder.
+        If (.dwFileAttributes And vbDirectory) > 0 Then
+            If Asc(.cFileName) <> vbDot Then
+              Set objSubDir = New clsOS_DirSearcher
+              Call objSubDir.SearchDir4File(strFolder & TrimNull(.cFileName), NamePattern, colFileNames)
+            End If
+          
+        Else
+        ' If it's not a folder, it must be a file.
+          If MatchPattern(.cFileName, NamePattern) Then
+            Logger.Log.Trace "OS", Me, "SearchDir4File", Evt_Status, "File found : " & strFolder & .cFileName
+            RaiseEvent FileFound(strFolder, TrimNull(.cFileName))
+            colFileNames.Add strFolder & TrimNull(.cFileName)
+          End If
+        End If
+      End With
+    ' Get the next file
+    Loop While FindNextFile(lngFileHandle, typWFD) <> 0
+    Call FindClose(lngFileHandle)
+  End If
+  
+  Logger.Log.Trace "OS", Me, "SearchDir4File", Evt_Leaving
+End Sub
+
+Private Function MatchPattern(ByVal Filename As String, ByVal NamePattern As String) As Boolean
+  ' Dim objFileMatcher As clsOS_FileMatcher
+  
+  Set objFileMatcher = New clsOS_FileMatcher
+  MatchPattern = objFileMatcher.MatchPattern(Filename, NamePattern)
+
+End Function
+
+
+Private Function AddTrailingSlash(PathName As String) As String
+  If Len(PathName) > 0 Then
+    If Right$(PathName, 1) <> "\" Then
+        AddTrailingSlash = PathName & "\"
+    Else
+        AddTrailingSlash = PathName
+    End If
+  End If
+End Function
+
+Private Sub c_Ping_Ping()
+  Utils.Ping.IAmHere Me, strFolder
+End Sub
+
+Private Sub Class_Initialize()
+  Logger.Log.Trace "Object", Me, "Initialize", Evt_Creating
+  Set c_Ping = Utils.Ping
+End Sub
+
+Private Sub Class_Terminate()
+  Logger.Log.Trace "Object", Me, "Terminate", Evt_Destroying
+End Sub

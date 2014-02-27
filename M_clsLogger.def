@@ -1,0 +1,140 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : clsLogger
+' Author    : P.Rohorzka +  K.Gundermann
+' Date      : 17.01.2012
+' Purpose   : Central logging of Events
+'             Each Event will generate a Log Entry (clsLogEntry)
+'             This Entry will then be forwarded to clsLogSaver
+' Methods   : LogEntry
+'             Message, Error, Debug, Trace
+' Properties: Session As clsLogSession : Information about the current session
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+
+Private Const USE_EVENTS As Boolean = True
+Private Const USE_CALL As Boolean = Not USE_EVENTS
+
+Private c_Session As clsLogSession
+
+Public Event SaveToLog(ByRef objLogEntry As clsLogEntry)
+
+
+Public Sub LogEntry(ByRef objLogEntry As clsLogEntry)
+  If USE_EVENTS Then
+    RaiseEvent SaveToLog(objLogEntry)
+  ElseIf USE_CALL Then
+    Call SaveToLogsaver(objLogEntry)
+  End If
+End Sub
+
+
+Public Sub Message(ByVal TheMessage As String)
+  With New clsLogEntry
+    .MessageText = TheMessage
+    .EntryType = Evt_Status
+    Call LogEntry(.Self)
+  End With
+End Sub
+
+Public Sub Error(ByVal Category As String, ByVal InModule As Variant, ByVal InProcedure As String, ByVal ErrNumber As Long, ByVal ErrText As String, _
+                      Optional ByVal MessageDisplayed As Boolean, Optional ByVal StackTrace As String)
+
+  With New clsLogEntry
+    .Severity = Sev_Error
+    If IsObject(InModule) Then
+      .FromModule = TypeName(InModule)
+    Else
+      .FromModule = InModule
+    End If
+    .FromProcedure = InProcedure
+    .EntryType = Evt_Status
+    .MessageNumber = ErrNumber
+    .MessageText = ErrText
+    .MessageDisplayed = MessageDisplayed
+    .AdditionalInfo = StackTrace
+    .Category = Category
+    Call LogEntry(.Self)
+  End With
+End Sub
+
+Public Sub Debug_(ByVal Category As String, ByVal InModule As Variant, ByVal InProcedure As String, ByVal DebugText As String, _
+                      Optional ByVal AdditionalInfo As String)
+
+  With New clsLogEntry
+    .Severity = Sev_Debug
+    .Category = Category
+    If IsObject(InModule) Then
+      .FromModule = TypeName(InModule)
+    Else
+      .FromModule = InModule
+    End If
+    .FromProcedure = InProcedure
+    .EntryType = Evt_Status
+    .MessageText = DebugText
+    .AdditionalInfo = AdditionalInfo
+    Call LogEntry(.Self)
+  End With
+End Sub
+
+Public Sub Trace(ByVal Category As String, ByRef InModule As Variant, ByVal InProcedure As String, _
+                 Optional ByVal TraceEvent As e_EventType = Evt_Status, _
+                 Optional ByVal TraceText As String, _
+                 Optional ByVal AdditionalInfo As String)
+
+  With New clsLogEntry
+    .Severity = Sev_Trace
+    .Category = Category
+    If IsObject(InModule) Then
+      .FromModule = TypeName(InModule)
+      .MessageNumber = VarPtr(InModule)
+    Else
+      .FromModule = InModule
+      .MessageNumber = 0
+    End If
+    .FromProcedure = InProcedure
+    .EntryType = TraceEvent
+    .MessageText = TraceText
+    .AdditionalInfo = AdditionalInfo
+    Call LogEntry(.Self)
+  End With
+End Sub
+
+
+' --------------------------------------------------------------
+
+Private Sub SaveToLogsaver(ByRef objLogEntry As clsLogEntry)
+  Dim objLogsaver As ILogSaver
+  Dim i As Integer
+  
+  On Error GoTo ErrCode
+  
+  With Logger.LogSaver.colLogSaver
+    If .Count = 0 Then Exit Sub
+    For i = 1 To .Count
+      Set objLogsaver = .Item(i)
+      Call objLogsaver.SaveToLog(objLogEntry)
+    Next
+  End With
+  Exit Sub
+  
+ErrCode:
+  Stop
+End Sub
+
+
+' --------------------------------------------------------------
+
+Public Property Get Session() As clsLogSession
+  Set Session = c_Session
+End Property
+
+Private Sub Class_Initialize()
+  Set c_Session = New clsLogSession
+End Sub

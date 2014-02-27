@@ -1,0 +1,399 @@
+Version =20
+VersionRequired =20
+Checksum =93764572
+Begin Form
+    RecordSelectors = NotDefault
+    NavigationButtons = NotDefault
+    DividingLines = NotDefault
+    AllowDesignChanges = NotDefault
+    DefaultView =0
+    TabularCharSet =204
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridY =10
+    Width =6994
+    DatasheetFontHeight =11
+    ItemSuffix =11
+    Left =1710
+    Top =585
+    Right =11040
+    Bottom =7200
+    RecSrcDt = Begin
+        0xe324f59d33fbe340
+    End
+    GUID = Begin
+        0xd3a1576dd19bcf4c93fd0eb744625fba
+    End
+    NameMap = Begin
+        0x0acc0e5500000000000000000000000000000000000000000c00000004000000 ,
+        0x0000000000000000000000000000
+    End
+    DatasheetFontName ="Calibri"
+    PrtMip = Begin
+        0x6801000068010000680100006801000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x010400059c00340243ef8005010028009a0b3408640001000800f00001000100 ,
+        0x9000020001004134000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200e00034020000bcadc22c0000000000000000000000000000000000000000 ,
+        0x0000000000000000070000000400000000000000070000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x08001b003c000100000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000050727453 ,
+        0x7672323a507274537672322d503200
+    End
+    AllowDatasheetView =0
+    AllowPivotTableView =0
+    AllowPivotChartView =0
+    AllowPivotChartView =0
+    FilterOnLoad =0
+    DatasheetBackColor12 =16777215
+    ShowPageMargins =0
+    DisplayOnSharePointSite =1
+    DatasheetAlternateBackColor =16053492
+    DatasheetGridlinesColor12 =15062992
+    FitToScreen =1
+    Begin
+        Begin Label
+            BackStyle =0
+            FontSize =11
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin CommandButton
+            Width =1701
+            Height =283
+            FontSize =11
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            Width =1701
+            LabelX =-1701
+            FontSize =11
+            BorderColor =12632256
+            FontName ="Calibri"
+            AsianLineBreak =1
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+            ShowDatePicker =1
+        End
+        Begin ListBox
+            Width =1701
+            Height =1417
+            LabelX =-1701
+            FontSize =11
+            BorderColor =12632256
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+            AllowValueListEdits =1
+            InheritValueList =1
+        End
+        Begin Section
+            Height =5952
+            Name ="Detailbereich"
+            GUID = Begin
+                0xa3312f4210baed4d9a5f463dac7119bd
+            End
+            AutoHeight =1
+            Begin
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1417
+                    Top =171
+                    Height =315
+                    Name ="txtDirname"
+                    DefaultValue ="\"D:\\\""
+                    GUID = Begin
+                        0x64b85a3ef54fdd4fbd0a9c65231bf353
+                    End
+
+                    LayoutCachedLeft =1417
+                    LayoutCachedTop =171
+                    LayoutCachedWidth =3118
+                    LayoutCachedHeight =486
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =170
+                            Top =170
+                            Width =990
+                            Height =315
+                            Name ="Bezeichnungsfeld1"
+                            Caption ="Directory:"
+                            GUID = Begin
+                                0x284be8a745b1a54d9ca7c823f2359c16
+                            End
+                            LayoutCachedLeft =170
+                            LayoutCachedTop =170
+                            LayoutCachedWidth =1160
+                            LayoutCachedHeight =485
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1417
+                    Top =680
+                    Height =315
+                    TabIndex =1
+                    Name ="txtPattern"
+                    DefaultValue ="\"*.log\""
+                    GUID = Begin
+                        0x59fd88b0bd230a439b7f20f80b38f9f7
+                    End
+
+                    LayoutCachedLeft =1417
+                    LayoutCachedTop =680
+                    LayoutCachedWidth =3118
+                    LayoutCachedHeight =995
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =170
+                            Top =680
+                            Width =825
+                            Height =315
+                            Name ="Bezeichnungsfeld3"
+                            Caption ="Pattern:"
+                            GUID = Begin
+                                0xd06f4fd790734a468e391f3316fdadf5
+                            End
+                            LayoutCachedLeft =170
+                            LayoutCachedTop =680
+                            LayoutCachedWidth =995
+                            LayoutCachedHeight =995
+                        End
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    Left =3911
+                    Top =170
+                    Width =1758
+                    Height =907
+                    TabIndex =2
+                    Name ="cmdSearch"
+                    Caption ="Search"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x6c488021f999e44eba9d393ce77fa821
+                    End
+
+                    LayoutCachedLeft =3911
+                    LayoutCachedTop =170
+                    LayoutCachedWidth =5669
+                    LayoutCachedHeight =1077
+                End
+                Begin TextBox
+                    Enabled = NotDefault
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1417
+                    Top =1360
+                    Width =1131
+                    Height =315
+                    TabIndex =3
+                    Name ="txtFileCounter"
+                    GUID = Begin
+                        0x2f8f4d3a9425f24d9761fb847faa3745
+                    End
+
+                    LayoutCachedLeft =1417
+                    LayoutCachedTop =1360
+                    LayoutCachedWidth =2548
+                    LayoutCachedHeight =1675
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =170
+                            Top =1365
+                            Width =720
+                            Height =315
+                            Name ="Bezeichnungsfeld6"
+                            Caption ="Found:"
+                            GUID = Begin
+                                0x524f51d7a065044e8da6ac6515653487
+                            End
+                            LayoutCachedLeft =170
+                            LayoutCachedTop =1365
+                            LayoutCachedWidth =890
+                            LayoutCachedHeight =1680
+                        End
+                    End
+                End
+                Begin ListBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =170
+                    Top =1814
+                    Width =6633
+                    Height =4082
+                    TabIndex =4
+                    Name ="lstFilenames"
+                    RowSourceType ="Value List"
+                    GUID = Begin
+                        0xb6a8ddd585a74d4bab2e19d115e545af
+                    End
+                    HorizontalAnchor =2
+                    VerticalAnchor =2
+
+                    LayoutCachedLeft =170
+                    LayoutCachedTop =1814
+                    LayoutCachedWidth =6803
+                    LayoutCachedHeight =5896
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =4535
+                    Top =1360
+                    Width =846
+                    Height =315
+                    TabIndex =5
+                    Name ="txtTime"
+                    GUID = Begin
+                        0xa55a8b63dc7fe148b13546d9d9326b0e
+                    End
+
+                    LayoutCachedLeft =4535
+                    LayoutCachedTop =1360
+                    LayoutCachedWidth =5381
+                    LayoutCachedHeight =1675
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =2895
+                            Top =1365
+                            Width =1560
+                            Height =315
+                            Name ="Bezeichnungsfeld10"
+                            Caption ="Time used (ms):"
+                            GUID = Begin
+                                0x0f7a7ff34ca9704583d7080cfb2de1a4
+                            End
+                            LayoutCachedLeft =2895
+                            LayoutCachedTop =1365
+                            LayoutCachedWidth =4455
+                            LayoutCachedHeight =1680
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private WithEvents objFileSearcher As clsOS_DirSearcher
+Attribute objFileSearcher.VB_VarHelpID = -1
+
+Private Sub cmdSearch_Click()
+  Dim colFileNames  As Collection
+  Dim vFileName     As Variant
+  Dim lStartTime    As Long
+  Dim lStopTime     As Long
+
+  Set objFileSearcher = New clsOS_DirSearcher
+  
+  Me.lstFilenames.SetFocus
+  Me.lstFilenames.RowSource = vbNullString
+  
+  Me.cmdSearch.Enabled = False
+  
+  lStartTime = timeGetTime
+  Call objFileSearcher.SearchDir4File(Nz(Me.txtDirname), Nz(Me.txtPattern), colFileNames)
+  lStopTime = timeGetTime
+  
+  
+  Me.txtFileCounter = colFileNames.Count
+  Me.txtTime = (lStopTime - lStartTime)
+  For Each vFileName In colFileNames
+    Me.lstFilenames.AddItem vFileName
+  Next
+  Me.cmdSearch.Enabled = True
+  
+End Sub
+
+Private Sub objFileSearcher_FileFound(ByVal DirName As String, ByVal Filename As String)
+  'Me.txtFileCounter = Val(Nz(Me.txtFileCounter)) + 1
+  'Me.lstFilenames.AddItem DirName & FileName
+End Sub

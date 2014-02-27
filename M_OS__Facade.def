@@ -1,0 +1,105 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Compare Database
+Option Explicit
+
+Private m_System    As clsOS_System
+Private m_Time      As clsOS_Time
+'Private m_Delay     As clsOS_Delay
+'Private m_Folder    As clsOS_Folder
+'Private m_File      As clsOS_File
+'Private m_Screen    As clsOS_Screen
+'Private m_Windows   As clsOS_Windows
+'Private m_AD        As clsOS_ActiveDirectory
+'Private m_Printers  As clsOS_Printers
+'Private m_Printer   As clsOS_Printer
+'Private m_Registry  As clsOS_Registry
+'Private m_INI       As clsOS_Ini
+
+Public Property Get System() As clsOS_System
+  If m_System Is Nothing Then Set m_System = New clsOS_System
+  Set System = m_System
+End Property
+
+Public Property Get Time() As clsOS_Time
+  If m_Time Is Nothing Then Set m_Time = New clsOS_Time
+  Set Time = m_Time
+End Property
+
+'Public Property Get Delay() As clsOS_Delay
+'  If m_Delay Is Nothing Then Set m_Delay = New clsOS_Delay
+'  Set Delay = m_Delay
+'End Property
+'
+'
+'Public Property Get Folder() As clsOS_Folder
+'  If m_Folder Is Nothing Then Set m_Folder = New clsOS_Folder
+'  Set Folder = m_Folder
+'End Property
+'
+'Public Property Get File() As clsOS_File
+'  If m_File Is Nothing Then Set m_File = New clsOS_File
+'  Set File = m_File
+'End Property
+'
+'Public Property Get Screen() As clsOS_Screen
+'  If m_Screen Is Nothing Then Set m_Screen = New clsOS_Screen
+'  Set Screen = m_Screen
+'End Property
+'
+'Public Property Get Windows() As clsOS_Windows
+'  If m_Windows Is Nothing Then Set m_Windows = New clsOS_Windows
+'  Set Windows = m_Windows
+'End Property
+'
+'Public Property Get ActiveDirectory() As clsOS_ActiveDirectory
+'  If m_AD Is Nothing Then Set m_AD = New clsOS_ActiveDirectory
+'  Set ActiveDirectory = m_AD
+'End Property
+'
+'Public Property Get Printers() As Collection
+'  If m_Printers Is Nothing Then Set m_Printers = New clsOS_Printers
+'  Set Printers = m_Printers.AllPrinterNames
+'End Property
+'
+'Public Property Get Printer() As clsOS_Printer
+'  If m_Printer Is Nothing Then Set m_Printer = New clsOS_Printer
+'  Set Printer = m_Printer
+'End Property
+'
+'Public Property Get PrinterInfo(ByVal DeviceName As String) As clsOS_PrinterInfo
+'  Set PrinterInfo = New clsOS_PrinterInfo
+'  PrinterInfo.DeviceName = DeviceName
+'End Property
+'
+'Public Property Get Registry() As clsOS_Registry
+'  If m_Registry Is Nothing Then Set m_Registry = New clsOS_Registry
+'  Set Registry = m_Registry
+'End Property
+'
+'Public Property Get INI() As clsOS_Ini
+'  If m_INI Is Nothing Then Set m_INI = New clsOS_Ini
+'  Set INI = m_INI
+'End Property
+'
+'Public Property Get Cursor() As clsOS_Cursor
+'  Set Cursor = New clsOS_Cursor
+'End Property
+'
+'Public Property Get FTP() As clsFTP
+'  Set FTP = New clsFTP
+'End Property
+
+Private Sub Class_Terminate()
+  Set m_System = Nothing
+'  Set m_Time = Nothing
+'  Set m_Delay = Nothing
+'  Set m_Folder = Nothing
+'  Set m_File = Nothing
+'  Set m_Screen = Nothing
+'  Set m_AD = Nothing
+'  Set m_Registry = Nothing
+'  Set m_INI = Nothing
+End Sub

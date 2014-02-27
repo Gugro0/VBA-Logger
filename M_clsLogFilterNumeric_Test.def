@@ -1,0 +1,87 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Compare Text
+Option Explicit
+
+'AccUnit:TestClass
+
+Dim objFilter As clsLogFilterNumeric
+
+Public Sub Setup()
+  Set objFilter = New clsLogFilterNumeric
+End Sub
+
+Public Sub Filter_WithCompareEqual_MatchesValue()
+  Dim result As Boolean
+  
+   ' Arrange
+  With objFilter
+    .Entry = "Dummy"
+    .Match = IsEqualTo
+    .Value1 = 100
+  End With
+  
+  ' Act
+  result = objFilter.MatchesNumber(100)
+  
+  ' Assert
+  Assert.IsTrue result
+End Sub
+
+Public Sub Filter_WithGreater_MatchesValue()
+  Dim result As Boolean
+  
+   ' Arrange
+  With objFilter
+    .Entry = "Dummy"
+    .Match = GreaterThan
+    .Value1 = 100
+  End With
+  
+  ' Act
+  result = objFilter.MatchesNumber(200)
+  
+  ' Assert
+  Assert.IsTrue result
+End Sub
+
+
+Public Sub Filter_WithBetween_MatchesValue()
+  Dim result As Boolean
+  
+   ' Arrange
+  With objFilter
+    .Entry = "Dummy"
+    .MatchFromString = "Between"
+    .Value1 = 100
+    .Value2 = 200
+  End With
+  
+  ' Act
+  result = objFilter.MatchesNumber(150)
+  
+  ' Assert
+  Assert.IsTrue result
+End Sub
+
+' ------------------------------------------------------------------------
+
+Public Sub Filter_ConvertsToString()
+  Dim result As String
+  
+   ' Arrange
+  With objFilter
+    .Entry = "Dummy"
+    .Match = LowerThan
+    .Value1 = 100
+  End With
+  
+  ' Act
+  result = objFilter.ToString
+  
+  ' Assert
+  Assert.AreEqualStrings "Dummy <  100", result
+  
+End Sub
