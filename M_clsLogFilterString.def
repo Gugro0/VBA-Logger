@@ -1,0 +1,101 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+'---------------------------------------------------------------------------------------
+' Module    : clsLogFilterString
+' Author    : K.Gundermann
+' Date      : 04.02.2012
+' Purpose   : Matches String Values
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Public Enum e_EntryFilter_String
+  IgnoreString
+  IsEqualTo
+  BeginsWith
+  Contains
+  
+  IsNotEqualTo
+  DoesNotContain
+  
+  MatchRegExp
+End Enum
+
+Public Entry As String
+Public Match As e_EntryFilter_String
+Public Value As String
+
+
+
+Public Function MatchesString(ByVal TheValue As String) As Boolean
+  Select Case Me.Match
+      Case IgnoreString: MatchesString = True
+      Case IsEqualTo:       MatchesString = (TheValue = Me.Value)
+      Case BeginsWith:      MatchesString = Utils.Strings.StartsWith(TheValue, Me.Value)
+      Case Contains:        MatchesString = Utils.Strings.Contains(TheValue, Me.Value)
+      
+      Case IsNotEqualTo:    MatchesString = Not (TheValue = Me.Value)
+      Case DoesNotContain:  MatchesString = Not Utils.Strings.Contains(TheValue, Me.Value)
+
+      Case MatchRegExp:     MatchesString = False  ' ToDO
+  End Select
+End Function
+
+Public Property Get Self() As clsLogFilterString
+  Set Self = Me
+End Property
+
+Public Function ToString() As String
+  If Me.Match <> IgnoreString Then
+    ToString = Entry & " " & MatchToString & " " & ValueToString
+  End If
+End Function
+
+Public Sub FromString(ByVal TheString As String)
+  ' TODO: Parse TheString
+End Sub
+
+
+Public Function MatchToString() As String
+  Select Case Me.Match
+      Case IgnoreString:    MatchToString = ""
+      Case IsEqualTo:       MatchToString = "="
+      Case IsNotEqualTo:    MatchToString = "<>"
+      Case BeginsWith:      MatchToString = "Begins With"
+      Case Contains:        MatchToString = "Contains"
+      Case DoesNotContain:  MatchToString = "Does Not Contain"
+      Case MatchRegExp:     MatchToString = "Matches"
+  End Select
+End Function
+
+Public Property Let MatchFromString(ByVal TheMatch As String)
+  Select Case Trim$(TheMatch)
+    Case "", "Ignore":      Me.Match = IgnoreString
+    Case "=":               Me.Match = IsEqualTo
+    Case "<>":              Me.Match = IsNotEqualTo
+    Case "Begins With":     Me.Match = BeginsWith
+    Case "Contains":        Me.Match = Contains
+    Case "Does Not Contain": Me.Match = DoesNotContain
+    Case "Matches":         Me.Match = MatchRegExp
+  End Select
+End Property
+
+Public Function ValueToString() As String
+  Select Case Me.Match
+      Case IgnoreString:    ValueToString = ""
+      Case IsEqualTo, _
+            IsNotEqualTo, _
+            BeginsWith, _
+            Contains, _
+            DoesNotContain: ValueToString = "'" & Value & "'"
+      Case MatchRegExp:     ValueToString = "/" & Value & "/"
+  End Select
+
+End Function
+
+Public Property Let ValueFromString(ByVal TheString As String)
+  ' ToDo: Parse TheString
+End Property

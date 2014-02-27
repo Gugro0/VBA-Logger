@@ -1,0 +1,80 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : clsLogSession
+' Author    : K.Gundermann
+' Date      : 19.01.2012
+' Purpose   : Information about the current session which may be used by LogSavers
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Private c_SessionID As Long
+Private c_HostName As String
+Private c_OSVersion As String
+Private c_OSUserName As String
+Private c_AccessUserName As String
+Private c_ApplicationUserName As String
+
+Private c_SessionStartTime As Date
+Private c_LoginTime As Date
+
+Public Event Login()
+Public Event Logout()
+
+Public Property Get SessionID() As Long
+    SessionID = c_SessionID
+End Property
+
+
+Public Property Get HostName() As String
+    HostName = c_HostName
+End Property
+Public Property Get OSVersion() As String
+  OSVersion = c_OSVersion
+End Property
+Public Property Get OSUserName() As String
+    OSUserName = c_OSUserName
+End Property
+Public Property Get AccessUserName() As String
+    AccessUserName = c_AccessUserName
+End Property
+Public Property Get ApplicationUserName() As String
+    ApplicationUserName = c_ApplicationUserName
+End Property
+
+Public Property Get SessionStartTime() As Date
+  SessionStartTime = c_SessionStartTime
+End Property
+
+Public Property Get LoginTime() As Date
+  LoginTime = c_LoginTime
+End Property
+
+' -----------------------------------------------------------------
+
+Public Sub Login(ByVal UserName As String)
+  c_LoginTime = Now
+  c_ApplicationUserName = UserName
+  RaiseEvent Login
+End Sub
+
+Public Sub Logout()
+  c_LoginTime = 0
+  c_ApplicationUserName = vbNullString
+  RaiseEvent Logout
+End Sub
+
+' -----------------------------------------------------------------
+
+Private Sub Class_Initialize()
+  c_SessionID = timeGetTime
+  c_SessionStartTime = Now
+  c_HostName = OS.System.GetComputerNameEx(ComputerNameDnsFullyQualified)
+  c_OSVersion = "Windows"  ' OS.Version.WinVersionText
+  c_OSUserName = "Unknown" ' OS.System.UserName
+  c_AccessUserName = Application.CurrentUser
+End Sub

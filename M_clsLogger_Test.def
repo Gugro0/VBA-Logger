@@ -1,0 +1,247 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : clsLogger_Test
+' Author    : K.Gundermann + Paul Rohorzka
+' Date      : 17.01.2012
+' Purpose   : AccUnit Tests for clsLogger
+'---------------------------------------------------------------------------------------
+
+Option Compare Text
+Option Explicit
+
+'AccUnit:TestClass
+
+Private objLogger As clsLogger
+Private objLogSaver1   As clsLogSaver_Mock
+
+
+Private lStartTime  As Long
+Private lStopTime   As Long
+Private lDuration   As Long
+Private l           As Long
+
+Private Const ONE_SECOND As Double = 1 / 24 / 60 / 60 ' TimeSerial(0, 0, Second:=1)
+
+' ---  Infrastructure ---
+
+Public Sub Setup()
+
+   Set objLogger = Logger.Log             ' New clsLogger
+   
+   Logger.LogSaver.KillAll
+   
+   Set objLogSaver1 = Logger.LogSaver.Mock
+   objLogSaver1.StartLog
+   
+   ' Logger.LogSaver.FormLogger.StartLog
+End Sub
+
+Public Sub Teardown()
+  Set objLogger = Nothing
+  Set objLogSaver1 = Nothing
+End Sub
+
+
+
+' ----   Tests -----
+
+Public Sub Log_WithASimpleText_LogsThatText()
+  'Act
+  objLogger.Message "HAllo Welt"
+  
+  ' Assert
+  Assert.That objLogSaver1.LoggedCount, Iz.EqualTo(1), "Has a message"
+  Assert.That objLogSaver1.LastEntry.MessageText(), Iz.EqualTo("HAllo Welt")
+End Sub
+
+Public Sub Log_WithAnyText_LogsATimeStamp()
+  Dim result As Date
+  
+  'Act
+  objLogger.Message "Dummy"
+
+  ' Assert
+  result = objLogSaver1.LastEntry.Timestamp.ToDateWithTime()
+  Assert.That result, Iz.EqualTo(Now).Within(ONE_SECOND)
+
+End Sub
+
+Public Sub Log_WithSimpleTextAndWrongFilter_DoesNotLogThatText()
+  Dim result As String
+  ' Arrange
+  objLogSaver1.AddFilter Logger.LogFilter.WithMessageText(Contains, "Dummy")
+  
+  'Act
+  objLogger.Message "HAllo Welt"
+  
+  ' Assert
+  Assert.IsNothing objLogSaver1.LastEntry
+
+End Sub
+
+Public Sub Log_WithFilter_OnlyLogsMatchingEvents()
+
+  ' Arrange
+  objLogSaver1.AddFilter Logger.LogFilter.WithMessageText(Contains, "HAllo Welt")
+  
+  'Act
+  objLogger.Message "HAllo Welt"
+  objLogger.Message "Dummy"
+  
+  ' Assert
+  Assert.That objLogSaver1.LastEntry.MessageText(), Iz.EqualTo("HAllo Welt")
+  Assert.That objLogSaver1.LoggedCount, Iz.EqualTo(1)
+
+End Sub
+
+
+
+' ------- Performance Tests --------------
+
+Public Sub Log_Base_Performance()
+  Const LOOPS = 1000000
+  Const MAX_TIME = 200 ' ms   ( 168 ms on a Virtual Machine with x GHz Intel Core2Duo )
+  Const MIN_LOGS_PER_SECOND = 1000000
+  
+  Dim s As String
+  
+  ' Arrange
+  objLogSaver1.StopLog
+  
+  lStartTime = timeGetTime
+  For l = 1 To LOOPS
+    s = "HAllo Welt"
+  Next
+  lStopTime = timeGetTime
+  lDuration = lStopTime - lStartTime
+  
+  Debug.Print "Base: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
+  Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
+  Assert.That LOOPS / (lDuration / 1000#), Iz.GreaterThan(MIN_LOGS_PER_SECOND), "Logs/sec"
+End Sub
+
+
+Public Sub Log_WithoutAnyLogger_Performance()
+  Const LOOPS = 10000
+  Const MAX_TIME = 300 ' ms   ( 218 ms on a Virtual Machine with x GHz Intel Core2Duo )
+  Const MIN_LOGS_PER_SECOND = 35000
+  
+  ' Arrange
+  objLogSaver1.StopLog
+  
+  lStartTime = timeGetTime
+  For l = 1 To LOOPS
+    objLogger.Message "HAllo Welt"
+  Next
+  lStopTime = timeGetTime
+  lDuration = lStopTime - lStartTime
+  
+  Debug.Print "WithoutLogger: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
+  Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
+  Assert.That LOOPS / (lDuration / 1000#), Iz.GreaterThan(MIN_LOGS_PER_SECOND), "Logs/sec"
+End Sub
+
+
+Public Sub Log_WithFilterAndMocker_Performance()
+  Const LOOPS = 10000
+  Const MAX_TIME = 300 ' ms   ( 218 ms on a Virtual Machine with x GHz Intel Core2Duo )
+  Const MIN_LOGS_PER_SECOND = 35000
+  
+  
+  ' Arrange
+  objLogSaver1.AddFilter Logger.LogFilter.WithMessageText(Contains, "HAllo Welt")
+  
+  lStartTime = timeGetTime
+  For l = 1 To LOOPS
+    objLogger.Message "HAllo Welt"
+  Next
+  lStopTime = timeGetTime
+  lDuration = lStopTime - lStartTime
+  
+  Debug.Print "WithFilterAndMocker: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
+  Assert.That objLogSaver1.LoggedCount, Iz.EqualTo(LOOPS)
+  Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
+  Assert.That LOOPS / (lDuration / 1000#), Iz.GreaterThan(MIN_LOGS_PER_SECOND), "Logs/sec"
+End Sub
+
+
+Public Sub Log_WithFilterAndMockerAndTextLogger_Performance()
+  Const LOOPS = 1000
+  Const MAX_TIME = 400 ' ms   ( 387 ms on a Virtual Machine with x GHz Intel Core2Duo )
+  Const MIN_LOGS_PER_SECOND = 2500
+  
+  Dim lStartTime  As Long
+  Dim lStopTime   As Long
+  Dim lDuration   As Long
+  Dim l           As Long
+  Dim objLogFile  As clsLogSaver_File
+  
+  ' Arrange
+  objLogSaver1.AddFilter Logger.LogFilter.WithMessageText(Contains, "HAllo Welt")
+  
+  Set objLogFile = Logger.LogSaver.File
+  Call objLogFile.AddFilter(Logger.LogFilter.WithMessageText(Contains, "HAllo Welt")).StartLog
+  
+  lStartTime = timeGetTime
+  For l = 1 To LOOPS
+    objLogger.Error "Test", Me, "Log_WithFilterAndMockerAndTextLogger_Performance", l, "HAllo Welt"
+  Next
+  lStopTime = timeGetTime
+  lDuration = lStopTime - lStartTime
+  
+  Debug.Print "WithFilterAndMockerAndTextLogger: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
+  Assert.That objLogSaver1.LoggedCount, Iz.EqualTo(LOOPS)
+  Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
+  Assert.That LOOPS / (lDuration / 1000#), Iz.GreaterThan(MIN_LOGS_PER_SECOND), "Logs/sec"
+End Sub
+
+Public Sub Log_With7ActiveLoggerAndNoMatchingFilter_Performance()
+  Const LOOPS = 10000
+  Const MAX_TIME = 1000 ' ms   ( 891 ms on a Virtual Machine with x GHz Intel Core2Duo )
+  Const MIN_LOGS_PER_SECOND = 10000
+  
+  Dim objLogCons   As clsLogSaver_Console
+  Dim objLogFile1  As clsLogSaver_File
+  Dim objLogFile2  As clsLogSaver_File
+  Dim objLogFile3  As clsLogSaver_File
+  Dim objLogFile4  As clsLogSaver_File
+  Dim objLogFile5  As clsLogSaver_File
+  
+  Dim objLogFilter As clsLogFilter
+  
+  ' Arrange
+  Set objLogFilter = Logger.LogFilter.WithMessageText(Contains, "HAllo Welt").WithMessageNumber(EqualTo, 1234).WithSeverity(Sev_Critical)
+  
+  Set objLogCons = Logger.LogSaver.Console
+  Set objLogFile1 = Logger.LogSaver.File
+  Set objLogFile2 = Logger.LogSaver.File
+  Set objLogFile3 = Logger.LogSaver.File
+  Set objLogFile4 = Logger.LogSaver.File
+  Set objLogFile5 = Logger.LogSaver.File
+  
+  objLogSaver1.AddFilter objLogFilter
+  
+  objLogCons.AddFilter objLogFilter
+  objLogFile1.AddFilter objLogFilter
+  objLogFile2.AddFilter objLogFilter
+  objLogFile3.AddFilter objLogFilter
+  objLogFile4.AddFilter objLogFilter
+  objLogFile5.AddFilter objLogFilter
+  
+  Logger.LogSaver.StartAll
+  
+  lStartTime = timeGetTime
+  For l = 1 To LOOPS
+    objLogger.Error "Test", "Dummy", "Dummy", l, "Dummy"
+  Next
+  lStopTime = timeGetTime
+  lDuration = lStopTime - lStartTime
+  
+  Debug.Print "With7ActiveLoggerAndNoMatchingFilter: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
+  Assert.That objLogSaver1.LoggedCount, Iz.EqualTo(0)
+  Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
+  Assert.That LOOPS / (lDuration / 1000#), Iz.GreaterThan(MIN_LOGS_PER_SECOND), "Logs/sec"
+End Sub

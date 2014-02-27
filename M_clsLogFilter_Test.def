@@ -1,0 +1,67 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Compare Text
+Option Explicit
+
+'AccUnit:TestClass
+
+Dim objFilter As clsLogFilter
+Dim objEntry  As clsLogEntry
+
+Public Sub Setup()
+  Set objFilter = New clsLogFilter
+  Set objEntry = New clsLogEntry
+  ' Arrange
+  With objEntry
+   .Severity = Sev_Critical
+   .MessageNumber = 1234
+   .MessageText = "Dummy"
+  End With
+  
+End Sub
+
+Public Sub Teardown()
+  Set objFilter = Nothing
+End Sub
+
+Public Sub NewFilter_MatchesEverything()
+   ' Assert
+   Assert.IsTrue objFilter.IsMatch(objEntry)
+End Sub
+
+Public Sub Filter_WithSevCritical_MatchesEntry()
+  ' Arrange
+  objFilter.WithSeverity Sev_Critical
+  ' Assert
+  Assert.IsTrue objFilter.IsMatch(objEntry)
+End Sub
+
+Public Sub Filter_WithSevDebug_DoesNotMatchEntry()
+  ' Arrange
+  objFilter.WithSeverity Sev_Debug
+  ' Assert
+  Assert.IsFalse objFilter.IsMatch(objEntry)
+End Sub
+
+Public Sub Filter_WithNumberEqualTo1234_MatchesEntry()
+  ' Arrange
+  objFilter.WithMessageNumber EqualTo, 1234
+  ' Assert
+  Assert.IsTrue objFilter.IsMatch(objEntry)
+End Sub
+
+Public Sub Filter_WithDummyText_MatchesEntry()
+  ' Arrange
+  objFilter.WithMessageText IsEqualTo, "Dummy"
+  ' Assert
+  Assert.IsTrue objFilter.IsMatch(objEntry)
+End Sub
+
+Public Sub Filter_WithOtherText_MatchesEntry()
+  ' Arrange
+  objFilter.WithMessageText Contains, "Other"
+  ' Assert
+  Assert.IsFalse objFilter.IsMatch(objEntry)
+End Sub

@@ -1,0 +1,100 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Compare Text
+Option Explicit
+
+'AccUnit:TestClass
+
+Const Text = "AB1234   ,    CD0000    XY9999  ,  1234567890"
+
+' ############################################################################################################
+
+Public Sub Text_Contains_45Chars()
+  Assert.That Len(Text), Iz.EqualTo(45)
+End Sub
+
+Public Sub SubString_WithSimpleParams_Returns_CorrectData()
+  With Utils.Strings
+    Assert.AreEqualStrings "AB1234", .SubString(Text, FromPos:=1, ToPos:=6)
+    Assert.AreEqualStrings "CD0000", .SubString(Text, FromPos:=15, TheLength:=6)
+    Assert.AreEqualStrings "XY9999", .SubString(Text, ToPos:=30, TheLength:=6)
+  End With
+End Sub
+
+Public Sub Left_Returns_CorrectData()
+  With Utils.Strings
+    Assert.AreEqualStrings "AB1234", .Left(Text, 6)
+    Assert.AreEqualStrings "AB1234   ,    CD0000    X", .Left(Text, -20)
+  End With
+End Sub
+
+Public Sub Right_Returns_CorrectData()
+  With Utils.Strings
+    Assert.AreEqualStrings "1234567890", .Right(Text, 10)
+  End With
+End Sub
+
+Public Sub Mid_Returns_CorrectData()
+  With Utils.Strings
+    Assert.AreEqualStrings "CD0000    XY9999  ,  1234567890", .Mid(Text, 15)
+    Assert.AreEqualStrings "CD000", .Mid(Text, 15, 5)
+  End With
+End Sub
+
+Public Sub SubString_WithNegativeParams()
+  With Utils.Strings
+    Assert.That .SubString(Text, FromPos:=-10), Iz.EqualTo("1234567890")     ' 10 Characters from the Right
+    Assert.That .SubString(Text, TheLength:=-35), Iz.EqualTo("AB1234   ,")   ' StrLen(45) - 35 => Left 10 Chars
+    Assert.That .SubString(Text, ToPos:=-10), Iz.EqualTo(Strings.Left$(Text, Strings.Len(Text) - 10))   ' StrLen(45) - 10 => Left 35 Chars
+    Assert.That .SubString(Text, FromPos:=36, ToPos:=-1), Iz.EqualTo("123456789")
+  End With
+End Sub
+
+Public Sub SubString_WithStringParams()
+  With Utils.Strings
+    Assert.That .SubString(Text, FromPos:="12345"), Iz.EqualTo("1234567890")
+    Assert.That .SubString(Text, ToPos:="456", TheLength:=4), Iz.EqualTo("1234")
+  End With
+End Sub
+
+' ############################################################################################################
+' ### With Empty String
+
+Public Sub Left_WithEmptyString()
+  With Utils.Strings
+    Assert.AreEqualStrings "", .Left("", 5)
+    Assert.AreEqualStrings "", .Left("", -5)
+  End With
+End Sub
+
+Public Sub Mid_WithEmptyString()
+  With Utils.Strings
+    Assert.AreEqualStrings "", .Mid("", 5, 10)
+    Assert.AreEqualStrings "", .Mid("", -5, -20)
+  End With
+End Sub
+
+Public Sub Right_WithEmptyString()
+  With Utils.Strings
+    Assert.AreEqualStrings "", .Right("", 5)
+    Assert.AreEqualStrings "", .Right("", -5)
+  End With
+End Sub
+
+' ############################################################################################################
+
+Public Sub String_Contains()
+  With Utils.Strings
+    Assert.IsTrue .Contains(Text, "9999")
+    Assert.IsFalse .Contains(Text, "8888")
+  End With
+End Sub
+
+Public Sub String_StartsWith()
+  With Utils.Strings
+    Assert.IsTrue .StartsWith(Text, "AB1234")
+    Assert.IsFalse .StartsWith(Text, "9999")
+  End With
+End Sub

@@ -1,0 +1,46 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : clsOS_FileMatcher
+' Author    : K.Gundermann
+' Date      : 17.01.2012
+' Purpose   :
+' ATTENTION : This class is only for demonstrating the logger feature.
+'             it is not intended to be used in a production environment !!!!
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+
+Private Declare Function PathMatchSpec _
+  Lib "shlwapi" Alias "PathMatchSpecW" ( _
+  ByVal pszFileParam As Long, _
+  ByVal pszSpec As Long _
+) As Long
+
+Private WithEvents c_Ping As clsPing
+Attribute c_Ping.VB_VarHelpID = -1
+Private strFilename As String
+
+Public Function MatchPattern(ByVal Filename As String, ByVal NamePattern As String) As Boolean
+  
+  strFilename = Filename
+  MatchPattern = PathMatchSpec(StrPtr(strFilename), StrPtr(NamePattern))
+
+End Function
+
+Private Sub c_Ping_Ping()
+  Utils.Ping.IAmHere Me, strFilename
+End Sub
+
+Private Sub Class_Initialize()
+  Logger.Log.Trace "Object", Me, "Initialize", Evt_Creating
+  Set c_Ping = Utils.Ping
+End Sub
+
+Private Sub Class_Terminate()
+  Logger.Log.Trace "Object", Me, "Terminate", Evt_Destroying
+End Sub

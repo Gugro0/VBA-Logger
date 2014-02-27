@@ -1,0 +1,83 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Compare Text
+Option Explicit
+
+'AccUnit:TestClass
+
+Dim objFilter As clsLogFilterBitmap
+
+Public Sub Setup()
+  Set objFilter = New clsLogFilterBitmap
+End Sub
+
+Public Sub Filter_MatchesValue()
+  Dim result As Boolean
+  
+   ' Arrange
+  With objFilter
+    .Entry = "Dummy"
+    .Value = 2 + 8 + 32
+  End With
+  
+  ' Act
+  result = objFilter.MatchesBitmap(8)
+  
+  ' Assert
+  Assert.IsTrue result
+End Sub
+
+Public Sub FilterNot_MatchesValue()
+  Dim result As Boolean
+  
+   ' Arrange
+  With objFilter
+    .Entry = "Dummy"
+    .Value = 2 + 8 + 32
+  End With
+  
+  ' Act
+  result = objFilter.MatchesBitmap(64)
+  
+  ' Assert
+  Assert.IsFalse result
+End Sub
+
+
+' ------------------------------------------------------------------------
+
+Public Sub Filter_ConvertsToString()
+  Dim result As String
+  
+   ' Arrange
+  With objFilter
+    .Entry = "Dummy"
+    .Value = 1 + 2 + 8 + 32
+  End With
+  
+  ' Act
+  result = objFilter.ToString
+  
+  ' Assert
+  Assert.AreEqualStrings "Dummy matches [1,2,8,32]", result
+  
+End Sub
+
+Public Sub Filter_ConvertsToStringWithNames()
+  Dim result As String
+  
+   ' Arrange
+  With objFilter
+    .Entry = "Dummy"
+    .Value = 1 + 2 + 8 + 32
+  End With
+  
+  ' Act
+  result = objFilter.ToString("Bit1", "Bit2", "Bit3", "Bit4")
+  
+  ' Assert
+  Assert.AreEqualStrings "Dummy matches [Bit1,Bit2,Bit4,32]", result
+  
+End Sub

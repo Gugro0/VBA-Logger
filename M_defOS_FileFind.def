@@ -1,0 +1,85 @@
+Option Compare Database
+Option Explicit
+
+' By Doug Steele
+' http://my.advisor.com/articles.nsf/aid/16279
+
+' Replacement for application.FileSearch
+
+' Modified by KD.Gundermann   Sep 2009
+
+Public Const INVALID_HANDLE_VALUE = -1
+Public Const MAX_PATH = 260
+Public Const vbBackslash = "\"
+Public Const vbDot = 46
+
+Public Enum FINDEX_INFO_LEVELS
+  FindExInfoStandard
+  FindExInfoBasic
+  FindExInfoMaxInfoLevel
+End Enum
+
+Public Enum FINDEX_SEARCH_OPS
+  FindExSearchNameMatch = 0
+  FindExSearchLimitToDirectories = 1
+  FindExSearchLimitToDevices = 2
+End Enum
+
+
+Public Type FILETIME
+  dwLowDateTime As Long
+  dwHighDateTime As Long
+End Type
+
+Public Type WIN32_FIND_DATA
+  dwFileAttributes As Long
+  ftCreationTime As FILETIME
+  ftLastAccessTime As FILETIME
+  ftLastWriteTime As FILETIME
+  nFileSizeHigh As Long
+  nFileSizeLow As Long
+  dwReserved0 As Long
+  dwReserved1 As Long
+  cFileName As String * MAX_PATH
+  cAlternate As String * 14
+End Type
+
+
+
+' FindFirstFile : http://msdn.microsoft.com/en-us/library/aa364418(VS.85).aspx
+Public Declare Function FindFirstFile _
+  Lib "kernel32" Alias "FindFirstFileA" ( _
+  ByVal lpFileName As String, _
+  ByRef lpFindFileData As WIN32_FIND_DATA _
+) As Long
+
+' FindFirstFileEx : http://msdn.microsoft.com/en-us/library/aa364419(v=VS.85).aspx
+Public Declare Function FindFirstFileEx Lib "kernel32.dll" _
+                 Alias "FindFirstFileExA" ( _
+                 ByVal lpFileName As String, _
+                 ByVal fInfoLevelId As FINDEX_INFO_LEVELS, _
+                 ByRef lpFindFileData As WIN32_FIND_DATA, _
+                 Optional ByVal fSearchOp As FINDEX_SEARCH_OPS = FindExSearchNameMatch, _
+                 Optional lpSearchFilter As Any = 0, _
+                 Optional ByVal dwAdditionalFlags As Long = 0) As Long
+
+
+' FindNextFile : http://msdn.microsoft.com/en-us/library/aa364428(v=VS.85).aspx
+Public Declare Function FindNextFile _
+  Lib "kernel32" Alias "FindNextFileA" ( _
+  ByVal hFindFile As Long, _
+  ByRef lpFindFileData As WIN32_FIND_DATA _
+) As Long
+
+'
+Private Declare Function PathMatchSpec _
+  Lib "shlwapi" Alias "PathMatchSpecW" ( _
+  ByVal pszFileParam As Long, _
+  ByVal pszSpec As Long _
+) As Long
+
+' FindClose : http://msdn.microsoft.com/en-us/library/aa364413(v=VS.85).aspx
+Public Declare Function FindClose _
+  Lib "kernel32" ( _
+  ByVal hFindFile As Long _
+) As Long

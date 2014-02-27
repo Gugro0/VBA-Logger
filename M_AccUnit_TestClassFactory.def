@@ -1,0 +1,31 @@
+Option Compare Text
+Option Explicit
+Option Private Module
+
+Public Function AccUnitTestClassFactory_clsLogFilter_Test() As Object
+   Set AccUnitTestClassFactory_clsLogFilter_Test = New clsLogFilter_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsLogFilterBitmap_Test() As Object
+   Set AccUnitTestClassFactory_clsLogFilterBitmap_Test = New clsLogFilterBitmap_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsLogFilterNumeric_Test() As Object
+   Set AccUnitTestClassFactory_clsLogFilterNumeric_Test = New clsLogFilterNumeric_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsLogFilterString_Test() As Object
+   Set AccUnitTestClassFactory_clsLogFilterString_Test = New clsLogFilterString_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsLogger_Test() As Object
+   Set AccUnitTestClassFactory_clsLogger_Test = New clsLogger_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsLogSaver_Database_Test() As Object
+   Set AccUnitTestClassFactory_clsLogSaver_Database_Test = New clsLogSaver_Database_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsStringUtils_Test() As Object
+   Set AccUnitTestClassFactory_clsStringUtils_Test = New clsStringUtils_Test
+End Function

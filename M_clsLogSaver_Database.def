@@ -1,0 +1,225 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : clsLogSaver_Database
+' Author    : K.Gundermann
+' Date      : 17.01.2012
+' Purpose   : Saves Logger Events to a Database Table
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Implements ILogSaver
+
+Private Const DEFAULT_TABLENAME_EVENTS = "LogEvents"
+Private Const DEFAULT_TABLENAME_SESSIONS = "LogSessions"
+
+Private c_TablenameEvents     As String
+Private c_TablenameSessions   As String
+Private c_SessionID           As Long
+
+
+Private WithEvents c_Logger   As clsLogger
+Attribute c_Logger.VB_VarHelpID = -1
+Private WithEvents c_Session  As clsLogSession
+Attribute c_Session.VB_VarHelpID = -1
+Private c_Filters             As clsLogFilterCollection
+
+Private c_Name                As String
+
+
+Private Sub Class_Initialize()
+  Set c_Session = Logger.Log.Session
+  Set c_Filters = New clsLogFilterCollection
+  Call StartSession
+End Sub
+Private Sub Class_Terminate()
+  Call StopLog
+End Sub
+
+
+' --- Public Interface ---
+Public Sub StartLog()
+  Set c_Logger = Logger.Log
+End Sub
+
+Public Sub StopLog()
+  Set c_Logger = Nothing
+End Sub
+
+Public Sub SaveToLog(ByRef objLogEntry As clsLogEntry)
+  If Filters.MatchFilter(objLogEntry) Then
+    Call SaveToMyLog(objLogEntry)
+  End If
+End Sub
+
+Public Function AddFilter(ByVal TheFilter As clsLogFilter) As ILogSaver
+  Filters.AddFilter TheFilter
+  Set AddFilter = Me
+End Function
+
+Public Property Get ID() As Long
+  ID = ObjPtr(Me)
+End Property
+Public Property Get Name() As String
+  If c_Name = vbNullString Then
+    Name = TypeName(Me)
+  Else
+    Name = c_Name
+  End If
+End Property
+Public Property Let Name(ByVal TheName As String)
+  c_Name = TheName
+End Property
+
+
+' --- Private Functions ---
+Private Property Get Filters() As clsLogFilterCollection
+  Set Filters = c_Filters
+End Property
+
+' --- Event Handler for Logger/Session Class ---
+Private Sub c_Logger_SaveToLog(objLogEntry As clsLogEntry)
+  Call Me.SaveToLog(objLogEntry)
+End Sub
+
+Private Sub c_Session_Login()
+  ' ToDo: We have now a logged In User
+  Call SessionLogin
+End Sub
+
+Private Sub c_Session_Logout()
+  ' ToDo: The user has logged out
+  Call SessionLogout
+End Sub
+
+' --- Implements ILogSaver ---
+Private Sub ILogSaver_StartLog()
+  Me.StartLog
+End Sub
+Private Sub ILogSaver_StopLog()
+  Me.StopLog
+End Sub
+Private Function ILogSaver_AddFilter(ByVal TheFilter As clsLogFilter) As ILogSaver
+  Set ILogSaver_AddFilter = Me.AddFilter(TheFilter)
+End Function
+Private Property Get ILogSaver_ID() As Long
+  ILogSaver_ID = Me.ID
+End Property
+Private Property Get ILogSaver_Name() As String
+  ILogSaver_Name = Me.Name
+End Property
+Private Property Let ILogSaver_Name(ByVal TheName As String)
+  Me.Name = TheName
+End Property
+Private Sub ILogSaver_SaveToLog(objLogEntry As clsLogEntry)
+  Call Me.SaveToLog(objLogEntry)
+End Sub
+
+
+' ---------------------------------------------------------------------------------
+' -- Specific Functions for that logger here
+
+Public Property Get TablenameEvents() As String
+  If IsNullString(c_TablenameEvents) Then
+    TablenameEvents = DEFAULT_TABLENAME_EVENTS
+  Else
+    TablenameEvents = c_TablenameEvents
+  End If
+End Property
+Public Property Let TablenameEvents(ByVal TheValue As String)
+  c_TablenameEvents = TheValue
+End Property
+
+Public Property Get TablenameSessions() As String
+  If IsNullString(c_TablenameSessions) Then
+    TablenameSessions = DEFAULT_TABLENAME_SESSIONS
+  Else
+    TablenameSessions = c_TablenameSessions
+  End If
+End Property
+Public Property Let TablenameSessions(ByVal TheValue As String)
+  c_TablenameSessions = TheValue
+End Property
+
+Private Sub StartSession()
+  Dim rs As DAO.Recordset
+  
+  Set rs = CurrentDb.OpenRecordset(Me.TablenameSessions, dbOpenDynaset, dbAppendOnly + dbSeeChanges)
+  With rs
+    .AddNew
+    !LogS_Computername = c_Session.HostName
+    !LogS_OSVersion = c_Session.OSVersion
+    !LogS_OSUserName = c_Session.OSUserName
+    !LogS_ApplicationUserName = c_Session.ApplicationUserName
+    !LogS_SessionStartTime = c_Session.SessionStartTime
+    ' !LogS_LoginTime = c_Session.LoginTime
+    ' !LogS_PrgVersion = Utils.Prg.PrgVersion
+    .Update
+    .Close
+  End With
+  Set rs = CurrentDb.OpenRecordset("SELECT @@IDENTITY")
+  c_SessionID = rs.Fields(0)
+  rs.Close
+  
+  Set rs = Nothing
+  
+End Sub
+
+Private Sub SessionLogin()
+  Dim rs As DAO.Recordset
+  
+  Set rs = CurrentDb.OpenRecordset("SELECT * FROM " & Me.TablenameSessions & " WHERE LogS_ID=" & c_SessionID, dbOpenDynaset, dbSeeChanges)
+  With rs
+    If Not .EOF Then
+      .Edit
+      !LogS_ApplicationUserName = c_Session.ApplicationUserName
+      !LogS_LoginTime = c_Session.LoginTime
+      .Update
+    End If
+    .Close
+  End With
+End Sub
+
+Private Sub SessionLogout()
+  Dim rs As DAO.Recordset
+  
+  Set rs = CurrentDb.OpenRecordset("SELECT * FROM " & Me.TablenameSessions & " WHERE LogS_ID=" & c_SessionID, dbOpenDynaset, dbSeeChanges)
+  With rs
+    If Not .EOF Then
+      .Edit
+      !LogS_LogoutTime = Now ' ?? c_Session.LogoutTime
+      .Update
+    End If
+    .Close
+  End With
+End Sub
+
+
+
+Private Sub SaveToMyLog(ByRef objLogEntry As clsLogEntry)
+  Dim rs As DAO.Recordset
+  
+  Set rs = CurrentDb.OpenRecordset(Me.TablenameEvents, dbOpenDynaset, dbAppendOnly + dbSeeChanges)
+  With rs
+    .AddNew
+    !Log_FK_SessionId = c_SessionID
+    !Log_Timestamp = objLogEntry.Timestamp.ToDateWithTime   ' Keine ms bei SQL2005 !!!
+    !Log_Category = objLogEntry.Category
+    !Log_Module = objLogEntry.FromModule
+    !Log_Procedure = objLogEntry.FromProcedure
+    !Log_EntryType = objLogEntry.EntryType
+    !Log_Severity = objLogEntry.Severity
+    !Log_MessageNumber = objLogEntry.MessageNumber
+    !Log_MessageText = objLogEntry.MessageText
+    !Log_MessageDisplayed = objLogEntry.MessageDisplayed
+    !Log_AdditionalInfo = objLogEntry.AdditionalInfo
+    .Update
+    .Close
+  End With
+  Set rs = Nothing
+  
+End Sub

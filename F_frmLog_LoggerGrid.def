@@ -1,0 +1,1888 @@
+Version =20
+VersionRequired =20
+Checksum =-305020885
+Begin Form
+    AllowFilters = NotDefault
+    AutoResize = NotDefault
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    DividingLines = NotDefault
+    AllowAdditions = NotDefault
+    DefaultView =0
+    ScrollBars =0
+    TabularCharSet =204
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridY =10
+    Width =9360
+    DatasheetFontHeight =11
+    ItemSuffix =64
+    Left =3225
+    Top =2490
+    Right =21345
+    Bottom =12465
+    OnUnload ="[Event Procedure]"
+    RecSrcDt = Begin
+        0x8f6b6adb20fbe340
+    End
+    GUID = Begin
+        0x1c8857bdc5901a4e89790e848a6495d3
+    End
+    NameMap = Begin
+        0x0acc0e5500000000000000000000000000000000000000000c00000004000000 ,
+        0x0000000000000000000000000000
+    End
+    OnOpen ="[Event Procedure]"
+    OnClose ="[Event Procedure]"
+    DatasheetFontName ="Calibri"
+    PrtMip = Begin
+        0x6801000068010000680100006801000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x010400069c00f40243ef8005010009009a0b3408640001000800f00001000100 ,
+        0x9000020001004134000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200b800f402000076c9bcad0000000000000000000000000000000000000000 ,
+        0x0000000000000000060000000100000000000000000001000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000010000000000000000000000b8000000534d544a ,
+        0x000000001000a80054006f006200690074002000460061007800570061007200 ,
+        0x65000000496e70757442696e004155544f00524553444c4c00556e6972657344 ,
+        0x4c4c004f7269656e746174696f6e00504f525452414954005265736f6c757469 ,
+        0x6f6e004f7074696f6e3100506170657253697a65004f7074696f6e310048616c ,
+        0x66746f6e650048545f50415453495a455f535550455243454c4c5f4d00000000 ,
+        0x00000000000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x0800160024000100000000000000000000000000000000000000000000000000 ,
+        0x00000000466178576172652053657276696365204c6179657200
+    End
+    OnTimer ="[Event Procedure]"
+    OnResize ="[Event Procedure]"
+    OnLoad ="[Event Procedure]"
+    AllowDatasheetView =0
+    AllowPivotTableView =0
+    AllowPivotChartView =0
+    AllowPivotChartView =0
+    FilterOnLoad =0
+    OrderByOnLoad =0
+    OrderByOnLoad =0
+    DatasheetBackColor12 =16777215
+    ShowPageMargins =0
+    DisplayOnSharePointSite =1
+    AllowLayoutView =0
+    DatasheetAlternateBackColor =16053492
+    DatasheetGridlinesColor12 =15062992
+    Begin
+        Begin Label
+            BackStyle =0
+            FontSize =11
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+            Width =850
+            Height =850
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin CommandButton
+            Width =1701
+            Height =283
+            FontSize =11
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin OptionGroup
+            SpecialEffect =3
+            Width =1701
+            Height =1701
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            Width =1701
+            LabelX =-1701
+            FontSize =11
+            BorderColor =12632256
+            FontName ="Calibri"
+            AsianLineBreak =1
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+            ShowDatePicker =1
+        End
+        Begin ListBox
+            Width =1701
+            Height =1417
+            LabelX =-1701
+            FontSize =11
+            BorderColor =12632256
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+            AllowValueListEdits =1
+            InheritValueList =1
+        End
+        Begin ComboBox
+            Width =1701
+            LabelX =-1701
+            FontSize =11
+            BorderColor =12632256
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+            AllowValueListEdits =1
+            InheritValueList =1
+        End
+        Begin UnboundObjectFrame
+            SpecialEffect =2
+            OldBorderStyle =1
+            Width =4536
+            Height =2835
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin CustomControl
+            SpecialEffect =2
+            Width =4536
+            Height =2835
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin ToggleButton
+            Width =283
+            Height =283
+            FontSize =11
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin FormHeader
+            Height =3855
+            BackColor =-2147483606
+            Name ="Formularkopf"
+            GUID = Begin
+                0xffa894e7290f7f47a5fc6f1207d47bfc
+            End
+            Begin
+                Begin Label
+                    OverlapFlags =85
+                    Left =283
+                    Top =2381
+                    Width =900
+                    Height =285
+                    Name ="Bezeichnungsfeld0"
+                    Caption ="Severity:"
+                    GUID = Begin
+                        0x097a773b93bb6042b2ec97fbc94e34a3
+                    End
+                    LayoutCachedLeft =283
+                    LayoutCachedTop =2381
+                    LayoutCachedWidth =1183
+                    LayoutCachedHeight =2666
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =1587
+                    Top =2426
+                    TabIndex =11
+                    Name ="ctlSevCritical"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0x30b06c9d46a1a34c9f271404f0e22ba1
+                    End
+
+                    LayoutCachedLeft =1587
+                    LayoutCachedTop =2426
+                    LayoutCachedWidth =1847
+                    LayoutCachedHeight =2666
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            Left =1814
+                            Top =2324
+                            Width =720
+                            Height =315
+                            Name ="Bezeichnungsfeld2"
+                            Caption ="Critical"
+                            GUID = Begin
+                                0x706ef397e0cdf941b7eab4b9f780993f
+                            End
+                            LayoutCachedLeft =1814
+                            LayoutCachedTop =2324
+                            LayoutCachedWidth =2534
+                            LayoutCachedHeight =2639
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =2745
+                    Top =2426
+                    TabIndex =12
+                    Name ="ctlSevError"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0xae0b2e1a19b4824ba4430ecc89ecd1f0
+                    End
+
+                    LayoutCachedLeft =2745
+                    LayoutCachedTop =2426
+                    LayoutCachedWidth =3005
+                    LayoutCachedHeight =2666
+                    Begin
+                        Begin Label
+                            OverlapFlags =93
+                            Left =3004
+                            Top =2324
+                            Width =525
+                            Height =315
+                            Name ="Bezeichnungsfeld4"
+                            Caption ="Error"
+                            GUID = Begin
+                                0xc2be59ec6b1bf649951250ae12a5dff0
+                            End
+                            LayoutCachedLeft =3004
+                            LayoutCachedTop =2324
+                            LayoutCachedWidth =3529
+                            LayoutCachedHeight =2639
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =3855
+                    Top =2463
+                    TabIndex =13
+                    Name ="ctlSevInformation"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0x2cb18d78f7d12640b69b88873ae32234
+                    End
+
+                    LayoutCachedLeft =3855
+                    LayoutCachedTop =2463
+                    LayoutCachedWidth =4115
+                    LayoutCachedHeight =2703
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            Left =4058
+                            Top =2361
+                            Width =1185
+                            Height =315
+                            Name ="Bezeichnungsfeld6"
+                            Caption ="Information"
+                            GUID = Begin
+                                0x5eb3952ffb9f3c47997274cdd77465d6
+                            End
+                            LayoutCachedLeft =4058
+                            LayoutCachedTop =2361
+                            LayoutCachedWidth =5243
+                            LayoutCachedHeight =2676
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =5478
+                    Top =2463
+                    TabIndex =14
+                    Name ="ctlSevTrace"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0xb89988790b95404484b7fe8b58936d78
+                    End
+
+                    LayoutCachedLeft =5478
+                    LayoutCachedTop =2463
+                    LayoutCachedWidth =5738
+                    LayoutCachedHeight =2703
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            Left =5702
+                            Top =2361
+                            Width =570
+                            Height =315
+                            Name ="Bezeichnungsfeld8"
+                            Caption ="Trace"
+                            GUID = Begin
+                                0xeff84a46241577418f5d90c8f8171336
+                            End
+                            LayoutCachedLeft =5702
+                            LayoutCachedTop =2361
+                            LayoutCachedWidth =6272
+                            LayoutCachedHeight =2676
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =6486
+                    Top =2463
+                    TabIndex =15
+                    Name ="ctlSevDebug"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0xf9956c9f915e0c4e8998606f11db9e65
+                    End
+
+                    LayoutCachedLeft =6486
+                    LayoutCachedTop =2463
+                    LayoutCachedWidth =6746
+                    LayoutCachedHeight =2703
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            Left =6723
+                            Top =2361
+                            Width =675
+                            Height =315
+                            Name ="Bezeichnungsfeld10"
+                            Caption ="Debug"
+                            GUID = Begin
+                                0x9d7fa5ea5493b64f9911aca17ea4a0ca
+                            End
+                            LayoutCachedLeft =6723
+                            LayoutCachedTop =2361
+                            LayoutCachedWidth =7398
+                            LayoutCachedHeight =2676
+                        End
+                    End
+                End
+                Begin Rectangle
+                    OverlapFlags =247
+                    Left =1360
+                    Top =2211
+                    Width =6171
+                    Height =624
+                    Name ="Rechteck11"
+                    GUID = Begin
+                        0x66625b43201db146bed40a6195b040e7
+                    End
+                    LayoutCachedLeft =1360
+                    LayoutCachedTop =2211
+                    LayoutCachedWidth =7531
+                    LayoutCachedHeight =2835
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =285
+                    Top =3058
+                    Width =900
+                    Height =285
+                    Name ="Bezeichnungsfeld12"
+                    Caption ="Number:"
+                    GUID = Begin
+                        0xe2af76fcd334a54d9c2407190a1a6079
+                    End
+                    LayoutCachedLeft =285
+                    LayoutCachedTop =3058
+                    LayoutCachedWidth =1185
+                    LayoutCachedHeight =3343
+                End
+                Begin ComboBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1415
+                    Top =3061
+                    Height =315
+                    TabIndex =16
+                    GUID = Begin
+                        0xedf54e60c9b52042a4a2cb98c6d469a8
+                    End
+                    Name ="ctlNumberComparer"
+                    RowSourceType ="Value List"
+                    RowSource ="\"=\";\"<\";\">\";\"Between\";\"Not Between\""
+                    AfterUpdate ="[Event Procedure]"
+
+                    LayoutCachedLeft =1415
+                    LayoutCachedTop =3061
+                    LayoutCachedWidth =3116
+                    LayoutCachedHeight =3376
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =3344
+                    Top =3061
+                    Height =315
+                    TabIndex =17
+                    Name ="ctlNumber1"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0x5366db7ca8506245874bb259be99b54a
+                    End
+
+                    LayoutCachedLeft =3344
+                    LayoutCachedTop =3061
+                    LayoutCachedWidth =5045
+                    LayoutCachedHeight =3376
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =5385
+                    Top =3061
+                    Height =315
+                    TabIndex =18
+                    Name ="ctlNumber2"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0xba34ec418207e0428cb240012ac07c62
+                    End
+
+                    LayoutCachedLeft =5385
+                    LayoutCachedTop =3061
+                    LayoutCachedWidth =7086
+                    LayoutCachedHeight =3376
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =283
+                    Top =3517
+                    Width =540
+                    Height =285
+                    Name ="Bezeichnungsfeld20"
+                    Caption ="Text:"
+                    GUID = Begin
+                        0xe6636c6365fdc64397f5f546fb03dabc
+                    End
+                    LayoutCachedLeft =283
+                    LayoutCachedTop =3517
+                    LayoutCachedWidth =823
+                    LayoutCachedHeight =3802
+                End
+                Begin ComboBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1415
+                    Top =3514
+                    Height =315
+                    TabIndex =20
+                    GUID = Begin
+                        0xc2c801f2b0e2024bb15178070ceb0a42
+                    End
+                    Name ="ctlTextComparer"
+                    RowSourceType ="Value List"
+                    RowSource ="\"=\";\"Begins with\";\"Contains\";\"<>\";\"Does not contain\";\"Matches\""
+                    AfterUpdate ="[Event Procedure]"
+
+                    LayoutCachedLeft =1415
+                    LayoutCachedTop =3514
+                    LayoutCachedWidth =3116
+                    LayoutCachedHeight =3829
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =3342
+                    Top =3514
+                    Height =315
+                    TabIndex =21
+                    Name ="ctlText"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0x73a769039f83344bad54b6e548a5d252
+                    End
+
+                    LayoutCachedLeft =3342
+                    LayoutCachedTop =3514
+                    LayoutCachedWidth =5043
+                    LayoutCachedHeight =3829
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =285
+                    Top =120
+                    Width =960
+                    Height =315
+                    Name ="Bezeichnungsfeld42"
+                    Caption ="Category:"
+                    GUID = Begin
+                        0x84b5e9f9d3f15643a2ac2ad0a1ed3cce
+                    End
+                    LayoutCachedLeft =285
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =1245
+                    LayoutCachedHeight =435
+                End
+                Begin ComboBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1415
+                    Top =113
+                    Height =315
+                    GUID = Begin
+                        0xa862e94322366446a0f7432213a14fe2
+                    End
+                    Name ="ctlCategoryComparer"
+                    RowSourceType ="Value List"
+                    RowSource ="\"=\";\"Begins with\";\"Contains\";\"<>\";\"Does not contain\";\"Matches\""
+                    AfterUpdate ="[Event Procedure]"
+
+                    LayoutCachedLeft =1415
+                    LayoutCachedTop =113
+                    LayoutCachedWidth =3116
+                    LayoutCachedHeight =428
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =3342
+                    Top =113
+                    Height =315
+                    TabIndex =1
+                    Name ="ctlCategory"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0x4d40c8c60219b54890ff7510bd71b59a
+                    End
+
+                    LayoutCachedLeft =3342
+                    LayoutCachedTop =113
+                    LayoutCachedWidth =5043
+                    LayoutCachedHeight =428
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =285
+                    Top =510
+                    Width =855
+                    Height =315
+                    Name ="Bezeichnungsfeld45"
+                    Caption ="Module:"
+                    GUID = Begin
+                        0x081f8e0ee58f084dbc281b072ba46582
+                    End
+                    LayoutCachedLeft =285
+                    LayoutCachedTop =510
+                    LayoutCachedWidth =1140
+                    LayoutCachedHeight =825
+                End
+                Begin ComboBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1415
+                    Top =510
+                    Height =315
+                    TabIndex =2
+                    GUID = Begin
+                        0x27c9e3d52a77e4479a36842c81942549
+                    End
+                    Name ="ctlModuleComparer"
+                    RowSourceType ="Value List"
+                    RowSource ="\"=\";\"Begins with\";\"Contains\";\"<>\";\"Does not contain\";\"Matches\""
+                    AfterUpdate ="[Event Procedure]"
+
+                    LayoutCachedLeft =1415
+                    LayoutCachedTop =510
+                    LayoutCachedWidth =3116
+                    LayoutCachedHeight =825
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =3342
+                    Top =510
+                    Height =315
+                    TabIndex =3
+                    Name ="ctlModule"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0x49bbbd79c31d1d48b2e60b70b861dce7
+                    End
+
+                    LayoutCachedLeft =3342
+                    LayoutCachedTop =510
+                    LayoutCachedWidth =5043
+                    LayoutCachedHeight =825
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =283
+                    Top =907
+                    Width =1095
+                    Height =315
+                    Name ="Bezeichnungsfeld48"
+                    Caption ="Procedure:"
+                    GUID = Begin
+                        0xbb076583b5f2c1459014aa8b73df2682
+                    End
+                    LayoutCachedLeft =283
+                    LayoutCachedTop =907
+                    LayoutCachedWidth =1378
+                    LayoutCachedHeight =1222
+                End
+                Begin ComboBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1413
+                    Top =907
+                    Height =315
+                    TabIndex =4
+                    GUID = Begin
+                        0x00b09fc4c44e074db232abd14bcd9317
+                    End
+                    Name ="ctlProcedureComparer"
+                    RowSourceType ="Value List"
+                    RowSource ="\"=\";\"Begins with\";\"Contains\";\"<>\";\"Does not contain\";\"Matches\""
+                    AfterUpdate ="[Event Procedure]"
+
+                    LayoutCachedLeft =1413
+                    LayoutCachedTop =907
+                    LayoutCachedWidth =3114
+                    LayoutCachedHeight =1222
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =3340
+                    Top =907
+                    Height =315
+                    TabIndex =5
+                    Name ="ctlProcedure"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0xbe1efaa33986f44081c1507262d03053
+                    End
+
+                    LayoutCachedLeft =3340
+                    LayoutCachedTop =907
+                    LayoutCachedWidth =5041
+                    LayoutCachedHeight =1222
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =285
+                    Top =1550
+                    Width =900
+                    Height =285
+                    Name ="Bezeichnungsfeld51"
+                    Caption ="Type:"
+                    GUID = Begin
+                        0xfce133a210cd12459cf5a31788812e71
+                    End
+                    LayoutCachedLeft =285
+                    LayoutCachedTop =1550
+                    LayoutCachedWidth =1185
+                    LayoutCachedHeight =1835
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =1587
+                    Top =1637
+                    TabIndex =9
+                    Name ="ctlEvtStatus"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0x7e4b203e6e55ad4998e44b06c3ae7c40
+                    End
+
+                    LayoutCachedLeft =1587
+                    LayoutCachedTop =1637
+                    LayoutCachedWidth =1847
+                    LayoutCachedHeight =1877
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            Left =1814
+                            Top =1535
+                            Width =720
+                            Height =315
+                            Name ="Bezeichnungsfeld53"
+                            Caption ="Status"
+                            GUID = Begin
+                                0xecd6e1be890ea14cb2709128863d7c7b
+                            End
+                            LayoutCachedLeft =1814
+                            LayoutCachedTop =1535
+                            LayoutCachedWidth =2534
+                            LayoutCachedHeight =1850
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =2745
+                    Top =1637
+                    TabIndex =10
+                    Name ="ctlEvtCreate"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0x7ed5b478037cc145b8e1d791e86bb841
+                    End
+
+                    LayoutCachedLeft =2745
+                    LayoutCachedTop =1637
+                    LayoutCachedWidth =3005
+                    LayoutCachedHeight =1877
+                    Begin
+                        Begin Label
+                            OverlapFlags =93
+                            Left =2998
+                            Top =1530
+                            Width =690
+                            Height =315
+                            Name ="Bezeichnungsfeld55"
+                            Caption ="Create"
+                            GUID = Begin
+                                0x7e110981a9487543a66a5f5e2d4944fb
+                            End
+                            LayoutCachedLeft =2998
+                            LayoutCachedTop =1530
+                            LayoutCachedWidth =3688
+                            LayoutCachedHeight =1845
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =3857
+                    Top =1632
+                    TabIndex =6
+                    Name ="ctlEvtDestroy"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0x25709241a60b5e45aa27ac6b77a60d67
+                    End
+
+                    LayoutCachedLeft =3857
+                    LayoutCachedTop =1632
+                    LayoutCachedWidth =4117
+                    LayoutCachedHeight =1872
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            Left =4060
+                            Top =1530
+                            Width =1185
+                            Height =315
+                            Name ="Bezeichnungsfeld57"
+                            Caption ="Destroy"
+                            GUID = Begin
+                                0xae5381e23b5dc944a508dfd5c4e7eb1f
+                            End
+                            LayoutCachedLeft =4060
+                            LayoutCachedTop =1530
+                            LayoutCachedWidth =5245
+                            LayoutCachedHeight =1845
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =5480
+                    Top =1632
+                    TabIndex =7
+                    Name ="ctlEvtEnter"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0xe4b7773148b39541b531475e74a1b07d
+                    End
+
+                    LayoutCachedLeft =5480
+                    LayoutCachedTop =1632
+                    LayoutCachedWidth =5740
+                    LayoutCachedHeight =1872
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            Left =5704
+                            Top =1530
+                            Width =570
+                            Height =315
+                            Name ="Bezeichnungsfeld59"
+                            Caption ="Enter"
+                            GUID = Begin
+                                0x375a8d057a6f4e49a8fc4dfa41de823f
+                            End
+                            LayoutCachedLeft =5704
+                            LayoutCachedTop =1530
+                            LayoutCachedWidth =6274
+                            LayoutCachedHeight =1845
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =6488
+                    Top =1632
+                    TabIndex =8
+                    Name ="ctlEvtLeave"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0x34611201571a3c4c9d87d8b46a5dc0fb
+                    End
+
+                    LayoutCachedLeft =6488
+                    LayoutCachedTop =1632
+                    LayoutCachedWidth =6748
+                    LayoutCachedHeight =1872
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            Left =6725
+                            Top =1530
+                            Width =675
+                            Height =315
+                            Name ="Bezeichnungsfeld61"
+                            Caption ="Leave"
+                            GUID = Begin
+                                0xde3e929b279813488a28d1677f9f3d9a
+                            End
+                            LayoutCachedLeft =6725
+                            LayoutCachedTop =1530
+                            LayoutCachedWidth =7400
+                            LayoutCachedHeight =1845
+                        End
+                    End
+                End
+                Begin Rectangle
+                    OverlapFlags =247
+                    Left =1362
+                    Top =1380
+                    Width =6171
+                    Height =624
+                    Name ="Rechteck62"
+                    GUID = Begin
+                        0x2c65fd5a4f135e4f870f750e372a54b9
+                    End
+                    LayoutCachedLeft =1362
+                    LayoutCachedTop =1380
+                    LayoutCachedWidth =7533
+                    LayoutCachedHeight =2004
+                End
+                Begin OptionGroup
+                    BackStyle =1
+                    OverlapFlags =85
+                    Left =7596
+                    Top =3174
+                    Width =1305
+                    Height =495
+                    TabIndex =19
+                    Name ="ctlActive"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0xc41392594296bc4587717197616032e1
+                    End
+
+                    LayoutCachedLeft =7596
+                    LayoutCachedTop =3174
+                    LayoutCachedWidth =8901
+                    LayoutCachedHeight =3669
+                    Begin
+                        Begin ToggleButton
+                            OverlapFlags =87
+                            Left =7653
+                            Top =3223
+                            Width =585
+                            Height =390
+                            OptionValue =1
+                            Name ="selStart"
+                            Caption ="Start"
+                            GUID = Begin
+                                0x004a75a071ea6a469d98f540d5c9c15c
+                            End
+                            LayoutCachedLeft =7653
+                            LayoutCachedTop =3223
+                            LayoutCachedWidth =8238
+                            LayoutCachedHeight =3613
+                        End
+                        Begin ToggleButton
+                            OverlapFlags =87
+                            Left =8276
+                            Top =3223
+                            Width =570
+                            Height =390
+                            OptionValue =0
+                            Name ="selStop"
+                            Caption ="Stop"
+                            GUID = Begin
+                                0x8f9f3190db4eed468ef53ccc0cd54e41
+                            End
+                            LayoutCachedLeft =8276
+                            LayoutCachedTop =3223
+                            LayoutCachedWidth =8846
+                            LayoutCachedHeight =3613
+                        End
+                    End
+                End
+            End
+        End
+        Begin Section
+            Height =4138
+            Name ="Detailbereich"
+            GUID = Begin
+                0xb06308526543b24e97d27d140fa67a39
+            End
+            Begin
+                Begin OptionGroup
+                    BackStyle =1
+                    OverlapFlags =85
+                    Left =6122
+                    Top =3741
+                    Width =2766
+                    Height =397
+                    Name ="selTrace"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="1"
+                    GUID = Begin
+                        0xce8f9ff7de60274d97e3ce8309a1cc72
+                    End
+                    VerticalAnchor =1
+
+                    LayoutCachedLeft =6122
+                    LayoutCachedTop =3741
+                    LayoutCachedWidth =8888
+                    LayoutCachedHeight =4138
+                    Begin
+                        Begin ToggleButton
+                            OverlapFlags =87
+                            Left =6179
+                            Top =3798
+                            Width =553
+                            OptionValue =1
+                            Name ="Umschaltfläche35"
+                            Caption ="Run"
+                            GUID = Begin
+                                0x632e60b05958294f85c7fe67d90c85ef
+                            End
+                            VerticalAnchor =1
+                            LayoutCachedLeft =6179
+                            LayoutCachedTop =3798
+                            LayoutCachedWidth =6732
+                            LayoutCachedHeight =4081
+                        End
+                        Begin ToggleButton
+                            OverlapFlags =87
+                            Left =6732
+                            Top =3798
+                            Width =688
+                            OptionValue =2
+                            Name ="Umschaltfläche36"
+                            Caption ="Pause"
+                            GUID = Begin
+                                0x67d9a4ba20d1d7428d39101fa60242ba
+                            End
+                            VerticalAnchor =1
+                            LayoutCachedLeft =6732
+                            LayoutCachedTop =3798
+                            LayoutCachedWidth =7420
+                            LayoutCachedHeight =4081
+                        End
+                        Begin ToggleButton
+                            OverlapFlags =87
+                            Left =7420
+                            Top =3798
+                            Width =688
+                            OptionValue =3
+                            Name ="Umschaltfläche37"
+                            Caption ="Step"
+                            GUID = Begin
+                                0x41a69319d759ca45892b368c1a47ff82
+                            End
+                            VerticalAnchor =1
+                            LayoutCachedLeft =7420
+                            LayoutCachedTop =3798
+                            LayoutCachedWidth =8108
+                            LayoutCachedHeight =4081
+                        End
+                        Begin ToggleButton
+                            OverlapFlags =87
+                            Left =8108
+                            Top =3798
+                            Width =748
+                            OptionValue =4
+                            Name ="Umschaltfläche38"
+                            Caption ="Break"
+                            GUID = Begin
+                                0x654b29de92538f4c914db1e11a8766af
+                            End
+                            VerticalAnchor =1
+                            LayoutCachedLeft =8108
+                            LayoutCachedTop =3798
+                            LayoutCachedWidth =8856
+                            LayoutCachedHeight =4081
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1077
+                    Top =3798
+                    Height =315
+                    TabIndex =1
+                    Name ="ctlCounter"
+                    GUID = Begin
+                        0x4bf7cfd5ff167144bcfe9f33cded8ce3
+                    End
+                    VerticalAnchor =1
+
+                    LayoutCachedLeft =1077
+                    LayoutCachedTop =3798
+                    LayoutCachedWidth =2778
+                    LayoutCachedHeight =4113
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =226
+                            Top =3798
+                            Width =750
+                            Height =315
+                            Name ="Bezeichnungsfeld40"
+                            Caption ="Count:"
+                            GUID = Begin
+                                0x42968a6be501084b9f8bc51ff3e7d5bb
+                            End
+                            VerticalAnchor =1
+                            LayoutCachedLeft =226
+                            LayoutCachedTop =3798
+                            LayoutCachedWidth =976
+                            LayoutCachedHeight =4113
+                        End
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    Left =3401
+                    Top =3798
+                    TabIndex =2
+                    Name ="cmdClear"
+                    Caption ="Clear"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0xcdb6b6402b192549b9f3f37718173dcf
+                    End
+                    VerticalAnchor =1
+
+                    LayoutCachedLeft =3401
+                    LayoutCachedTop =3798
+                    LayoutCachedWidth =5102
+                    LayoutCachedHeight =4081
+                End
+                Begin CustomControl
+                    Enabled = NotDefault
+                    SizeMode =1
+                    SpecialEffect =0
+                    OverlapFlags =85
+                    Width =9360
+                    Height =3690
+                    AutoActivate =1
+                    TabIndex =3
+                    Name ="ctliGrid"
+                    OleData = Begin
+                        0x000e0000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
+                        0xfeff090006000000000000000000000001000000020000000000000000100000 ,
+                        0x0400000001000000feffffff0000000003000000ffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfffffffffdfffffffeffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000feffffff00000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000052006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000001c6ca26c0aaf5b42a7e37e6f ,
+                        0xfad8b5eb00000000000000000000000040577f2336d5cc0105000000c0000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000100000058000000 ,
+                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000038000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000fffffffffffffffffefffffffdfffffffefffffffeffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfffffffffeffffff02000000feffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff38000000000000000100000000000000000000000000000000000000 ,
+                        0x0000000038000000000000000000000000000000000000000000000013019400 ,
+                        0x000100001c6ca26c0aaf5b42a7e37e6ffad8b5eb93b200004800000003000800 ,
+                        0x0bf25747200000005f0065007800740065006e00740078007e40000003000800 ,
+                        0x0af25747e0ffffff5f0065007800740065006e00740079006d1900000c111a1d ,
+                        0x900e00002800056000000000ffffffffffffffff0000000000000000ffffffff ,
+                        0x00000000ffffffffffffffff840c28000e000e0000009400000100006084fa1c ,
+                        0xffffffffffffffff0300ffff00000000650000000c112c1de80e000029000560 ,
+                        0x00000000ffffffffffffffff0000000000000000ffffffff00000000ffffffff ,
+                        0xffffffff880c29000e000e0000009400000100006084fa1cffffffffffffffff ,
+                        0x0300ffff00000000000000000c11821b280f00002a00056000000000ffffffff ,
+                        0xffffffff0000000000000000ffffffff00000000ffffffffffffffff8c0c2a00 ,
+                        0x0b000b0000009400000100000c119a1b680f00002b00056000000000ffffffff ,
+                        0xffffffff0000000000000000ffffffff00000000ffffffffffffffff900c2b00 ,
+                        0x0500050000009400000100000c119c1ba80f00002c00056000000000ffffffff ,
+                        0xffffffff0000000000000000ffffffff00000000ffffffffffffffff940c2c00 ,
+                        0x0300030000000000
+                    End
+                    OLEClass ="10Tec iGrid Control 4.7"
+                    Class ="iGrid470_10Tec.iGrid"
+                    GUID = Begin
+                        0x69b915646b61994685448d966c0ca6bf
+                    End
+                    HorizontalAnchor =2
+                    VerticalAnchor =2
+
+                    LayoutCachedWidth =9360
+                    LayoutCachedHeight =3690
+                End
+            End
+        End
+        Begin FormFooter
+            Height =0
+            Name ="Formularfuß"
+            GUID = Begin
+                0x41f56a44296c97478b527bae8f9dd879
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : Form_frmLog_Logger
+' Author    : K.Gundermann
+' Date      : 17.01.2012
+' Purpose   : Displays the LogEvents in a iGrid Control
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Implements ILogSaver
+
+Private WithEvents c_Logger   As clsLogger
+Attribute c_Logger.VB_VarHelpID = -1
+Private WithEvents c_Session  As clsLogSession
+Attribute c_Session.VB_VarHelpID = -1
+Private c_Filters             As clsLogFilterCollection
+
+Private c_Name                As String
+
+Private Enum e_TraceStatus
+  Trc_Run = 1
+  Trc_Pause
+  Trc_Step
+  Trc_Break
+End Enum
+
+Private Sub Class_Initialize()
+  Set c_Session = Logger.Log.Session
+  Set c_Filters = New clsLogFilterCollection
+End Sub
+Private Sub Class_Terminate()
+  Call StopLog
+  Set c_Session = Nothing
+  Set c_Filters = Nothing
+End Sub
+
+
+' --- Public Interface ---
+Public Sub StartLog()
+  Set c_Logger = Logger.Log
+  Me.ctlActive = 1
+End Sub
+
+Public Sub StopLog()
+  Set c_Logger = Nothing
+  Me.ctlActive = 0
+End Sub
+
+Public Sub SaveToLog(ByRef objLogEntry As clsLogEntry)
+  If Filters.MatchFilter(objLogEntry) Then
+    Call SaveToMyLog(objLogEntry)
+  End If
+End Sub
+
+Public Function AddFilter(ByVal TheFilter As clsLogFilter) As ILogSaver
+  If Filters.Count > 0 Then Filters.Clear   ' Only ONE Filter here !
+  Filters.AddFilter TheFilter
+  Me.TimerInterval = 30 ' Call DisplayFilter
+  Set AddFilter = Me
+End Function
+
+Public Property Get ID() As Long
+  ID = ObjPtr(Me)
+End Property
+'Public Property Get Name() As String
+'  If c_Name = vbNullString Then
+'    Name = TypeName(Me)
+'  Else
+'    Name = c_Name
+'  End If
+'End Property
+'Public Property Let Name(ByVal TheName As String)
+'  c_Name = TheName
+'End Property
+
+
+' --- Private Functions ---
+Private Property Get Filters() As clsLogFilterCollection
+  Set Filters = c_Filters
+End Property
+
+' --- Event Handler for Logger/Session Class ---
+Private Sub c_Logger_SaveToLog(objLogEntry As clsLogEntry)
+  Call SaveToLog(objLogEntry)
+End Sub
+
+Private Sub c_Session_Login()
+  ' ToDo: We have now a logged In User
+End Sub
+
+Private Sub c_Session_Logout()
+  ' ToDo: The user has logged out
+End Sub
+
+
+
+
+
+' --- Implements ILogSaver ---
+Private Sub ILogSaver_StartLog()
+  Me.StartLog
+End Sub
+Private Sub ILogSaver_StopLog()
+  Me.StopLog
+End Sub
+Private Function ILogSaver_AddFilter(ByVal TheFilter As clsLogFilter) As ILogSaver
+  Set ILogSaver_AddFilter = Me.AddFilter(TheFilter)
+End Function
+Private Property Get ILogSaver_ID() As Long
+  ILogSaver_ID = Me.ID
+End Property
+Private Property Get ILogSaver_Name() As String
+  ILogSaver_Name = Me.Name
+End Property
+Private Property Let ILogSaver_Name(ByVal TheName As String)
+  Me.Name = TheName
+End Property
+Private Sub ILogSaver_SaveToLog(objLogEntry As clsLogEntry)
+  Call Me.SaveToLog(objLogEntry)
+End Sub
+
+' #################################################################################
+
+' ---------------------------------------------------------------------------------
+' -- Specific Functions for that logger here
+
+Public Sub SaveToMyLog(ByRef objLogEntry As clsLogEntry)
+
+  With objLogEntry
+    If .Severity = Sev_Trace Then
+      Call Grid_Add(.Timestamp, .SeverityText, .Category, .FromModule, .FromProcedure, .TraceEventText, .MessageText)
+    Else
+      Call Grid_Add(.Timestamp, .SeverityText, .Category, .FromModule, .FromProcedure, .MessageNumber, .MessageText)
+    End If
+  End With
+  
+  Me.ctlCounter = Nz(Me.ctlCounter) + 1
+    
+  Call WaitOrContinue
+  
+End Sub
+
+Private Sub Form_Open(Cancel As Integer)
+  Call Class_Initialize
+End Sub
+
+Private Sub Form_Load()
+  Me.Visible = True
+  Call Grid_Setup
+  Call ctlActive_AfterUpdate
+  Call selTrace_AfterUpdate
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+  Call StopLog
+End Sub
+Private Sub Form_Close()
+  Call Class_Terminate
+End Sub
+
+Private Sub Form_Timer()
+  Me.TimerInterval = 0
+  Call DisplayFilter
+End Sub
+Private Sub Form_Resize()
+  Call Grid_Resize
+End Sub
+
+Private Function MyFilter() As clsLogFilter
+  If Filters.Count = 0 Then
+    Me.AddFilter New clsLogFilter
+  End If
+  Set MyFilter = Filters.Collection(1)
+End Function
+
+Private Sub DisplayFilter()
+  Call DisplayCategoryFilter
+  Call DisplayModuleFilter
+  Call DisplayProcedureFilter
+  Call DisplayEntryTypeFilter
+  Call DisplaySeverityFilter
+  Call DisplayNumberFilter
+  Call DisplayTextFilter
+End Sub
+
+' ########################################################################################
+
+
+Private Sub DisplayCategoryFilter()
+  If MyFilter.CategoryMatcher Is Nothing Then
+    Me.ctlCategoryComparer.Value = ""
+    Me.ctlCategory.Value = ""
+  Else
+    Me.ctlCategoryComparer.Value = MyFilter.CategoryMatcher.MatchToString
+    Me.ctlCategory.Value = MyFilter.CategoryMatcher.ValueToString
+  End If
+End Sub
+Private Sub SetCategoryFilter()
+  If Nz(Me.ctlCategory) <> vbNullString Then
+    MyFilter.WithCategory2 Nz(Me.ctlCategoryComparer), Nz(Me.ctlCategory)
+  Else
+    Set MyFilter.CategoryMatcher = Nothing
+  End If
+End Sub
+Private Sub ctlCategoryComparer_AfterUpdate()
+  If IsNullString(Nz(Me.ctlCategoryComparer)) Then Me.ctlCategory = vbNullString
+  SetCategoryFilter
+End Sub
+Private Sub ctlCategory_AfterUpdate()
+  If IsNullString(Nz(Me.ctlCategory)) Then
+    Me.ctlCategoryComparer = vbNullString
+  ElseIf IsNullString(Nz(Me.ctlCategoryComparer)) Then
+    Me.ctlCategoryComparer = "="
+  End If
+  SetCategoryFilter
+End Sub
+
+' ---------------------------------------------------------------------------------------
+Private Sub DisplayModuleFilter()
+  If MyFilter.ModuleMatcher Is Nothing Then
+    Me.ctlModuleComparer.Value = ""
+    Me.ctlModule.Value = ""
+  Else
+    Me.ctlModuleComparer.Value = MyFilter.ModuleMatcher.MatchToString
+    Me.ctlModule.Value = MyFilter.ModuleMatcher.ValueToString
+  End If
+End Sub
+Private Sub SetModuleFilter()
+  If Nz(Me.ctlModule) <> vbNullString Then
+    MyFilter.WithModule2 Nz(Me.ctlModuleComparer), Nz(Me.ctlModule)
+  Else
+    Set MyFilter.ModuleMatcher = Nothing
+  End If
+End Sub
+Private Sub ctlModuleComparer_AfterUpdate()
+  If IsNullString(Nz(Me.ctlModuleComparer)) Then Me.ctlModule = vbNullString
+  SetModuleFilter
+End Sub
+Private Sub ctlModule_AfterUpdate()
+  If IsNullString(Nz(Me.ctlModule)) Then
+    Me.ctlModuleComparer = vbNullString
+  ElseIf IsNullString(Nz(Me.ctlModuleComparer)) Then
+    Me.ctlModuleComparer = "="
+  End If
+  SetModuleFilter
+End Sub
+
+' ---------------------------------------------------------------------------------------
+
+Private Sub DisplayProcedureFilter()
+  If MyFilter.ProcedureMatcher Is Nothing Then
+    Me.ctlProcedureComparer.Value = ""
+    Me.ctlProcedure.Value = ""
+  Else
+    Me.ctlProcedureComparer.Value = MyFilter.ProcedureMatcher.MatchToString
+    Me.ctlProcedure.Value = MyFilter.ProcedureMatcher.ValueToString
+  End If
+End Sub
+Private Sub SetProcedureFilter()
+  If Nz(Me.ctlProcedure) <> vbNullString Then
+    MyFilter.WithProcedure2 Nz(Me.ctlProcedureComparer), Nz(Me.ctlProcedure)
+  Else
+    Set MyFilter.ProcedureMatcher = Nothing
+  End If
+End Sub
+Private Sub ctlProcedureComparer_AfterUpdate()
+  If IsNullString(Nz(Me.ctlProcedureComparer)) Then Me.ctlProcedure = vbNullString
+  SetProcedureFilter
+End Sub
+Private Sub ctlProcedure_AfterUpdate()
+  If IsNullString(Nz(Me.ctlProcedure)) Then
+    Me.ctlProcedureComparer = vbNullString
+  ElseIf IsNullString(Nz(Me.ctlProcedureComparer)) Then
+    Me.ctlProcedureComparer = "="
+  End If
+  SetProcedureFilter
+End Sub
+
+' ---------------------------------------------------------------------------------------
+
+Private Sub DisplayEntryTypeFilter()
+  Dim lngBitmap As Long
+  
+  If Not (MyFilter.EntryTypeMatcher Is Nothing) Then
+    lngBitmap = MyFilter.EntryTypeMatcher.Value
+  End If
+  
+  Me.ctlEvtStatus = (lngBitmap And Evt_Status)
+  Me.ctlEvtCreate = (lngBitmap And Evt_Creating)
+  Me.ctlEvtDestroy = (lngBitmap And Evt_Destroying)
+  Me.ctlEvtEnter = (lngBitmap And Evt_Entering)
+  Me.ctlEvtLeave = (lngBitmap And Evt_Leaving)
+
+End Sub
+Private Sub SetEntryTypeFilter()
+  Dim lngBitmap As Long
+  
+  If Nz(Me.ctlEvtStatus) Then lngBitmap = lngBitmap + Evt_Status
+  If Nz(Me.ctlEvtCreate) Then lngBitmap = lngBitmap + Evt_Creating
+  If Nz(Me.ctlEvtDestroy) Then lngBitmap = lngBitmap + Evt_Destroying
+  If Nz(Me.ctlEvtEnter) Then lngBitmap = lngBitmap + Evt_Entering
+  If Nz(Me.ctlEvtLeave) Then lngBitmap = lngBitmap + Evt_Leaving
+  
+  MyFilter.WithType lngBitmap
+End Sub
+Private Sub ctlEvtStatus_AfterUpdate()
+  Call SetEntryTypeFilter
+End Sub
+Private Sub ctlEvtCreate_AfterUpdate()
+  SetEntryTypeFilter
+End Sub
+Private Sub ctlEvtDestroy_AfterUpdate()
+  SetEntryTypeFilter
+End Sub
+Private Sub ctlEvtEnter_AfterUpdate()
+  SetEntryTypeFilter
+End Sub
+Private Sub ctlEvtLeave_AfterUpdate()
+  SetEntryTypeFilter
+End Sub
+
+' ---------------------------------------------------------------------------------------
+
+Private Sub DisplaySeverityFilter()
+  Dim lngBitmap As Long
+  
+  If Not (MyFilter.SeverityMatcher Is Nothing) Then
+    lngBitmap = MyFilter.SeverityMatcher.Value
+  End If
+    
+  Me.ctlSevCritical = (lngBitmap And Sev_Critical)
+  Me.ctlSevError = (lngBitmap And Sev_Error)
+  Me.ctlSevInformation = (lngBitmap And Sev_Informational)
+  Me.ctlSevDebug = (lngBitmap And Sev_Debug)
+  Me.ctlSevTrace = (lngBitmap And Sev_Trace)
+  
+End Sub
+Private Sub SetSeverityFilter()
+  Dim lngBitmap As Long
+  
+  If Nz(Me.ctlSevCritical) Then lngBitmap = lngBitmap + Sev_Critical
+  If Nz(Me.ctlSevError) Then lngBitmap = lngBitmap + Sev_Critical
+  If Nz(Me.ctlSevInformation) Then lngBitmap = lngBitmap + Sev_Informational
+  If Nz(Me.ctlSevDebug) Then lngBitmap = lngBitmap + Sev_Debug
+  If Nz(Me.ctlSevTrace) Then lngBitmap = lngBitmap + Sev_Trace
+  
+  MyFilter.WithSeverity lngBitmap
+End Sub
+Private Sub ctlSevCritical_AfterUpdate()
+  Call SetSeverityFilter
+End Sub
+Private Sub ctlSevError_AfterUpdate()
+  Call SetSeverityFilter
+End Sub
+Private Sub ctlSevInformation_AfterUpdate()
+  Call SetSeverityFilter
+End Sub
+Private Sub ctlSevTrace_AfterUpdate()
+  Call SetSeverityFilter
+End Sub
+Private Sub ctlSevDebug_AfterUpdate()
+  Call SetSeverityFilter
+End Sub
+
+
+' ---------------------------------------------------------------------------------------
+
+Private Sub DisplayNumberFilter()
+  If MyFilter.MessageNumberMatcher Is Nothing Then
+    Me.ctlNumberComparer.Value = ""
+    Me.ctlNumber1.Value = ""
+    Me.ctlNumber2.Value = ""
+  Else
+    Me.ctlNumberComparer.Value = MyFilter.MessageNumberMatcher.MatchToString
+    Me.ctlNumber1.Value = MyFilter.MessageNumberMatcher.Value1
+    Me.ctlNumber2.Value = MyFilter.MessageNumberMatcher.Value2
+  End If
+End Sub
+Private Sub SetNumberFilter()
+  If Nz(Me.ctlNumber1) <> 0 Then
+    MyFilter.WithMessageNumber Nz(Me.ctlNumberComparer), Nz(Me.ctlNumber1), Nz(Me.ctlNumber2)
+  End If
+End Sub
+Private Sub ctlNumberComparer_AfterUpdate()
+  SetNumberFilter
+End Sub
+Private Sub ctlNumber1_AfterUpdate()
+  SetNumberFilter
+End Sub
+Private Sub ctlNumber2_AfterUpdate()
+  SetNumberFilter
+End Sub
+
+' ---------------------------------------------------------------------------------------
+
+Private Sub DisplayTextFilter()
+  If MyFilter.MessageTextMatcher Is Nothing Then
+    Me.ctlTextComparer = ""
+    Me.ctlText = ""
+  Else
+    Me.ctlTextComparer = MyFilter.MessageTextMatcher.MatchToString
+    Me.ctlText = MyFilter.MessageTextMatcher.ValueToString
+  End If
+End Sub
+Private Sub SetTextFilter()
+  If Nz(Me.ctlText) <> vbNullString Then
+    MyFilter.WithMessageText2 Nz(Me.ctlTextComparer), Nz(Me.ctlText)
+  End If
+End Sub
+Private Sub ctlTextComparer_AfterUpdate()
+  SetTextFilter
+End Sub
+Private Sub ctlText_AfterUpdate()
+  SetTextFilter
+End Sub
+
+
+' ########################################################################################
+
+
+Private Sub ctlActive_AfterUpdate()
+  Select Case Nz(Me.ctlActive)
+    Case 0: Me.StopLog
+            Me.ctlActive.BackColor = vbRed
+    Case 1: Me.StartLog
+            Me.ctlActive.BackColor = vbGreen
+  End Select
+End Sub
+
+Private Sub cmdClear_Click()
+  Call Grid_Clear
+  Me.ctlCounter = 0
+End Sub
+
+Private Sub WaitOrContinue()
+  DoEvents
+  Do
+    Select Case Nz(Me.selTrace)
+      Case 0, Trc_Run:
+            Exit Sub  ' Continue ..
+      Case Trc_Pause:
+            DoEvents  ' Wait for Run/Step
+      Case Trc_Step:
+            Me.selTrace = Trc_Pause:
+            Exit Sub   ' Run and pause at next Message
+      Case Trc_Break:
+            Me.selTrace = Trc_Pause
+            Stop       ' Break into debugger
+            Exit Sub
+    End Select
+  Loop
+  
+End Sub
+
+Private Sub selTrace_AfterUpdate()
+    Select Case Nz(Me.selTrace)
+      Case 0, Trc_Run:
+            If Me.selTrace.BackColor <> vbGreen Then Me.selTrace.BackColor = vbGreen
+      Case Trc_Pause:
+            If Me.selTrace.BackColor <> vbYellow Then Me.selTrace.BackColor = vbYellow
+      Case Trc_Step:
+      Case Trc_Break:
+    End Select
+End Sub
+
+' ########################################################################################
+
+Private Property Get Grid() As Object ' iGrid470_10Tec.iGrid
+  Set Grid = Me.ctliGrid.Object
+End Property
+
+Private Sub Grid_Setup()
+  With Grid
+    .Clear True
+    .AddCol "1", "Time", lMinWidth:=90
+    .AddCol "2", "Severity"
+    .AddCol "3", "Category"
+    .AddCol "4", "Module", lMinWidth:=100
+    .AddCol "5", "Procedure", lMinWidth:=90
+    .AddCol "6", "Number"
+    .AddCol "7", "Text"
+  End With
+  Call Grid_Resize
+End Sub
+
+Private Sub Grid_Resize()
+  Grid.ResizeColToFillSpace (7)
+End Sub
+
+Private Sub Grid_Clear()
+  Grid.Clear
+End Sub
+
+Private Sub Grid_Add(Timestamp As clsDateTime, SeverityText As String, Category As String, FromModule As String, FromProcedure As String, MessageNumber As String, MessageText As String)
+  Dim lRow As Long
+  
+  With Grid
+    .BeginUpdate
+    lRow = .AddRow
+    .CellValue(lRow, 1) = Timestamp.ToString(dt_Time)
+    .CellValue(lRow, 2) = SeverityText
+    .CellValue(lRow, 3) = Category
+    .CellValue(lRow, 4) = FromModule
+    .CellValue(lRow, 5) = FromProcedure
+    .CellValue(lRow, 6) = MessageNumber
+    .CellValue(lRow, 7) = MessageText
+    .EndUpdate
+  End With
+End Sub

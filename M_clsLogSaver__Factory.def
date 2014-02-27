@@ -1,0 +1,153 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : clsLogSaver__Factory
+' Author    : K.Gundermann
+' Date      : 17.01.2012
+' Purpose   : Factory for Creating a LogSaver Class Object
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Public colLogSaver As Collection
+
+Public Function Mock() As clsLogSaver_Mock
+  Set Mock = New clsLogSaver_Mock
+  colLogSaver.Add Mock
+End Function
+
+Public Function Console() As clsLogSaver_Console
+  Set Console = New clsLogSaver_Console
+  colLogSaver.Add Console
+End Function
+
+Public Function File() As clsLogSaver_File
+  Set File = New clsLogSaver_File
+  colLogSaver.Add File
+End Function
+
+Public Function CSV() As clsLogSaver_CSV
+  Set CSV = New clsLogSaver_CSV
+  colLogSaver.Add CSV
+End Function
+
+Public Function Database() As clsLogSaver_Database
+  Set Database = New clsLogSaver_Database
+  colLogSaver.Add Database
+End Function
+
+Public Function EMail_SMTP() As clsLogSaver_EMail_SMTP
+  Set EMail_SMTP = New clsLogSaver_EMail_SMTP
+  colLogSaver.Add EMail_SMTP
+End Function
+
+Public Function EMail_David() As clsLogSaver_EMail_David
+  Set EMail_David = New clsLogSaver_EMail_David
+  colLogSaver.Add EMail_David
+End Function
+
+Public Function EMail_Outlook() As clsLogSaver_EMail_Outlook
+  Set EMail_Outlook = New clsLogSaver_EMail_Outlook
+  colLogSaver.Add EMail_Outlook
+End Function
+
+
+Public Function SNMP() As clsLogSaver_SNMP
+  Set SNMP = New clsLogSaver_SNMP
+  colLogSaver.Add SNMP
+End Function
+
+Public Function Syslog() As clsLogSaver_SysLog
+  Set Syslog = New clsLogSaver_SysLog
+  colLogSaver.Add Syslog
+End Function
+
+Public Function Break() As clsLogSaver_Break
+  Set Break = New clsLogSaver_Break
+  colLogSaver.Add Break
+End Function
+
+Public Function FormLogger() As Form_frmLog_Logger
+  Set FormLogger = New Form_frmLog_Logger
+  colLogSaver.Add FormLogger
+End Function
+
+Public Function FormLoggerGrid() As Form_frmLog_LoggerGrid
+  Set FormLoggerGrid = New Form_frmLog_LoggerGrid
+  colLogSaver.Add FormLoggerGrid
+End Function
+
+Public Function FormTracerGrid() As Form_frmLog_TracerGrid
+  Set FormTracerGrid = New Form_frmLog_TracerGrid
+  colLogSaver.Add FormTracerGrid
+End Function
+
+Public Function FormObjectCounterGrid() As Form_frmLog_ObjectCounterGrid
+  Set FormObjectCounterGrid = New Form_frmLog_ObjectCounterGrid
+  colLogSaver.Add FormObjectCounterGrid
+End Function
+
+' -----------------------------------------------------------------------
+
+Public Sub StartAll()
+  Dim i As Integer
+  
+  If colLogSaver.Count = 0 Then Exit Sub
+  For i = 1 To colLogSaver.Count
+    colLogSaver.Item(i).StartLog
+  Next
+End Sub
+
+Public Sub StopAll()
+  Dim i As Integer
+  
+  If colLogSaver.Count = 0 Then Exit Sub
+  For i = 1 To colLogSaver.Count
+    colLogSaver.Item(i).StopLog
+  Next
+
+End Sub
+
+Public Sub Kill(ByVal IdOrNameOrClass As Variant)
+  Dim i As Integer
+  
+  If colLogSaver.Count = 0 Then Exit Sub
+  
+  For i = 1 To colLogSaver.Count
+    If VarType(IdOrNameOrClass) = vbLong Then
+      If colLogSaver.Item(i).ID = IdOrNameOrClass Then
+        colLogSaver.Remove i
+      End If
+    ElseIf VarType(IdOrNameOrClass) = vbString Then
+      If colLogSaver.Item(i).Name = IdOrNameOrClass Then
+        colLogSaver.Remove i
+      End If
+    ElseIf VarType(IdOrNameOrClass) = vbObject Then
+      If TypeName(colLogSaver.Item(i)) = TypeName(IdOrNameOrClass) Then
+        colLogSaver.Remove i
+      End If
+    End If
+  Next
+  
+End Sub
+
+Public Sub KillAll()
+  If colLogSaver Is Nothing Then Exit Sub
+  While colLogSaver.Count > 0
+    colLogSaver.Remove colLogSaver.Count
+  Wend
+  Set colLogSaver = New Collection
+End Sub
+
+' ---------------------------------------------------------------
+
+Private Sub Class_Initialize()
+  Set colLogSaver = New Collection
+End Sub
+
+Private Sub Class_Terminate()
+  Call KillAll
+End Sub

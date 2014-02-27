@@ -1,0 +1,104 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+'---------------------------------------------------------------------------------------
+' Module    : clsDateTime
+' Author    : K.Gundermann
+' Date      : 17.01.2012
+' Purpose   : Date / Time (with millseconds!)
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Private Const DEFAULT_FORMAT_DATE = "%2.2u.%2.2u.%4u"
+Private Const DEFAULT_TIME_FORMAT = "%2.2u:%2.2u:%2.2u.%5.5u"
+Private Const DEFAULT_DATETIME_FORMAT = "%2.2u.%2.2u.%4u %2.2u:%2.2u:%2.2u.%5.5u"
+Private Const DEFAULT_ISO8601_FORMAT = "%4u-%2.2u-%2.2uT%2.2u:%2.2u:%2.2u.%5.5u"
+
+Public Enum e_DateTimeFormat
+  dt_Date = 1
+  dt_Time
+  dt_DateAndTime
+  dt_ISO8601
+End Enum
+
+Public Year   As Integer
+Public Month  As Byte
+Public Day    As Byte
+
+Public Hour   As Byte
+Public Minute As Byte
+Public Second As Byte
+Public Millisecond As Integer
+
+Private c_FormatString_Date As String
+Private c_FormatString_Time As String
+Private c_FormatString_DateTime As String
+
+Public Function ToString(Optional Display As e_DateTimeFormat = dt_DateAndTime) As String
+  Select Case Display
+    Case dt_Date:
+      ToString = SPrintF(Me.FormatString_Date, Day, Month, Year)
+    Case dt_Time:
+      ToString = SPrintF(Me.FormatString_Time, Hour, Minute, Second, Millisecond)
+    Case dt_DateAndTime:
+      ToString = SPrintF(Me.FormatString_DateTime, Day, Month, Year, Hour, Minute, Second, Millisecond)
+    Case dt_ISO8601:
+      ToString = SPrintF(Me.FormatString_ISO8601, Day, Month, Year, Hour, Minute, Second, Millisecond)
+  End Select
+End Function
+
+Public Function ToDate() As Date
+  ToDate = DateSerial(Year, Month, Day)
+End Function
+
+Public Function ToDateWithTime() As Date
+  ToDateWithTime = DateSerial(Year, Month, Day) + TimeSerial(Hour, Minute, Second)
+End Function
+
+' ----------------------------------------------------------------------------
+
+Public Property Get FormatString_Date() As String
+  If Not IsNullString(c_FormatString_Date) Then
+    FormatString_Date = c_FormatString_Date
+  Else
+    FormatString_Date = DEFAULT_FORMAT_DATE
+  End If
+End Property
+Public Property Let FormatString_Date(ByVal TheValue As String)
+    c_FormatString_Date = TheValue
+End Property
+
+Public Property Get FormatString_Time() As String
+  If Not IsNullString(c_FormatString_Time) Then
+    FormatString_Time = c_FormatString_Time
+  Else
+    FormatString_Time = DEFAULT_TIME_FORMAT
+  End If
+End Property
+Public Property Let FormatString_Time(ByVal TheValue As String)
+    c_FormatString_Time = TheValue
+End Property
+
+Public Property Get FormatString_DateTime() As String
+  If Not IsNullString(c_FormatString_DateTime) Then
+    FormatString_DateTime = c_FormatString_DateTime
+  Else
+    FormatString_DateTime = DEFAULT_DATETIME_FORMAT
+  End If
+End Property
+Public Property Let FormatString_DateTime(ByVal TheValue As String)
+    c_FormatString_DateTime = TheValue
+End Property
+
+Public Property Get FormatString_ISO8601() As String
+    FormatString_ISO8601 = DEFAULT_ISO8601_FORMAT
+End Property
+
+' ----------------------------------------------------------------------------
+
+Public Property Get Self() As clsDateTime
+  Set Self = Me
+End Property

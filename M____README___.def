@@ -1,0 +1,78 @@
+
+'---------------------------------------------------------------------------------------
+' Module    : README
+' Author    : K.Gundermann
+' Date      : 04.02.2012
+'
+' Ihr findet hier die Klassen
+'   - clsLogger
+'   - clsLogFilter...
+'   - clsLogSaver_...
+'   - frmLog_.....
+'
+' sowie die Klasse
+'   - clsPing
+'
+' sowie diverse Hilfsklassen.
+' Siehe Vortrag am 01.02.2012 : http://forum.access-codelib.net/viewtopic.php?f=23&t=170
+'
+' die Klassen sind noch nicht vollständig und bedürfen noch etwas Pflege ;-)
+'
+' Die frmLog_..Grid Forms brauchen das iGrid Control:     http://www.10tec.com/Products/ActiveX/iGrid/
+' Für die UnitTest benötigt Ihr das AccUnit Modul:        http://accunit.access-codelib.net/
+'
+' Wenn ihr Erweiterungen und Verbesserungsvorschläge habt, so leitet die doch
+' bitte an mich weiter, damit ich diese einbauen kann.
+'
+' Viel Spass
+'
+' Klaus
+'
+'---------------------------------------------------------------------------------------
+'
+
+Option Compare Database
+Option Explicit
+
+
+Public Sub LogExample()
+
+' Loggen einer einfachen Nachricht mit:
+   Logger.Log.Message "Hallo"
+'
+' Loggen eines Fehlers mit:
+   Logger.Log.Error "Utils", "MyModule", "MyProc", 4711, "VIE (Very Important Error)"
+'
+' Loggen einer Trace Nachricht:
+   Logger.Log.Trace "DAL", "DAL_Artikel", "ReadArtikel", Evt_Creating, "Artikel created", "ArtikelNr = 4711"
+'
+' Loggen einer Debug Nachricht:
+   Logger.Log.Debug_ "SQL", "SQLUtils", "SQLSelect", "SELECT * FROM Artikel WHERE ArtikelNr='4711'"
+'
+' Loggen eines allgemeinen Events:
+   With New clsLogEntry
+    .Category = "Other"
+    .EntryType = Evt_Status
+    .Severity = Sev_Informational
+    .MessageText = "User is running a Test"
+    Logger.Log.LogEntry .Self
+  End With
+
+End Sub
+
+Public Sub CreatingLogSaver()
+
+' Erzeugen eines einfachen Console LogSavers ( zeigt alle Events ):
+  Logger.LogSaver.Console.StartLog
+  
+' Erzeugen eines Console LogSavers, der nur Debug Events zeigt:
+  Logger.LogSaver.Console.AddFilter(Logger.LogFilter.WithSeverity(Sev_Debug)).StartLog
+  
+' Erzeugen eines Form LogSavers mit Filter
+  Logger.LogSaver.FormLogger.AddFilter(Logger.LogFilter.WithCategory(IsEqualTo, "SQL")).StartLog
+  
+End Sub
+
+Public Sub DestroyingLogSaver()
+  Logger.LogSaver.KillAll
+End Sub

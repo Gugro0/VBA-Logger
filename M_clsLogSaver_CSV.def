@@ -1,0 +1,13 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : clsLogSaver_CSV
+' Author    : K.Gundermann
+' Date      : 17.01.2012
+' Purpose   : Save Logger Events to a File in CSV Format
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit

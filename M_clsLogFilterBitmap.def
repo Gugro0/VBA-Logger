@@ -1,0 +1,69 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+'---------------------------------------------------------------------------------------
+' Module    : clsLogFilterBitmap
+' Author    : K.Gundermann
+' Date      : 04.02.2012
+' Purpose   : Matcher for Bitmap Values
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Public Entry As String
+Public Value As Long
+
+Public Function MatchesBitmap(ByVal TheValue As Long) As Boolean
+  If Me.Value = 0 Then
+    MatchesBitmap = True
+  Else
+    MatchesBitmap = (TheValue And Me.Value) > 0
+  End If
+End Function
+
+Public Property Get Self() As clsLogFilterBitmap
+  Set Self = Me
+End Property
+
+Public Function ToString(ParamArray BitNames() As Variant) As String
+  If Me.Value <> 0 Then
+    ToString = Entry & " matches " & ValueToString(BitNames)
+  End If
+End Function
+
+Public Sub FromString(ByVal TheString As String)
+  ' TODO: Parse TheString
+End Sub
+
+Public Function ValueToString(ParamArray BitNames() As Variant) As String
+  Dim str As String
+  Dim l As Long
+  Dim tmpBitNames()
+  
+  If Me.Value = 0 Then Exit Function
+  
+  If UBound(BitNames) = 0 Then
+    If VarType(BitNames(0)) And vbArray Then
+      tmpBitNames = BitNames(0)
+    Else
+      tmpBitNames = BitNames
+    End If
+  Else
+    tmpBitNames = BitNames
+  End If
+      
+  
+  For l = 0 To 30       ' Nur 31 Bit !!!
+    If (Me.Value And 2 ^ l) > 0 Then
+      If l <= UBound(tmpBitNames) Then
+        str = str & tmpBitNames(l) & ","
+      Else
+        str = str & CStr(2 ^ l) & ","
+      End If
+    End If
+  Next
+  ValueToString = "[" & Left$(str, Len(str) - 1) & "]"
+  
+End Function

@@ -1,0 +1,162 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+
+Private Declare Function lstrcpyn Lib "kernel32" Alias "lstrcpynA" (ByVal lpStringDest As String, ByVal lpStringSrc As Any, ByVal iMaxLength As Long) As Long
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : StringSub
+' Author    : K.Gundermann
+' Date      : 18.05.2011
+' Purpose   : Returns a SubString  of TheString
+'             you may chose 2 of 3 params
+' Parameters: FromPos  if FromPos < 0        then count Pos from End of String
+'                      if FromPos Is String  then start from String Position in TheString
+'             ToPos
+'             TheLength: if Length < 0       then TheLength will be Len(String)-TheLength
+'---------------------------------------------------------------------------------------
+'
+Public Function SubString(ByVal TheString As String, Optional ByVal FromPos, Optional ByVal ToPos, Optional ByVal TheLength) As String
+  Dim lFrom As Long
+  Dim lTo   As Long
+  Dim lLength As Long
+  
+  If Not IsMissing(FromPos) Then
+    If (VarType(FromPos) = vbLong) Or (VarType(FromPos) = vbInteger) Then
+      lFrom = FromPos
+    ElseIf (VarType(FromPos) = vbString) Then
+      lFrom = InStr(TheString, FromPos)
+    ElseIf (VarType(FromPos) = vbObject) Then
+      lFrom = InStr(TheString, FromPos.to_s)
+    End If
+    If lFrom < 0 Then
+      lFrom = Len(TheString) + lFrom + 1
+      If lFrom < 1 Then lFrom = 1
+    End If
+  Else
+  '  lFrom = 1
+  End If
+  
+  If Not IsMissing(ToPos) Then
+    If (VarType(ToPos) = vbLong) Or (VarType(ToPos) = vbInteger) Then
+      lTo = ToPos
+    ElseIf (VarType(ToPos) = vbString) Then
+      lTo = InStr(TheString, ToPos)
+    ElseIf (VarType(ToPos) = vbObject) Then
+      lTo = InStr(TheString, ToPos.to_s)
+    End If
+    If lTo < 0 Then
+      lTo = Len(TheString) + lTo
+    End If
+    If lTo < 1 Then lTo = Len(TheString)
+  End If
+  
+  If Not IsMissing(TheLength) Then
+    If (VarType(TheLength) = vbLong) Or (VarType(TheLength) = vbInteger) Then
+      lLength = TheLength
+    ElseIf (VarType(TheLength) = vbString) Then
+      lLength = Len(TheLength)
+    ElseIf (VarType(TheLength) = vbObject) Then
+      lLength = TheLength.Length
+    End If
+    If lFrom = 0 Then
+      If lTo > 0 Then
+        lFrom = lTo - lLength + 1
+      Else
+        lFrom = 1
+      End If
+    End If
+    If lLength < 0 Then lLength = Len(TheString) - Abs(lLength)
+  Else
+    If lFrom = 0 Then lFrom = 1
+    If lTo > 0 Then
+      lLength = lTo - lFrom + 1
+    Else
+      lLength = Len(TheString) - lFrom + 1
+    End If
+  End If
+  
+  If lLength > 0 Then
+    SubString = Strings.Mid$(TheString, lFrom, lLength)
+  Else
+    SubString = vbNullString
+  End If
+End Function
+
+Public Function Left(ByVal TheString As String, ByVal Length As Long) As String
+  Left = SubString(TheString, FromPos:=1, TheLength:=Length)
+End Function
+
+Public Function Mid(ByVal TheString As String, ByVal FromPos, Optional ByVal Length) As String
+  Mid = SubString(TheString, FromPos:=FromPos, TheLength:=Length)
+End Function
+
+Public Function Right(ByVal TheString As String, Optional ByVal Length As Long) As String
+  Right = SubString(TheString, FromPos:=-Abs(Length))
+End Function
+
+' #############################################################################################
+
+Public Function StringPos(ByVal TheString As String, ByVal SearchString As String, Optional ByVal StartPos As Long = -1) As Long
+  If StartPos >= 0 Then
+    StringPos = Nz(InStr(StartPos, TheString, SearchString))
+  Else
+    StringPos = Nz(InStr(TheString, SearchString))
+  End If
+End Function
+
+Public Function Contains(ByVal TheString As String, ByVal SearchString As String) As Boolean
+  Contains = Nz(InStr(TheString, SearchString)) > 0
+End Function
+Public Function StartsWith(ByVal TheString As String, ByVal SearchString As String) As Boolean
+  StartsWith = (Left(TheString, Len(SearchString)) = SearchString)
+End Function
+
+
+Public Function Replace(ByVal SourceStr As String, ByVal SearchStr As String, ByVal ReplaceStr As String) As String
+  Dim i As Integer, J As Integer
+
+  J = Len(SearchStr)
+  If J > 0 Then
+    i = InStr(SourceStr, SearchStr)
+    While i > 0
+      SourceStr = VBA.Left$(SourceStr, i - 1) & ReplaceStr & Mid$(SourceStr, i + J)
+      i = InStr(SourceStr, SearchStr)
+    Wend
+  End If
+  Replace = SourceStr
+End Function
+
+Public Function GetWordAtPos(ByVal sString As String, ByVal iPos As Integer, _
+                            Optional ByRef pStart As Integer, _
+                            Optional ByRef pEnd As Integer) As String
+                            
+  ' returns the word (delimited by space or ,) which is as iPos
+  
+  pStart = iPos
+  pEnd = iPos
+  
+  If pEnd = 0 Then pEnd = 1
+  ' Find End of Word
+  While (pEnd <= Len(sString) And Mid$(sString, pEnd, 1) <> "," And Mid$(sString, pEnd, 1) <> " ")
+    pEnd = pEnd + 1
+  Wend
+  
+  Do While (pStart > 0)
+    If Mid$(sString, pStart, 1) = "," Or Mid$(sString, pStart, 1) = " " Then Exit Do
+    pStart = pStart - 1
+  Loop
+  pStart = pStart + 1
+  
+  If pStart >= pEnd Then
+    GetWordAtPos = vbNullString
+  Else
+    GetWordAtPos = Mid(sString, pStart, pEnd - pStart)
+  End If
+
+End Function

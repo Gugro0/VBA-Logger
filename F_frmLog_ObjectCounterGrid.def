@@ -1,0 +1,1070 @@
+Version =20
+VersionRequired =20
+Checksum =-479447661
+Begin Form
+    AllowFilters = NotDefault
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    DividingLines = NotDefault
+    AllowAdditions = NotDefault
+    DefaultView =0
+    ScrollBars =0
+    TabularCharSet =204
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridY =10
+    Width =6750
+    DatasheetFontHeight =11
+    ItemSuffix =64
+    Left =3225
+    Top =2490
+    Right =21345
+    Bottom =12465
+    OnUnload ="[Event Procedure]"
+    RecSrcDt = Begin
+        0x8f6b6adb20fbe340
+    End
+    GUID = Begin
+        0xf971d6a437aace41879970db7673fc88
+    End
+    NameMap = Begin
+        0x0acc0e5500000000000000000000000000000000000000000c00000004000000 ,
+        0x0000000000000000000000000000
+    End
+    OnOpen ="[Event Procedure]"
+    OnClose ="[Event Procedure]"
+    DatasheetFontName ="Calibri"
+    PrtMip = Begin
+        0x6801000068010000680100006801000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x010400069c00f40243ef8005010009009a0b3408640001000800f00001000100 ,
+        0x9000020001004134000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200b800f402000076c9bcad0000000000000000000000000000000000000000 ,
+        0x0000000000000000060000000100000000000000000001000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000010000000000000000000000b8000000534d544a ,
+        0x000000001000a80054006f006200690074002000460061007800570061007200 ,
+        0x65000000496e70757442696e004155544f00524553444c4c00556e6972657344 ,
+        0x4c4c004f7269656e746174696f6e00504f525452414954005265736f6c757469 ,
+        0x6f6e004f7074696f6e3100506170657253697a65004f7074696f6e310048616c ,
+        0x66746f6e650048545f50415453495a455f535550455243454c4c5f4d00000000 ,
+        0x00000000000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x0800160024000100000000000000000000000000000000000000000000000000 ,
+        0x00000000466178576172652053657276696365204c6179657200
+    End
+    OnTimer ="[Event Procedure]"
+    OnResize ="[Event Procedure]"
+    OnLoad ="[Event Procedure]"
+    AllowDatasheetView =0
+    AllowPivotTableView =0
+    AllowPivotChartView =0
+    AllowPivotChartView =0
+    FilterOnLoad =0
+    OrderByOnLoad =0
+    OrderByOnLoad =0
+    DatasheetBackColor12 =16777215
+    ShowPageMargins =0
+    DisplayOnSharePointSite =1
+    AllowLayoutView =0
+    DatasheetAlternateBackColor =16053492
+    DatasheetGridlinesColor12 =15062992
+    Begin
+        Begin Label
+            BackStyle =0
+            FontSize =11
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+            Width =850
+            Height =850
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin CommandButton
+            Width =1701
+            Height =283
+            FontSize =11
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin OptionGroup
+            SpecialEffect =3
+            Width =1701
+            Height =1701
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            Width =1701
+            LabelX =-1701
+            FontSize =11
+            BorderColor =12632256
+            FontName ="Calibri"
+            AsianLineBreak =1
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+            ShowDatePicker =1
+        End
+        Begin ListBox
+            Width =1701
+            Height =1417
+            LabelX =-1701
+            FontSize =11
+            BorderColor =12632256
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+            AllowValueListEdits =1
+            InheritValueList =1
+        End
+        Begin ComboBox
+            Width =1701
+            LabelX =-1701
+            FontSize =11
+            BorderColor =12632256
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+            AllowValueListEdits =1
+            InheritValueList =1
+        End
+        Begin UnboundObjectFrame
+            SpecialEffect =2
+            OldBorderStyle =1
+            Width =4536
+            Height =2835
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin CustomControl
+            SpecialEffect =2
+            Width =4536
+            Height =2835
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin ToggleButton
+            Width =283
+            Height =283
+            FontSize =11
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="Calibri"
+            LeftPadding =30
+            TopPadding =30
+            RightPadding =30
+            BottomPadding =30
+            GridlineStyleLeft =0
+            GridlineStyleTop =0
+            GridlineStyleRight =0
+            GridlineStyleBottom =0
+            GridlineWidthLeft =1
+            GridlineWidthTop =1
+            GridlineWidthRight =1
+            GridlineWidthBottom =1
+        End
+        Begin FormHeader
+            Height =1020
+            BackColor =-2147483606
+            Name ="Formularkopf"
+            GUID = Begin
+                0x971a657bf317044b8ee1e290b93f29fc
+            End
+            Begin
+                Begin Label
+                    OverlapFlags =85
+                    Left =285
+                    Top =120
+                    Width =960
+                    Height =315
+                    Name ="Bezeichnungsfeld42"
+                    Caption ="Category:"
+                    GUID = Begin
+                        0x87879d915ca1f241b5d1931d285bec18
+                    End
+                    LayoutCachedLeft =285
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =1245
+                    LayoutCachedHeight =435
+                End
+                Begin ComboBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1415
+                    Top =113
+                    Height =315
+                    GUID = Begin
+                        0xfc7a2ee34b9b544496257d0ff4c58160
+                    End
+                    Name ="ctlCategoryComparer"
+                    RowSourceType ="Value List"
+                    RowSource ="\"=\";\"Begins with\";\"Contains\";\"<>\";\"Does not contain\";\"Matches\""
+                    AfterUpdate ="[Event Procedure]"
+
+                    LayoutCachedLeft =1415
+                    LayoutCachedTop =113
+                    LayoutCachedWidth =3116
+                    LayoutCachedHeight =428
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =3342
+                    Top =113
+                    Height =315
+                    TabIndex =1
+                    Name ="ctlCategory"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0x698d6b1087c9ee409770fb1a31cf34ae
+                    End
+
+                    LayoutCachedLeft =3342
+                    LayoutCachedTop =113
+                    LayoutCachedWidth =5043
+                    LayoutCachedHeight =428
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =283
+                    Top =566
+                    Width =855
+                    Height =315
+                    Name ="Bezeichnungsfeld45"
+                    Caption ="Class:"
+                    GUID = Begin
+                        0x6b876427a015e141adcf4e8052f7c8fa
+                    End
+                    LayoutCachedLeft =283
+                    LayoutCachedTop =566
+                    LayoutCachedWidth =1138
+                    LayoutCachedHeight =881
+                End
+                Begin ComboBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1413
+                    Top =566
+                    Height =315
+                    TabIndex =2
+                    GUID = Begin
+                        0x666da236c4adb74fb63ee9b6be55da37
+                    End
+                    Name ="ctlModuleComparer"
+                    RowSourceType ="Value List"
+                    RowSource ="\"=\";\"Begins with\";\"Contains\";\"<>\";\"Does not contain\";\"Matches\""
+                    AfterUpdate ="[Event Procedure]"
+
+                    LayoutCachedLeft =1413
+                    LayoutCachedTop =566
+                    LayoutCachedWidth =3114
+                    LayoutCachedHeight =881
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =3340
+                    Top =566
+                    Height =315
+                    TabIndex =3
+                    Name ="ctlModule"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0x2f98fa9a8168964788f9f53006b65190
+                    End
+
+                    LayoutCachedLeft =3340
+                    LayoutCachedTop =566
+                    LayoutCachedWidth =5041
+                    LayoutCachedHeight =881
+                End
+                Begin OptionGroup
+                    BackStyle =1
+                    OverlapFlags =85
+                    Left =5329
+                    Top =510
+                    Width =1305
+                    Height =495
+                    TabIndex =4
+                    Name ="ctlActive"
+                    AfterUpdate ="[Event Procedure]"
+                    DefaultValue ="0"
+                    GUID = Begin
+                        0xdeb7ed052276974a832395e85a7c692b
+                    End
+
+                    LayoutCachedLeft =5329
+                    LayoutCachedTop =510
+                    LayoutCachedWidth =6634
+                    LayoutCachedHeight =1005
+                    Begin
+                        Begin ToggleButton
+                            OverlapFlags =87
+                            Left =5386
+                            Top =559
+                            Width =585
+                            Height =390
+                            OptionValue =1
+                            Name ="selStart"
+                            Caption ="Start"
+                            GUID = Begin
+                                0xcab672bad0498f4aafc1bcd012106f33
+                            End
+                            LayoutCachedLeft =5386
+                            LayoutCachedTop =559
+                            LayoutCachedWidth =5971
+                            LayoutCachedHeight =949
+                        End
+                        Begin ToggleButton
+                            OverlapFlags =87
+                            Left =6009
+                            Top =559
+                            Width =570
+                            Height =390
+                            OptionValue =0
+                            Name ="selStop"
+                            Caption ="Stop"
+                            GUID = Begin
+                                0x08fcc3f491dc844f917644143880d442
+                            End
+                            LayoutCachedLeft =6009
+                            LayoutCachedTop =559
+                            LayoutCachedWidth =6579
+                            LayoutCachedHeight =949
+                        End
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    Left =5442
+                    Top =113
+                    Width =1146
+                    Height =343
+                    TabIndex =5
+                    Name ="cmdClear"
+                    Caption ="Clear"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0xa8af2d367b72c64a8656a72faac11e18
+                    End
+                    VerticalAnchor =1
+
+                    LayoutCachedLeft =5442
+                    LayoutCachedTop =113
+                    LayoutCachedWidth =6588
+                    LayoutCachedHeight =456
+                End
+            End
+        End
+        Begin Section
+            Height =3690
+            Name ="Detailbereich"
+            GUID = Begin
+                0x9a8390ba2b6a1c41af0a6768114994f7
+            End
+            Begin
+                Begin CustomControl
+                    Enabled = NotDefault
+                    SizeMode =1
+                    SpecialEffect =0
+                    OverlapFlags =85
+                    Width =6750
+                    Height =3690
+                    AutoActivate =1
+                    Name ="ctliGrid"
+                    OleData = Begin
+                        0x00120000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
+                        0xfeff090006000000000000000000000001000000000000000000000000100000 ,
+                        0x0600000001000000feffffff0000000001000000ffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000001c6ca26c0aaf5b42a7e37e6f ,
+                        0xfad8b5eb00000000000000000000000080fb56754bd5cc0107000000c0000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000100000058000000 ,
+                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000038000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000fefffffffdfffffffffffffffffffffffffffffffffffffffeffffff ,
+                        0xfeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000001c6ca26c0aaf5b42a7e37e6f ,
+                        0xfad8b5eb00000000000000000000000040577f2336d5cc0105000000c0000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000100000058000000 ,
+                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000038000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000fffffffffffffffffefffffffdfffffffefffffffeffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfffffffffeffffff02000000feffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff38000000000000000100000000000000000000000000000000000000 ,
+                        0x0000000038000000000000000000000000000000000000000000000013019400 ,
+                        0x000100001c6ca26c0aaf5b42a7e37e6ffad8b5eb93b200004800000003000800 ,
+                        0x0bf25747200000005f0065007800740065006e00740078007e40000003000800 ,
+                        0x0af25747e0ffffff5f0065007800740065006e00740079006d1900000c111a1d ,
+                        0x900e00002800056000000000ffffffffffffffff0000000000000000ffffffff ,
+                        0x00000000ffffffffffffffff840c28000e000e0000009400000100006084fa1c ,
+                        0xffffffffffffffff0300ffff00000000650000000c112c1de80e000029000560 ,
+                        0x00000000ffffffffffffffff0000000000000000ffffffff00000000ffffffff ,
+                        0xffffffff880c29000e000e0000009400000100006084fa1cffffffffffffffff ,
+                        0x0300ffff00000000000000000c11821b280f00002a00056000000000ffffffff ,
+                        0xffffffff0000000000000000ffffffff00000000ffffffffffffffff8c0c2a00 ,
+                        0x0b000b0000009400000100000c119a1b680f00002b00056000000000ffffffff ,
+                        0xffffffff0000000000000000ffffffff00000000ffffffffffffffff900c2b00 ,
+                        0x0500050000009400000100000c119c1ba80f00002c00056000000000ffffffff ,
+                        0xffffffff0000000000000000ffffffff00000000ffffffffffffffff940c2c00 ,
+                        0x03000300feffffff02000000feffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff38000000000000000100000000000000000000000000000000000000 ,
+                        0x0000000038000000000000000000000000000000000000000000000013019400 ,
+                        0x000100001c6ca26c0aaf5b42a7e37e6ffad8b5eb93b200004800000003000800 ,
+                        0x0bf25747200000005f0065007800740065006e0074007800822e000003000800 ,
+                        0x0af25747e0ffffff5f0065007800740065006e00740079006d1900000c111a1d ,
+                        0x900e00002800056000000000ffffffffffffffff0000000000000000ffffffff ,
+                        0x00000000ffffffffffffffff840c28000e000e0000009400000100006084fa1c ,
+                        0xffffffffffffffff0300ffff00000000650000000c112c1de80e000029000560 ,
+                        0x00000000ffffffffffffffff0000000000000000ffffffff00000000ffffffff ,
+                        0xffffffff880c29000e000e0000009400000100006084fa1cffffffffffffffff ,
+                        0x0300ffff00000000000000000c11821b280f00002a00056000000000ffffffff ,
+                        0xffffffff0000000000000000ffffffff00000000ffffffffffffffff8c0c2a00 ,
+                        0x0b000b0000009400000100000c119a1b680f00002b00056000000000ffffffff ,
+                        0xffffffff0000000000000000ffffffff00000000ffffffffffffffff900c2b00 ,
+                        0x0500050000009400000100000c119c1ba80f00002c00056000000000ffffffff ,
+                        0xffffffff0000000000000000ffffffff00000000ffffffffffffffff940c2c00 ,
+                        0x0300030000000000
+                    End
+                    OLEClass ="10Tec iGrid Control 4.7"
+                    Class ="iGrid470_10Tec.iGrid"
+                    GUID = Begin
+                        0x419da83c1e8d0c4fb530479e6db6d1cc
+                    End
+                    HorizontalAnchor =2
+                    VerticalAnchor =2
+
+                    LayoutCachedWidth =6750
+                    LayoutCachedHeight =3690
+                End
+            End
+        End
+        Begin FormFooter
+            Height =0
+            Name ="Formularfuß"
+            GUID = Begin
+                0x3ec6c67061f5b64c8da4e21f160a7cc6
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : Form_frmLog_Logger
+' Author    : K.Gundermann
+' Date      : 17.01.2012
+' Purpose   : Counts Object Created/Destroyed in a iGrid
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Implements ILogSaver
+
+
+Private WithEvents c_Logger   As clsLogger
+Attribute c_Logger.VB_VarHelpID = -1
+Private WithEvents c_Session  As clsLogSession
+Attribute c_Session.VB_VarHelpID = -1
+Private c_Filters             As clsLogFilterCollection
+
+Private c_Name                As String
+
+Private Enum e_TraceStatus
+  Trc_Run = 1
+  Trc_Pause
+  Trc_Step
+  Trc_Break
+End Enum
+
+Private Sub Class_Initialize()
+  Set c_Session = Logger.Log.Session
+  Set c_Filters = New clsLogFilterCollection
+End Sub
+Private Sub Class_Terminate()
+  Call StopLog
+  Set c_Session = Nothing
+  Set c_Filters = Nothing
+End Sub
+
+
+' --- Public Interface ---
+Public Sub StartLog()
+  Set c_Logger = Logger.Log
+  Me.ctlActive = 1
+End Sub
+
+Public Sub StopLog()
+  Set c_Logger = Nothing
+  Me.ctlActive = 0
+End Sub
+
+Public Sub SaveToLog(ByRef objLogEntry As clsLogEntry)
+  If Filters.MatchFilter(objLogEntry) Then
+    Call SaveToMyLog(objLogEntry)
+  End If
+End Sub
+
+Public Function AddFilter(ByVal TheFilter As clsLogFilter) As ILogSaver
+  If Filters.Count > 0 Then Filters.Clear   ' Only ONE Filter here !
+  Filters.AddFilter TheFilter
+  Me.TimerInterval = 30 ' Call DisplayFilter
+  Set AddFilter = Me
+End Function
+
+Public Property Get ID() As Long
+  ID = ObjPtr(Me)
+End Property
+'Public Property Get Name() As String
+'  If c_Name = vbNullString Then
+'    Name = TypeName(Me)
+'  Else
+'    Name = c_Name
+'  End If
+'End Property
+'Public Property Let Name(ByVal TheName As String)
+'  c_Name = TheName
+'End Property
+
+
+' --- Private Functions ---
+Private Property Get Filters() As clsLogFilterCollection
+  Set Filters = c_Filters
+End Property
+
+' --- Event Handler for Logger/Session Class ---
+Private Sub c_Logger_SaveToLog(objLogEntry As clsLogEntry)
+  Call SaveToLog(objLogEntry)
+End Sub
+
+Private Sub c_Session_Login()
+  ' ToDo: We have now a logged In User
+End Sub
+
+Private Sub c_Session_Logout()
+  ' ToDo: The user has logged out
+End Sub
+
+
+' --- Implements ILogSaver ---
+Private Sub ILogSaver_StartLog()
+  Me.StartLog
+End Sub
+Private Sub ILogSaver_StopLog()
+  Me.StopLog
+End Sub
+Private Function ILogSaver_AddFilter(ByVal TheFilter As clsLogFilter) As ILogSaver
+  Set ILogSaver_AddFilter = Me.AddFilter(TheFilter)
+End Function
+Private Property Get ILogSaver_ID() As Long
+  ILogSaver_ID = Me.ID
+End Property
+Private Property Get ILogSaver_Name() As String
+  ILogSaver_Name = Me.Name
+End Property
+Private Property Let ILogSaver_Name(ByVal TheName As String)
+  Me.Name = TheName
+End Property
+Private Sub ILogSaver_SaveToLog(objLogEntry As clsLogEntry)
+  Call Me.SaveToLog(objLogEntry)
+End Sub
+
+' #################################################################################
+
+' ---------------------------------------------------------------------------------
+' -- Specific Functions for that logger here
+
+Public Sub SaveToMyLog(ByRef objLogEntry As clsLogEntry)
+  
+  With objLogEntry
+    Call Grid_Add(.Category, .FromModule, .FromProcedure, TraceEvent:=.EntryType)
+  End With
+      
+  ' Call WaitOrContinue
+  
+End Sub
+
+Private Sub Form_Open(Cancel As Integer)
+  Call Class_Initialize
+End Sub
+
+Private Sub Form_Load()
+  Me.Visible = True
+  Call Grid_Setup
+  
+  Call SetSeverityFilter
+
+  Call ctlActive_AfterUpdate
+  Call selTrace_AfterUpdate
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+  Call StopLog
+End Sub
+Private Sub Form_Close()
+  Call Class_Terminate
+End Sub
+
+Private Sub Form_Timer()
+  Me.TimerInterval = 0
+  Call DisplayFilter
+End Sub
+Private Sub Form_Resize()
+  Call Grid_Resize
+End Sub
+
+Private Function MyFilter() As clsLogFilter
+  If Filters.Count = 0 Then
+    Me.AddFilter New clsLogFilter
+  End If
+  Set MyFilter = Filters.Collection(1)
+End Function
+
+Private Sub DisplayFilter()
+  Call DisplayCategoryFilter
+  Call DisplayModuleFilter
+  Call DisplayProcedureFilter
+  'Call DisplayEntryTypeFilter
+  'Call DisplaySeverityFilter
+  'Call DisplayNumberFilter
+  'Call DisplayTextFilter
+End Sub
+
+' ########################################################################################
+
+
+Private Sub DisplayCategoryFilter()
+  If MyFilter.CategoryMatcher Is Nothing Then
+    Me.ctlCategoryComparer.Value = ""
+    Me.ctlCategory.Value = ""
+  Else
+    Me.ctlCategoryComparer.Value = MyFilter.CategoryMatcher.MatchToString
+    Me.ctlCategory.Value = MyFilter.CategoryMatcher.ValueToString
+  End If
+End Sub
+Private Sub SetCategoryFilter()
+  If Nz(Me.ctlCategory) <> vbNullString Then
+    MyFilter.WithCategory2 Nz(Me.ctlCategoryComparer), Nz(Me.ctlCategory)
+  Else
+    Set MyFilter.CategoryMatcher = Nothing
+  End If
+End Sub
+Private Sub ctlCategoryComparer_AfterUpdate()
+  If IsNullString(Nz(Me.ctlCategoryComparer)) Then Me.ctlCategory = vbNullString
+  SetCategoryFilter
+End Sub
+Private Sub ctlCategory_AfterUpdate()
+  If IsNullString(Nz(Me.ctlCategory)) Then
+    Me.ctlCategoryComparer = vbNullString
+  ElseIf IsNullString(Nz(Me.ctlCategoryComparer)) Then
+    Me.ctlCategoryComparer = "="
+  End If
+  SetCategoryFilter
+End Sub
+
+' ---------------------------------------------------------------------------------------
+Private Sub DisplayModuleFilter()
+  If MyFilter.ModuleMatcher Is Nothing Then
+    Me.ctlModuleComparer.Value = ""
+    Me.ctlModule.Value = ""
+  Else
+    Me.ctlModuleComparer.Value = MyFilter.ModuleMatcher.MatchToString
+    Me.ctlModule.Value = MyFilter.ModuleMatcher.ValueToString
+  End If
+End Sub
+Private Sub SetModuleFilter()
+  If Nz(Me.ctlModule) <> vbNullString Then
+    MyFilter.WithModule2 Nz(Me.ctlModuleComparer), Nz(Me.ctlModule)
+  Else
+    Set MyFilter.ModuleMatcher = Nothing
+  End If
+End Sub
+Private Sub ctlModuleComparer_AfterUpdate()
+  If IsNullString(Nz(Me.ctlModuleComparer)) Then Me.ctlModule = vbNullString
+  SetModuleFilter
+End Sub
+Private Sub ctlModule_AfterUpdate()
+  If IsNullString(Nz(Me.ctlModule)) Then
+    Me.ctlModuleComparer = vbNullString
+  ElseIf IsNullString(Nz(Me.ctlModuleComparer)) Then
+    Me.ctlModuleComparer = "="
+  End If
+  SetModuleFilter
+End Sub
+
+' ---------------------------------------------------------------------------------------
+
+Private Sub DisplayProcedureFilter()
+  ' Do Nothing
+End Sub
+
+' ---------------------------------------------------------------------------------------
+
+Private Sub DisplayEntryTypeFilter()
+  ' Do Nothing
+End Sub
+Private Sub SetEntryTypeFilter()
+  MyFilter.WithType Evt_CreateDestroy
+End Sub
+
+' ---------------------------------------------------------------------------------------
+
+Private Sub DisplaySeverityFilter()
+  ' Do Nothing
+End Sub
+Private Sub SetSeverityFilter()
+  MyFilter.WithSeverity Sev_Trace
+End Sub
+
+' ---------------------------------------------------------------------------------------
+
+' ########################################################################################
+
+
+Private Sub ctlActive_AfterUpdate()
+  Select Case Nz(Me.ctlActive)
+    Case 0: Me.StopLog
+            Me.ctlActive.BackColor = vbRed
+    Case 1: Me.StartLog
+            Me.ctlActive.BackColor = vbGreen
+  End Select
+End Sub
+
+Private Sub cmdClear_Click()
+  Call Grid_Clear
+End Sub
+
+Private Sub WaitOrContinue()
+'  DoEvents
+'  Do
+'    Select Case Nz(Me.selTrace)
+'      Case 0, Trc_Run:
+'            Exit Sub  ' Continue ..
+'      Case Trc_Pause:
+'            DoEvents  ' Wait for Run/Step
+'      Case Trc_Step:
+'            Me.selTrace = Trc_Pause:
+'            Exit Sub   ' Run and pause at next Message
+'      Case Trc_Break:
+'            Me.selTrace = Trc_Pause
+'            Stop       ' Break into debugger
+'            Exit Sub
+'    End Select
+'  Loop
+  
+End Sub
+
+Private Sub selTrace_AfterUpdate()
+'    Select Case Nz(Me.selTrace)
+'      Case 0, Trc_Run:
+'            If Me.selTrace.BackColor <> vbGreen Then Me.selTrace.BackColor = vbGreen
+'      Case Trc_Pause:
+'            If Me.selTrace.BackColor <> vbYellow Then Me.selTrace.BackColor = vbYellow
+'      Case Trc_Step:
+'      Case Trc_Break:
+'    End Select
+End Sub
+
+' ########################################################################################
+
+Private Property Get Grid() As Object ' iGrid470_10Tec.iGrid
+  Set Grid = Me.ctliGrid.Object
+End Property
+
+Private Sub Grid_Setup()
+  With Grid
+    .Clear True
+    .RowMode = True
+    .AddCol "1", "Category - Class", lMinWidth:=200
+    .AddCol "2", "Created"
+    .AddCol "3", "Destroyed"
+    .AddCol "4", "Living"
+    With .SortObject
+      .ColCount = 1
+      .SortCol(1) = 1
+      .SortOrder(1) = 1 ' igSortAsc
+      .SortType(1) = 1 ' igSortByValueGeneral
+    End With
+  End With
+  Call Grid_Resize
+End Sub
+
+Private Sub Grid_Resize()
+  ' Grid.ResizeColToFillSpace (7)
+End Sub
+
+Private Sub Grid_Clear()
+  Grid.Clear
+End Sub
+
+Private Sub Grid_Add(Category As String, FromModule As String, FromProcedure As String, TraceEvent As e_EventType)
+  Dim lRowCategory As Long
+  Dim lRowModule As Long
+  
+  With Grid
+'    .BeginUpdate
+    
+    lRowCategory = .RowIndex(Category)
+    If lRowCategory = 0 Then
+      lRowCategory = .AddRow(sKey:=Category)
+      .CellValue(lRowCategory, 1) = Category
+    End If
+
+    lRowModule = .RowIndex(Category & "-" & FromModule)
+    If lRowModule = 0 Then
+      lRowModule = .AddRow(sKey:=Category & "-" & FromModule, vRowParent:=lRowCategory)
+      .CellValue(lRowModule, 1) = FromModule
+      Call .SortRowChildNodes(lRowCategory)
+      lRowModule = .RowIndex(Category & "-" & FromModule)
+    End If
+
+    Select Case TraceEvent
+        Case Evt_Creating
+          .CellValue(lRowModule, 2) = Val(.CellValue(lRowModule, 2)) + 1
+
+        Case Evt_Destroying
+          .CellValue(lRowModule, 3) = Val(.CellValue(lRowModule, 3)) + 1
+
+    End Select
+    .CellValue(lRowModule, 4) = Val(.CellValue(lRowModule, 2)) - Val(.CellValue(lRowModule, 3))
+
+    
+'    .EndUpdate
+  End With
+End Sub
