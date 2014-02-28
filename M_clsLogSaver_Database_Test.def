@@ -9,23 +9,71 @@ Option Explicit
 
 Private objLog_Database As clsLogSaver_Database
 
-Public Sub Setup()
+Public Sub StartTest()
   Set objLog_Database = New clsLogSaver_Database
 End Sub
 
-Public Sub Teardown()
-  Set objLog_Database = Nothing
-End Sub
 
-'AccUnit:Ignore   Wie kann ich den Datenbankzugriff testen wenn ich doch in der StahlUtils-Library noch keine Tabellen deklariert habe ??
-Public Sub StartingADatabaseLogger_WIllAddAnEntryToSessionTable()
+Public Sub CreatingADatabaseLogger_WillAddAnEntryToSessionTable()
    ' Arrange
    Dim lCountSession As Long
+   Dim objLog As clsLogSaver_Database
    
    ' Act
    lCountSession = DCount("*", objLog_Database.TablenameSessions)
-   objLog_Database.StartLog
+   Set objLog = New clsLogSaver_Database
    
    ' Assert
    Assert.That DCount("*", objLog_Database.TablenameSessions), Iz.EqualTo(lCountSession + 1)
 End Sub
+
+Public Sub LoggingInAUser_WillUpdateSessiontable()
+  ' Arrange
+  Assert.IsNull GetDBValue("LogS_LoginTime")
+  Assert.IsNull GetDBValue("LogS_ApplicationUserName")
+  
+  ' Act
+  objLog_Database.StartLog
+  Logger.Log.Session.Login "Testuser"
+  
+  ' Assert
+  Assert.IsTrue IsDate(GetDBValue("LogS_LoginTime"))
+  Assert.That GetDBValue("LogS_ApplicationUserName"), Iz.EqualTo("Testuser")
+    
+End Sub
+
+Public Sub LoggingAnEvent_WillAddAnEntryToEventsTable()
+  ' Arrange
+  Dim lCountEvents As Long
+  
+  ' Act
+  lCountEvents = DCount("*", objLog_Database.TablenameEvents)
+  Logger.Log.Message "This is a Test Message!"
+   
+  ' Assert
+  Assert.That DCount("*", objLog_Database.TablenameEvents), Iz.EqualTo(lCountEvents + 1)
+
+End Sub
+
+Public Sub Logout_WillUpdateSessiontable()
+  ' Arrange
+  Assert.IsNull GetDBValue("LogS_LogoutTime")
+  
+  ' Act
+  Logger.Log.Session.Logout
+  
+  ' Assert
+  Assert.IsTrue IsDate(GetDBValue("LogS_LogoutTime"))
+    
+End Sub
+
+
+Public Sub StopTest()
+  Set objLog_Database = Nothing
+End Sub
+
+' -----------------------------------------------------------------------------------------------------------
+
+Private Function GetDBValue(ByVal ColumnName As String) As Variant
+  GetDBValue = DLookup(ColumnName, objLog_Database.TablenameSessions, "LogS_ID = " & objLog_Database.DBSessionID)
+End Function

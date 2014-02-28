@@ -6,7 +6,14 @@ Attribute VB_Exposed = False
 ' Module    : clsLogSaver_Database
 ' Author    : K.Gundermann
 ' Date      : 17.01.2012
-' Purpose   : Saves Logger Events to a Database Table
+' Purpose   : Saves Logger Events to a Database
+'             The Database should have two Tables:
+'             - LogSessions ( LogS_ID, LogS_ComputerName, LogS_OSVersion, LogS_OSUserName, LogS_ApplicationUserName,
+'                           LogS_PrgVersion, LogS_SessionStartTime, LogS_LoginTime, LogS_LogoutTime )
+'             - LogEvents ( Log_ID, Log_FK_SessionID, Log_Timestamp, Log_Category, Log_Module, Log_Procedure
+'                           , Log_EventType, , Log_Severity, Log_MessageNumber, Log_MessageText, Log_MessageDisplayed
+'                           , Log_AdditionalInfo )
+
 '---------------------------------------------------------------------------------------
 
 Option Compare Database
@@ -145,6 +152,10 @@ Public Property Let TablenameSessions(ByVal TheValue As String)
   c_TablenameSessions = TheValue
 End Property
 
+Public Property Get DBSessionID() As Long
+  DBSessionID = c_SessionID
+End Property
+
 Private Sub StartSession()
   Dim rs As DAO.Recordset
   
@@ -207,11 +218,11 @@ Private Sub SaveToMyLog(ByRef objLogEntry As clsLogEntry)
   With rs
     .AddNew
     !Log_FK_SessionId = c_SessionID
-    !Log_Timestamp = objLogEntry.Timestamp.ToDateWithTime   ' Keine ms bei SQL2005 !!!
+    !Log_Timestamp = objLogEntry.TimeStamp.ToDateWithTime   ' Keine ms bei SQL2005 !!!
     !Log_Category = objLogEntry.Category
-    !Log_Module = objLogEntry.FromModule
-    !Log_Procedure = objLogEntry.FromProcedure
-    !Log_EntryType = objLogEntry.EntryType
+    !Log_Module = objLogEntry.Module
+    !Log_Procedure = objLogEntry.Procedure
+    !Log_EventType = objLogEntry.EventType
     !Log_Severity = objLogEntry.Severity
     !Log_MessageNumber = objLogEntry.MessageNumber
     !Log_MessageText = objLogEntry.MessageText

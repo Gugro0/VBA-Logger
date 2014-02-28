@@ -52,10 +52,10 @@ Public Sub LogExample()
 ' Loggen eines allgemeinen Events:
    With New clsLogEntry
     .Category = "Other"
-    .EntryType = Evt_Status
+    .EventType = Evt_Status
     .Severity = Sev_Informational
     .MessageText = "User is running a Test"
-    Logger.Log.LogEntry .Self
+    Logger.Log.Save .Self
   End With
 
 End Sub

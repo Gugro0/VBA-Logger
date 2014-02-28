@@ -12,15 +12,15 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private c_SessionID As Long
-Private c_HostName As String
-Private c_OSVersion As String
-Private c_OSUserName As String
-Private c_AccessUserName As String
+Private c_SessionID           As Long
+Private c_HostName            As String
+Private c_OSVersion           As String
+Private c_OSUserName          As String
+Private c_AccessUserName      As String
 Private c_ApplicationUserName As String
 
-Private c_SessionStartTime As Date
-Private c_LoginTime As Date
+Private c_SessionStartTime    As Date
+Private c_LoginTime           As Date
 
 Public Event Login()
 Public Event Logout()
@@ -56,9 +56,9 @@ End Property
 
 ' -----------------------------------------------------------------
 
-Public Sub Login(ByVal UserName As String)
+Public Sub Login(ByVal Username As String)
   c_LoginTime = Now
-  c_ApplicationUserName = UserName
+  c_ApplicationUserName = Username
   RaiseEvent Login
 End Sub
 
@@ -70,6 +70,20 @@ End Sub
 
 ' -----------------------------------------------------------------
 
+Public Function ToString() As String
+  ToString = "" _
+    & "Computername: " & Me.HostName & vbCrLf _
+    & "OSVersion: " & Me.OSVersion & vbCrLf _
+    & "OSUserName: " & Me.OSUserName & vbCrLf _
+    & "AccessUserName: " & Me.AccessUserName & vbCrLf _
+    & "ApplicationUserName: " & Me.ApplicationUserName & vbCrLf _
+    & "SessionStartTime: " & Me.SessionStartTime & vbCrLf _
+    & "LoginTime: " & Me.LoginTime & vbCrLf _
+    & vbCrLf
+
+End Function
+
+
 Private Sub Class_Initialize()
   c_SessionID = timeGetTime
   c_SessionStartTime = Now
@@ -77,4 +91,5 @@ Private Sub Class_Initialize()
   c_OSVersion = "Windows"  ' OS.Version.WinVersionText
   c_OSUserName = "Unknown" ' OS.System.UserName
   c_AccessUserName = Application.CurrentUser
+  c_ApplicationUserName = ""  ' Username within your Application
 End Sub

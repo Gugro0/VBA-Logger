@@ -1,0 +1,17 @@
+'---------------------------------------------------------------------------------------
+' Module    : modObjects
+' Author    : K.Gundermann
+' Date      : 07.08.2012
+' Purpose   : Public Functions on Objects
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Public Function IsNothing(ByVal TheObject As Object) As Boolean
+  IsNothing = (TheObject Is Nothing)
+End Function
+
+Public Function IsSomething(ByVal TheObject As Object) As Boolean
+  IsSomething = Not (TheObject Is Nothing)
+End Function

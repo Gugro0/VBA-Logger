@@ -11,3 +11,9 @@ Attribute VB_Exposed = False
 
 Option Compare Database
 Option Explicit
+
+#Const David = 1
+#If David Then
+  
+  
+#End If

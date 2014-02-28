@@ -1,0 +1,252 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Compare Text
+Option Explicit
+
+'AccUnit:TestClass
+
+Private TheDateTime As clsDateTime
+'--------------------------------------------------------------------
+' AccUnit Infrastructure
+'--------------------------------------------------------------------
+
+Implements SimplyVBUnit.ITestFixture
+Implements AccUnit_Integration.ITestManagerBridge
+Private TestManager As AccUnit_Integration.TestManager
+Private Sub ITestManagerBridge_InitTestManager(ByVal NewTestManager As AccUnit_Integration.ITestManagerComInterface): Set TestManager = NewTestManager: End Sub
+Private Function ITestManagerBridge_GetTestManager() As AccUnit_Integration.ITestManagerComInterface: Set ITestManagerBridge_GetTestManager = TestManager: End Function
+Private Sub ITestFixture_AddTestCases(ByVal Tests As SimplyVBUnit.TestCaseCollector): TestManager.AddTestCases Tests: End Sub
+
+Public Sub Setup()
+  Set TheDateTime = Utils.DateTime.FromString("31.12.2011 21:59:59")
+End Sub
+
+'--------------------------------------------------------------------
+' Tests
+'--------------------------------------------------------------------
+
+Public Sub Create_FromNow()
+  ' Assert
+  With TheDateTime
+    Assert.That .Year, Iz.EqualTo(2011)
+    Assert.That .Month, Iz.EqualTo(12)
+    Assert.That .Day, Iz.EqualTo(31)
+    Assert.That .Hour, Iz.EqualTo(21)
+    Assert.That .Minute, Iz.EqualTo(59)
+    Assert.That .Second, Iz.EqualTo(59)
+    Assert.That .Millisecond, Iz.EqualTo(0)
+  End With
+End Sub
+
+
+Public Sub Add_OneYear()
+  Dim dt As clsDateTime
+
+  ' Act
+  Set dt = TheDateTime.AddYears(1)
+  ' Assert
+  With dt
+    Assert.That .Year, Iz.EqualTo(2012)
+  End With
+End Sub
+
+Public Sub Add_OneMonth()
+  Dim dt As clsDateTime
+
+  ' Act
+  Set dt = TheDateTime.AddMonths(1)
+  ' Assert
+  With dt
+    Assert.That .Year, Iz.EqualTo(2012), "Year"
+    Assert.That .Month, Iz.EqualTo(1), "Month"
+    Assert.That .Day, Iz.EqualTo(31), "Day"
+  End With
+End Sub
+
+Public Sub Add_OneDay()
+  Dim dt As clsDateTime
+
+  ' Act
+  Set dt = TheDateTime.AddDays(1)
+  ' Assert
+  With dt
+    Assert.That .Year, Iz.EqualTo(2012), "Year"
+    Assert.That .Month, Iz.EqualTo(1), "Month"
+    Assert.That .Day, Iz.EqualTo(1), "Day"
+  End With
+End Sub
+
+Public Sub Add_OneHour()
+  Dim dt As clsDateTime
+
+  ' Act
+  Set dt = TheDateTime.AddHours(1)
+  ' Assert
+  With dt
+    Assert.That .Year, Iz.EqualTo(2011), "Year"
+    Assert.That .Month, Iz.EqualTo(12), "Month"
+    Assert.That .Day, Iz.EqualTo(31), "Day"
+    Assert.That .Hour, Iz.EqualTo(22), "Hour"
+  End With
+End Sub
+
+Public Sub Add_EightHours()
+  Dim dt As clsDateTime
+
+  ' Act
+  Set dt = TheDateTime.AddHours(8)
+  ' Assert
+  With dt
+    Assert.That .Year, Iz.EqualTo(2012), "Year"
+    Assert.That .Month, Iz.EqualTo(1), "Month"
+    Assert.That .Day, Iz.EqualTo(1), "Day"
+    Assert.That .Hour, Iz.EqualTo(5), "Hour"
+    Assert.That .Minute, Iz.EqualTo(59), "Minute"
+    Assert.That .Second, Iz.EqualTo(59), "Second"
+  End With
+End Sub
+
+
+Public Sub Add_OneMinute()
+  Dim dt As clsDateTime
+
+  ' Act
+  Set dt = TheDateTime.AddMinutes(1)
+  ' Assert
+  With dt
+    Assert.That .Year, Iz.EqualTo(2011), "Year"
+    Assert.That .Month, Iz.EqualTo(12), "Month"
+    Assert.That .Day, Iz.EqualTo(31), "Day"
+    Assert.That .Hour, Iz.EqualTo(22), "Hour"
+    Assert.That .Minute, Iz.EqualTo(0), "Minute"
+    Assert.That .Second, Iz.EqualTo(59), "Second"
+  End With
+End Sub
+
+
+Public Sub Add_OneSecond()
+  Dim dt As clsDateTime
+
+  ' Act
+  Set dt = TheDateTime.AddSeconds(1)
+  ' Assert
+  With dt
+    Assert.That .Year, Iz.EqualTo(2011), "Year"
+    Assert.That .Month, Iz.EqualTo(12), "Month"
+    Assert.That .Day, Iz.EqualTo(31), "Day"
+    Assert.That .Hour, Iz.EqualTo(22), "Hour"
+    Assert.That .Minute, Iz.EqualTo(0), "Minute"
+    Assert.That .Second, Iz.EqualTo(0), "Second"
+  End With
+End Sub
+
+' ------------------------------------------------------------------
+
+Public Sub Compare_DateTime()
+  Dim dt As clsDateTime
+
+  'Arrange
+  Set dt = OS.Time.Now
+  'Assert
+  Assert.IsTrue TheDateTime.LessThan(dt)
+  Assert.IsTrue dt.GreaterThan(TheDateTime)
+End Sub
+
+' ------------------------------------------------------------------
+
+Public Sub ParseDateTimeString()
+  Dim dt As clsDateTime
+  
+  Set dt = Utils.DateTime.FromString("01.02.03 01:02:03")
+  With dt
+    Assert.AreEqual 1, .Day
+    Assert.AreEqual 2, .Month
+    Assert.AreEqual 2003, .Year
+    
+    Assert.AreEqual 1, .Hour
+    Assert.AreEqual 2, .Minute
+    Assert.AreEqual 3, .Second
+    Assert.AreEqual 0, .Millisecond
+  End With
+
+End Sub
+
+' ------------------------------------------------------------------
+
+Public Sub CheckWeekday()
+  Dim dt As clsDateTime
+  
+  Set dt = Utils.DateTime.FromString("01.01.12")
+  
+  Assert.AreEqual vbSunday, dt.Weekday
+  Assert.AreEqual vbSaturday, TheDateTime.Weekday
+  
+End Sub
+
+Public Sub CheckWorkingDays()
+  Dim dt As clsDateTime
+  
+  Set dt = Utils.DateTime.FromString("01.01.12")
+
+  Assert.AreEqual vbMonday, dt.NextWorkingDay.Weekday
+  Assert.AreEqual vbMonday, TheDateTime.NextWorkingDay.Weekday
+  
+  Assert.AreEqual vbFriday, dt.PrevWorkingDay.Weekday
+  Assert.AreEqual vbFriday, TheDateTime.PrevWorkingDay.Weekday
+End Sub
+
+Public Sub CheckWeek()
+  Dim dt As clsDateTime
+  
+  Set dt = Utils.DateTime.FromString("01.01.12")
+
+  Assert.AreEqual 52, dt.WeekInYear
+  Assert.AreEqual 52, TheDateTime.WeekInYear
+  
+  Assert.AreEqualStrings "2011/52", dt.ToYearAndWeek
+End Sub
+
+' ------------------------------------------------------------------
+
+Public Sub CheckFormatDateTime()
+  Dim dt As clsDateTime
+  
+  Set dt = Utils.DateTime.FromString("01.02.03 11:12:13")
+  
+  Assert.AreEqual "01.02.2003 11:12:13.000", dt.ToString
+
+End Sub
+
+Public Sub CheckFormatDate()
+  Dim dt As clsDateTime
+  
+  Set dt = Utils.DateTime.FromString("01.02.03 11:12:13")
+  
+  Assert.AreEqual "01.02.2003", dt.ToString(dt_Date)
+End Sub
+
+Public Sub CheckFormatTime()
+  Dim dt As clsDateTime
+  
+  Set dt = Utils.DateTime.FromString("01.02.03 11:12:13")
+  
+  Assert.AreEqual "11:12:13.000", dt.ToString(dt_Time)
+End Sub
+
+Public Sub CheckFormatISO()
+  Dim dt As clsDateTime
+  
+  Set dt = Utils.DateTime.FromString("01.02.03 11:12:13")
+  
+  Assert.AreEqual "2003-02-01T11:12:13.000", dt.ToString(dt_ISO8601)
+End Sub
+
+Public Sub CheckFormatCustom()
+  Dim dt As clsDateTime
+  
+  Set dt = Utils.DateTime.FromString("01.02.13 11:12:13")
+  
+  Assert.AreEqual "Freitag, 01. Februar 13 um 11 Uhr und 12 Minuten", dt.ToFormattedString("<dddd>, <dd>. <MMMM> <yy> um <hh> Uhr und <mm> Minuten")
+End Sub

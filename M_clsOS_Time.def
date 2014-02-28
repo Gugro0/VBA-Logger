@@ -17,124 +17,15 @@ Option Explicit
 Private Declare Sub api_GetLocalTime Lib "kernel32" Alias "GetLocalTime" (lpSystemTime As SYSTEMTIME)
 Private Declare Function SetLocalTime Lib "kernel32" (lpSystemTime As SYSTEMTIME) As Long
 
-' Variable des Typs SYSTEMTIME.
-Private p_sysSystemTime As SYSTEMTIME
-
-
-Public Property Get GetDateTime() As clsDateTime
+Public Function Now() As clsDateTime
+  Dim p_sysSystemTime As SYSTEMTIME
+  
   api_GetLocalTime p_sysSystemTime
-  With New clsDateTime
-    .Year = p_sysSystemTime.wYear
-    .Month = p_sysSystemTime.wMonth
-    .Day = p_sysSystemTime.wDay
-    .Hour = p_sysSystemTime.wHour
-    .Minute = p_sysSystemTime.wMinute
-    .Second = p_sysSystemTime.wSecond
-    .Millisecond = p_sysSystemTime.wMilliseconds
-    Set GetDateTime = .Self
-  End With
-End Property
+  Set Now = New clsDateTime
+  Now.FromSystemTime p_sysSystemTime
 
+End Function
 
-
-Public Property Get Year() As Integer
-    ' Aktuelle Zeit abrufen und dann Jahr zurückgeben.
-    
-    api_GetLocalTime p_sysSystemTime
-    Year = p_sysSystemTime.wYear
-End Property
-
-Public Property Let Year(intYear As Integer)
-    ' Aktuelle Zeit abrufen, so dass alle Werte aktuell sind,
-    ' und dann Jahresteil der lokalen Zeit festlegen.
-    
-    api_GetLocalTime p_sysSystemTime
-    p_sysSystemTime.wYear = intYear
-    SetLocalTime p_sysSystemTime
-End Property
-
-Public Property Get Month() As Integer
-    ' Aktuelle Zeit abrufen und dann Monat zurückgeben.
-    
-    api_GetLocalTime p_sysSystemTime
-    Month = p_sysSystemTime.wMonth
-End Property
-
-Public Property Let Month(intMonth As Integer)
-    ' Aktuelle Zeit abrufen, so dass alle Werte aktuell sind,
-    ' und dann Monatsteil der lokalen Zeit festlegen.
-    
-    api_GetLocalTime p_sysSystemTime
-    p_sysSystemTime.wMonth = intMonth
-    SetLocalTime p_sysSystemTime
-End Property
-
-Public Property Get Day() As Integer
-    ' Aktuelle Zeit abrufen und dann Tag zurückgeben.
-
-    api_GetLocalTime p_sysSystemTime
-    Day = p_sysSystemTime.wDay
-End Property
-
-Public Property Let Day(intDay As Integer)
-    ' Aktuelle Zeit abrufen, so dass alle Werte aktuell sind,
-    ' und dann Tagesteil der lokalen Zeit festlegen.
-    
-    api_GetLocalTime p_sysSystemTime
-    p_sysSystemTime.wDay = intDay
-    SetLocalTime p_sysSystemTime
-End Property
-
-Public Property Get Hour() As Integer
-    ' Aktuelle Zeit abrufen und dann Stunde zurückgeben.
-
-    api_GetLocalTime p_sysSystemTime
-    Hour = p_sysSystemTime.wHour
-End Property
-
-Public Property Let Hour(intHour As Integer)
-    ' Aktuelle Zeit abrufen, so dass alle Werte aktuell sind,
-    ' und dann Stundenteil der lokalen Zeit festlegen.
-    
-    api_GetLocalTime p_sysSystemTime
-    p_sysSystemTime.wHour = intHour
-    SetLocalTime p_sysSystemTime
-End Property
-
-Public Property Get Minute() As Integer
-    ' Aktuelle Zeit abrufen und dann Minute zurückgeben.
-
-    api_GetLocalTime p_sysSystemTime
-    Minute = p_sysSystemTime.wMinute
-End Property
-
-Public Property Let Minute(intMinute As Integer)
-    ' Aktuelle Zeit abrufen, so dass alle Werte aktuell sind,
-    ' und dann Minutenteil der lokalen Zeit festlegen.
-    
-    api_GetLocalTime p_sysSystemTime
-    p_sysSystemTime.wMinute = intMinute
-    SetLocalTime p_sysSystemTime
-End Property
-
-Public Property Get Second() As Integer
-    ' Aktuelle Zeit abrufen und dann Sekunde zurückgeben.
-
-    api_GetLocalTime p_sysSystemTime
-    Second = p_sysSystemTime.wSecond
-End Property
-
-Public Property Let Second(intSecond As Integer)
-    ' Aktuelle Zeit abrufen, so dass alle Werte aktuell sind,
-    ' und dann Sekundenteil der lokalen Zeit festlegen.
-    
-    p_sysSystemTime.wSecond = intSecond
-    SetLocalTime p_sysSystemTime
-End Property
-
-Public Property Get Millisecond() As Integer
-    ' Aktuelle Zeit abrufen und dann die MilliSekunde zurückgeben.
-
-    api_GetLocalTime p_sysSystemTime
-    Second = p_sysSystemTime.wMilliseconds
-End Property
+Public Sub GetLocalTime(ByRef lpSystemTime As SYSTEMTIME)
+  api_GetLocalTime lpSystemTime
+End Sub

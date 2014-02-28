@@ -1,0 +1,127 @@
+Option Compare Database
+Option Explicit
+
+Public Const InvalidDate = "30.12.1899"
+Public Const EmptyDate = "30.12.1899"
+Public Const vbNullDate = "30.12.1899"
+
+
+Public Function Today() As Date
+  Today = VBA.Date
+End Function
+Public Function TodayObj() As clsDateTime
+  Set TodayObj = Utils.DateTime.Today
+End Function
+
+'---------------------------------------------------------------------------------------
+' Procedure : IsDate
+' Author    : K.Gundermann
+' Date      : 05.01.2011
+' Purpose   : Überschreibt VBA.IsDate !!!!
+'             damit beim Zugriff auf Objektklassen, die ein leeres Datum aus der Datenbank liefern
+'             der Fehler abgefangen wird
+'---------------------------------------------------------------------------------------
+'
+Public Function IsDate(ByVal TheDate As Variant) As Boolean
+
+  On Error GoTo IsDate_Error
+    IsDate = VBA.IsDate(TheDate)
+    If IsDate Then
+      IsDate = (TheDate <> CDate(InvalidDate))
+    End If
+IsDate_Exit:
+   On Error GoTo 0
+   Exit Function
+
+IsDate_Error:
+  If Err = 1234 Then
+    IsDate = False
+    Resume Next
+  Else
+    MsgBox Err.Description, vbCritical + vbOKOnly, "Error in IsDate"
+    Resume IsDate_Exit
+  End If
+
+End Function
+
+Public Function IsValidDate(ByVal TheDate As Variant) As Boolean
+  IsValidDate = IsDate(TheDate)
+End Function
+
+Public Function IsNullDate(ByVal TheDate As Variant) As Boolean
+  IsNullDate = Not IsDate(TheDate)
+End Function
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : NZDate
+' Author    : K.Gundermann
+' Date      : 13.06.2012
+' Purpose   : Alternative zu CDate
+'             CDate liefert bei einem leeren String den Fehler "Typen Unverträglich" !!!
+'---------------------------------------------------------------------------------------
+'
+Public Function NZDate(ByVal TheValue As Variant) As Date
+  On Error GoTo NZDate_Error
+
+  If VarType(TheValue) = vbObject Then TheValue = TheValue.Value
+  
+  If VarType(TheValue) = vbDate Then
+    NZDate = TheValue
+  ElseIf VarType(TheValue) = vbString Then
+    If IsNullString(TheValue) Then
+      NZDate = EmptyDate
+    Else
+      NZDate = CDate(TheValue)
+    End If
+  ElseIf VarType(TheValue) = vbNull Then
+    NZDate = EmptyDate
+  ElseIf IsEmpty(TheValue) Then
+    NZDate = EmptyDate
+  Else
+    Err.Raise vbObjectError, , "Don't know how to convert " & TheValue
+  End If
+  
+  On Error GoTo 0
+  Exit Function
+
+NZDate_Error:
+  If Err.Number = 13 Then ' Typen unverträglich
+    NZDate = EmptyDate
+    Exit Function
+  Else
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure NZDate of Modul moddate"
+  End If
+End Function
+
+Public Function Date2Str(ByVal TheDate As Date) As String
+  If TheDate = CDate(vbNullDate) Then
+    Date2Str = vbNullString
+  Else
+    Date2Str = CStr(TheDate)
+  End If
+End Function
+
+Public Function Date2Variant(TheDate As Date) As Variant
+  If TheDate = CDate(vbNullDate) Then
+    Date2Variant = Null
+  Else
+    Date2Variant = CStr(TheDate)
+  End If
+End Function
+
+Public Function Str2Date(ByVal TheString As String) As Date
+  If IsNullString(TheString) Then   ' CDate liefert Fehler bei Nullstring
+    Str2Date = vbNullDate
+  Else
+    Str2Date = CDate(TheString)
+  End If
+End Function
+
+Public Function Variant2Date(ByVal TheString As Variant) As Date
+  If IsNullString(Nz(TheString)) Then
+    Variant2Date = vbNullDate
+  Else
+    Variant2Date = CDate(TheString)
+  End If
+End Function

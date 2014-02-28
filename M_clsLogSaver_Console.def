@@ -122,9 +122,9 @@ Private Sub SaveToConsole(ByRef objLogEntry As clsLogEntry)
 
   With objLogEntry
     If .Severity = Sev_Trace Then
-      str = SPrintF("%s %-10s,%-10s,%-10s,%-10s,%-10s,%-s", .Timestamp.ToString, .SeverityText, .Category, .FromModule, .FromProcedure, .TraceEventText, .MessageText)
+      str = SPrintF("%s %-10s,%-10s,%-10s,%-10s,%-10s,%-s,%-s", .TimeStamp.ToString(dt_Time), .SeverityText, .Category, .Module, .Procedure, .EventTypeText, .MessageText, .AdditionalInfo)
     Else
-      str = SPrintF("%s %-10s,%-10s,%-10s,%-10s,%-10s,%-s", .Timestamp.ToString, .SeverityText, .Category, .FromModule, .FromProcedure, .MessageNumber, .MessageText)
+      str = SPrintF("%s %-10s,%-10s,%-10s,%-10s,%-10s,%-s", .TimeStamp.ToString(dt_Time), .SeverityText, .Category, .Module, .Procedure, .MessageNumber, .MessageText)
     End If
   End With
   

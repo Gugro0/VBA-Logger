@@ -1,0 +1,34 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Compare Text
+Option Explicit
+
+'AccUnit:TestClass
+
+'--------------------------------------------------------------------
+' Tests
+'--------------------------------------------------------------------
+
+
+Public Sub SaveToLog()
+  ' Arrange
+  Dim objLog    As clsLogSaver_EMail_SMTP
+  Dim objEntry  As clsLogEntry
+  
+  ' Act
+  Set objLog = New clsLogSaver_EMail_SMTP
+  objLog.EmailTo = "Administrator@MyCompany.com"
+  objLog.Servername = "David"
+  objLog.Authentication = cdoNTLM
+  
+  Set objEntry = New clsLogEntry
+  objEntry.Init "CategoryTest", "ModuleTest", "ProcedureTest", Sev_Debug, Evt_Status, 123, "This is a Test Message", "No Additional Info"
+  
+  objLog.SaveToLog objEntry
+  
+  ' Assert
+  ' How can I Assert that the EMail was send ???
+  
+End Sub
