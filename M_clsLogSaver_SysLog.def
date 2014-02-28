@@ -12,6 +12,16 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
+Implements ILogSaver
+
+Private WithEvents c_Logger   As clsLogger
+Attribute c_Logger.VB_VarHelpID = -1
+Private WithEvents c_Session  As clsLogSession
+Attribute c_Session.VB_VarHelpID = -1
+Private c_Filters             As clsLogFilterCollection
+
+Private c_Name                As String
+
 Private Declare Function RegisterEventSource Lib "advapi32.dll" Alias _
                                      "RegisterEventSourceA" (ByVal lpUNCServerName As String, _
                                                              ByVal lpSourceName As String) As Long
@@ -34,7 +44,7 @@ Private Declare Function GlobalAlloc Lib "kernel32" ( _
 Private Declare Function GlobalFree Lib "kernel32" ( _
                             ByVal hMem As Long) As Long
 
-Private Enum EVENTLOG_TYPE
+Public Enum EVENTLOG_TYPE
   EVENTLOG_SUCCESS = 0
   EVENTLOG_ERROR_TYPE = 1
   EVENTLOG_WARNING_TYPE = 2
@@ -43,27 +53,130 @@ Private Enum EVENTLOG_TYPE
   EVENTLOG_AUDIT_FAILURE = 10
 End Enum
 
-Public ApplicationName As String
 
-Public Sub LogNTEvent(ByVal sString As String, ByVal iLogType As Long, ByVal iEventID As Long)
+Private Sub Class_Initialize()
+  Set c_Session = Logger.Log.Session
+  Set c_Filters = New clsLogFilterCollection
+End Sub
+Private Sub Class_Terminate()
+  Call StopLog
+End Sub
+
+
+' --- Public Interface ---
+Public Sub StartLog()
+  Set c_Logger = Logger.Log
+End Sub
+
+Public Sub StopLog()
+  Set c_Logger = Nothing
+End Sub
+
+Public Sub SaveToLog(ByRef objLogEntry As clsLogEntry)
+  If Filters.MatchFilter(objLogEntry) Then
+    Call SaveToMyLog(objLogEntry)
+  End If
+End Sub
+
+Public Function AddFilter(ByVal TheFilter As clsLogFilter) As ILogSaver
+  Filters.AddFilter TheFilter
+  Set AddFilter = Me
+End Function
+
+Public Property Get ID() As Long
+  ID = ObjPtr(Me)
+End Property
+Public Property Get Name() As String
+  If c_Name = vbNullString Then
+    Name = TypeName(Me)
+  Else
+    Name = c_Name
+  End If
+End Property
+Public Property Let Name(ByVal TheName As String)
+  c_Name = TheName
+End Property
+
+
+' --- Private Functions ---
+Private Property Get Filters() As clsLogFilterCollection
+  Set Filters = c_Filters
+End Property
+
+' --- Event Handler for Logger/Session Class ---
+Private Sub c_Logger_SaveToLog(objLogEntry As clsLogEntry)
+  Call Me.SaveToLog(objLogEntry)
+End Sub
+
+Private Sub c_Session_Login()
+  ' ToDo: We have now a logged In User
+End Sub
+
+Private Sub c_Session_Logout()
+  ' ToDo: The user has logged out
+End Sub
+
+' --- Implements ILogSaver ---
+Private Sub ILogSaver_StartLog()
+  Me.StartLog
+End Sub
+Private Sub ILogSaver_StopLog()
+  Me.StopLog
+End Sub
+Private Function ILogSaver_AddFilter(ByVal TheFilter As clsLogFilter) As ILogSaver
+  Set ILogSaver_AddFilter = Me.AddFilter(TheFilter)
+End Function
+Private Property Get ILogSaver_ID() As Long
+  ILogSaver_ID = Me.ID
+End Property
+Private Property Get ILogSaver_Name() As String
+  ILogSaver_Name = Me.Name
+End Property
+Private Property Let ILogSaver_Name(ByVal TheName As String)
+  Me.Name = TheName
+End Property
+Private Sub ILogSaver_SaveToLog(objLogEntry As clsLogEntry)
+  Call Me.SaveToLog(objLogEntry)
+End Sub
+
+
+
+' ---------------------------------------------------------------------------------
+' -- Specific Functions for that logger here
+
+Private Sub SaveToMyLog(ByRef objLogEntry As clsLogEntry)
+  LogNTEvent objLogEntry.ToString, Severity2EventlogType(objLogEntry), objLogEntry.MessageNumber
+End Sub
+
+
+Public Sub LogNTEvent(ByVal sString As String, ByVal iLogType As EVENTLOG_TYPE, ByVal iEventID As Long)
   Dim bRC As Boolean
   Dim iNumStrings As Integer
   Dim hEventLog As Long
-  Dim hMsgs As Long
+  Dim hStrings As Long
   Dim cbStringSize As Long
   
-  hEventLog = RegisterEventSource("", ApplicationName)
+  hEventLog = RegisterEventSource("", "Application")  ' Security | System |
   cbStringSize = Len(sString) + 1
-  hMsgs = GlobalAlloc(&H40, cbStringSize)
-  CopyMemory ByVal hMsgs, ByVal sString, cbStringSize
+  hStrings = GlobalAlloc(&H40, cbStringSize)
+  CopyMemory ByVal hStrings, ByVal sString, cbStringSize
   iNumStrings = 1
   If ReportEvent(hEventLog, _
                  iLogType, 0, _
                  iEventID, 0&, _
-                 iNumStrings, cbStringSize, _
-                 hMsgs, hMsgs) = 0 Then
+                 iNumStrings, cbStringSize, hStrings, _
+                 0) = 0 Then
     MsgBox GetLastError()
   End If
-  Call GlobalFree(hMsgs)
+  Call GlobalFree(hStrings)
   DeregisterEventSource (hEventLog)
 End Sub
+
+
+Private Function Severity2EventlogType(ByVal objLogEntry As clsLogEntry) As EVENTLOG_TYPE
+      Select Case objLogEntry.Severity
+          Case Sev_Critical, Sev_Error:       Severity2EventlogType = EVENTLOG_ERROR_TYPE
+          Case Sev_Informational, Sev_Debug:  Severity2EventlogType = EVENTLOG_INFORMATION_TYPE
+          Case Sev_Trace:                     Severity2EventlogType = EVENTLOG_AUDIT_SUCCESS
+      End Select
+End Function

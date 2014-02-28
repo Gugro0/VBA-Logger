@@ -9,6 +9,10 @@ Option Explicit
 
 Private objLog_Database As clsLogSaver_Database
 
+'--------------------------------------------------------------------
+' Tests
+'--------------------------------------------------------------------
+
 Public Sub StartTest()
   Set objLog_Database = New clsLogSaver_Database
 End Sub
