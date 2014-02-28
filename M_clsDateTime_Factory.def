@@ -1,0 +1,52 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Public Function New_() As clsDateTime
+  Set New_ = New clsDateTime
+End Function
+
+Public Function FromDate(ByVal TheDate As Date, Optional ByVal IgnoreTimePart As Boolean = False) As clsDateTime
+  Dim dt As clsDateTime
+  Set dt = New clsDateTime
+  Call dt.FromDate(TheDate, IgnoreTimePart)
+  Set FromDate = dt
+End Function
+
+Public Function FromString(ByVal TheString As String) As clsDateTime
+  Dim dt As clsDateTime
+  Set dt = New clsDateTime
+  Call dt.FromString(TheString)
+  Set FromString = dt
+End Function
+
+' YM => YYYY/MM
+Public Function FromYM(ByVal YM As String) As clsDateTime
+  Dim dt As clsDateTime
+  Set dt = New clsDateTime
+  Call dt.FromYM(YM)
+  Set FromYM = dt
+End Function
+
+' YW => YYYY/WW
+Public Function FromYW(ByVal YW As String) As clsDateTime
+  Dim dt As clsDateTime
+  Set dt = New clsDateTime
+  Call dt.FromYW(YW)
+  Set FromYW = dt
+End Function
+
+Public Function ModayInWeek(ByVal Year As Integer, Week As Integer)
+  Dim dt As New clsDateTime
+  Call dt.FromYearAndWeek(Year, Week)
+End Function
+
+Public Function Now() As clsDateTime
+  Set Now = OS.Time.Now ' Me.FromDate(Date)
+End Function
+Public Function Today() As clsDateTime
+  Set Today = OS.Time.Now.StartOfDay   ' Me.FromDate(Date)
+End Function

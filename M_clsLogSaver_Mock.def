@@ -120,7 +120,7 @@ End Sub
 
 Public Sub SaveToMyLog(ByRef objLogEntry As clsLogEntry)
   ' ToDo: Implement your functionality here
-  Set c_LastEntry = objLogEntry
+  Set c_LastEntry = objLogEntry.Clone
   c_LoggedCount = c_LoggedCount + 1
 End Sub
 

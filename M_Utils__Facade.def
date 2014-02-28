@@ -6,62 +6,46 @@ Option Compare Database
 Option Explicit
 
 Private m_StringUtils As clsStringUtils
-'Private m_ArrayUtils As clsArrayUtils
-'Private m_ColUtils   As clsCollectionUtils
-'
-'Private m_PrgVersion As clsPrgVersion
-'Private m_Maps       As clsGoogleMaps
-
+Private m_DateTime    As clsDateTime_Factory
+Private m_Timespan    As clsTimespan_Factory
 Private m_Ping        As clsPing
 
 
-'Public Property Get Binaries() As clsBinary
-'  Set Binaries = New clsBinary
-'End Property
-'
-'Public Property Get Encryption() As clsCSHA256
-'  Set Encryption = New clsCSHA256
-'End Property
-'
-'Public Property Get Hashtable() As clsHashtable
-'  Set Hashtable = New clsHashtable
-'End Property
-'
-'
-'
 Public Property Get Strings() As clsStringUtils
   If m_StringUtils Is Nothing Then Set m_StringUtils = New clsStringUtils
   Set Strings = m_StringUtils
 End Property
-'
-'Public Property Get Arrays() As clsArrayUtils
-'  If m_ArrayUtils Is Nothing Then Set m_ArrayUtils = New clsArrayUtils
-'  Set Arrays = m_ArrayUtils
-'End Property
-'
-'Public Property Get Collections() As clsCollectionUtils
-'  If m_ColUtils Is Nothing Then Set m_ColUtils = New clsCollectionUtils
-'  Set Collections = m_ColUtils
-'End Property
-'
-'Public Property Get Prg() As clsPrgVersion
-'  If m_PrgVersion Is Nothing Then Set m_PrgVersion = New clsPrgVersion
-'  Set Prg = m_PrgVersion
-'End Property
-'
-'Public Property Get GoogleMap() As clsGoogleMaps
-'  Set GoogleMap = New clsGoogleMaps
-'End Property
+
+Public Property Get DateTime() As clsDateTime_Factory
+  If m_DateTime Is Nothing Then Set m_DateTime = New clsDateTime_Factory
+  Set DateTime = m_DateTime
+End Property
+
+Public Property Get Timespan() As clsTimespan_Factory
+  If m_Timespan Is Nothing Then Set m_Timespan = New clsTimespan_Factory
+  Set Timespan = m_Timespan
+End Property
 
 Public Property Get Ping() As clsPing
   If m_Ping Is Nothing Then Set m_Ping = New clsPing
   Set Ping = m_Ping
 End Property
 
+' ---------------------------------------------------------------------------------------
+
+Public Function StopWatch(Optional ByVal strDescription As String, _
+                  Optional ByVal LogCategory As String = "StopWatch", _
+                  Optional ByVal LogModule As String = "", _
+                  Optional ByVal LogProcedure As String = "") As clsStopWatch
+                  
+  Set StopWatch = New clsStopWatch
+  StopWatch.Init strDescription, LogCategory, LogModule, LogProcedure
+  StopWatch.Start
+End Function
+
 Private Sub Class_Terminate()
-'  Set m_StringUtils = Nothing
-'  Set m_ArrayUtils = Nothing
-'  Set m_ColUtils = Nothing
-'  Set m_PrgVersion = Nothing
+  Set m_StringUtils = Nothing
+  Set m_DateTime = Nothing
+  Set m_Timespan = Nothing
   Set m_Ping = Nothing
 End Sub

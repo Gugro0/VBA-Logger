@@ -29,3 +29,27 @@ End Function
 Public Function AccUnitTestClassFactory_clsStringUtils_Test() As Object
    Set AccUnitTestClassFactory_clsStringUtils_Test = New clsStringUtils_Test
 End Function
+
+Public Function AccUnitTestClassFactory_clsTimespan_Test() As Object
+   Set AccUnitTestClassFactory_clsTimespan_Test = New clsTimespan_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsDateTime_Test() As Object
+   Set AccUnitTestClassFactory_clsDateTime_Test = New clsDateTime_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsStopWatch_Test() As Object
+   Set AccUnitTestClassFactory_clsStopWatch_Test = New clsStopWatch_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsLogSaver_EMail_SMTP_Test() As Object
+   Set AccUnitTestClassFactory_clsLogSaver_EMail_SMTP_Test = New clsLogSaver_EMail_SMTP_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsLogSaver_EMail_Outlook_Test() As Object
+   Set AccUnitTestClassFactory_clsLogSaver_EMail_Outlook_Test = New clsLogSaver_EMail_Outlook_Test
+End Function
+
+Public Function AccUnitTestClassFactory_clsLogSaver_SysLog_Test() As Object
+   Set AccUnitTestClassFactory_clsLogSaver_SysLog_Test = New clsLogSaver_SysLog_Test
+End Function

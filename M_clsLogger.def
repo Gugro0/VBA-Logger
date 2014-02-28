@@ -17,94 +17,104 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
+Public Event SaveToLog(ByRef objLogEntry As clsLogEntry)
 
 Private Const USE_EVENTS As Boolean = True
 Private Const USE_CALL As Boolean = Not USE_EVENTS
 
 Private c_Session As clsLogSession
+Private c_Entry   As clsLogEntry
 
-Public Event SaveToLog(ByRef objLogEntry As clsLogEntry)
+Private c_Enabled As Boolean
 
 
-Public Sub LogEntry(ByRef objLogEntry As clsLogEntry)
-  If USE_EVENTS Then
-    RaiseEvent SaveToLog(objLogEntry)
-  ElseIf USE_CALL Then
-    Call SaveToLogsaver(objLogEntry)
+Public Property Get Enabled() As Boolean
+  Enabled = c_Enabled
+End Property
+Public Property Let Enabled(ByVal TheValue As Boolean)
+  c_Enabled = TheValue
+End Property
+
+Public Sub Save(ByVal objLogEntry As clsLogEntry)
+  If Enabled Then
+    If USE_EVENTS Then
+      RaiseEvent SaveToLog(objLogEntry)
+    ElseIf USE_CALL Then
+      Call SaveToLogsaver(objLogEntry)
+    End If
   End If
 End Sub
 
+Private Function NewEntry() As clsLogEntry
+  Set NewEntry = c_Entry              ' Use Static Entry for performance !!!
+  'Set NewEntry = New clsLogEntry
+End Function
+
 
 Public Sub Message(ByVal TheMessage As String)
-  With New clsLogEntry
-    .MessageText = TheMessage
-    .EntryType = Evt_Status
-    Call LogEntry(.Self)
+  With NewEntry
+    .Init MessageText:=TheMessage
+    Call Save(.Self)
   End With
 End Sub
 
 Public Sub Error(ByVal Category As String, ByVal InModule As Variant, ByVal InProcedure As String, ByVal ErrNumber As Long, ByVal ErrText As String, _
                       Optional ByVal MessageDisplayed As Boolean, Optional ByVal StackTrace As String)
 
-  With New clsLogEntry
-    .Severity = Sev_Error
-    If IsObject(InModule) Then
-      .FromModule = TypeName(InModule)
-    Else
-      .FromModule = InModule
-    End If
-    .FromProcedure = InProcedure
-    .EntryType = Evt_Status
-    .MessageNumber = ErrNumber
-    .MessageText = ErrText
-    .MessageDisplayed = MessageDisplayed
-    .AdditionalInfo = StackTrace
-    .Category = Category
-    Call LogEntry(.Self)
+  If IsObject(InModule) Then
+    InModule = TypeName(InModule)
+  End If
+  With NewEntry
+    .Init Category, InModule, InProcedure, Sev_Error, Evt_Status, ErrNumber, ErrText, StackTrace, MessageDisplayed
+    Call Save(.Self)
   End With
 End Sub
 
 Public Sub Debug_(ByVal Category As String, ByVal InModule As Variant, ByVal InProcedure As String, ByVal DebugText As String, _
                       Optional ByVal AdditionalInfo As String)
 
-  With New clsLogEntry
-    .Severity = Sev_Debug
-    .Category = Category
-    If IsObject(InModule) Then
-      .FromModule = TypeName(InModule)
-    Else
-      .FromModule = InModule
-    End If
-    .FromProcedure = InProcedure
-    .EntryType = Evt_Status
-    .MessageText = DebugText
-    .AdditionalInfo = AdditionalInfo
-    Call LogEntry(.Self)
+  If IsObject(InModule) Then
+    InModule = TypeName(InModule)
+  End If
+  With NewEntry
+    .Init Category, InModule, InProcedure, Sev_Debug, Evt_Status, 0, DebugText, AdditionalInfo
+    Call Save(.Self)
   End With
 End Sub
 
-Public Sub Trace(ByVal Category As String, ByRef InModule As Variant, ByVal InProcedure As String, _
+Public Sub Trace(ByVal Category As String, ByVal InModule As Variant, ByVal InProcedure As String, _
                  Optional ByVal TraceEvent As e_EventType = Evt_Status, _
                  Optional ByVal TraceText As String, _
                  Optional ByVal AdditionalInfo As String)
 
-  With New clsLogEntry
-    .Severity = Sev_Trace
-    .Category = Category
-    If IsObject(InModule) Then
-      .FromModule = TypeName(InModule)
-      .MessageNumber = VarPtr(InModule)
-    Else
-      .FromModule = InModule
-      .MessageNumber = 0
-    End If
-    .FromProcedure = InProcedure
-    .EntryType = TraceEvent
-    .MessageText = TraceText
-    .AdditionalInfo = AdditionalInfo
-    Call LogEntry(.Self)
+  Dim ID As Long
+
+  If IsObject(InModule) Then
+    InModule = TypeName(InModule)
+    ID = VarPtr(InModule)
+  End If
+  With NewEntry
+    .Init Category, InModule, InProcedure, Sev_Trace, TraceEvent, ID, TraceText, AdditionalInfo
+    Call Save(.Self)
   End With
 End Sub
+
+Public Sub Performance(ByVal Category As String, ByVal InModule As Variant, ByVal InProcedure As String, _
+                 Optional ByVal InfoText As String, _
+                 Optional ByVal AdditionalInfo As String)
+
+  Dim ID As Long
+
+  If IsObject(InModule) Then
+    InModule = TypeName(InModule)
+    ID = VarPtr(InModule)
+  End If
+  With NewEntry
+    .Init Category, InModule, InProcedure, Sev_Trace, Evt_Performance, ID, InfoText, AdditionalInfo
+    Call Save(.Self)
+  End With
+End Sub
+
 
 
 ' --------------------------------------------------------------
@@ -137,4 +147,6 @@ End Property
 
 Private Sub Class_Initialize()
   Set c_Session = New clsLogSession
+  Set c_Entry = New clsLogEntry
+  Me.Enabled = True
 End Sub

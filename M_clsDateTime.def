@@ -7,15 +7,16 @@ Attribute VB_Exposed = True
 ' Author    : K.Gundermann
 ' Date      : 17.01.2012
 ' Purpose   : Date / Time (with millseconds!)
+'
 '---------------------------------------------------------------------------------------
 
-Option Compare Database
+Option Compare Binary
 Option Explicit
 
-Private Const DEFAULT_FORMAT_DATE = "%2.2u.%2.2u.%4u"
-Private Const DEFAULT_TIME_FORMAT = "%2.2u:%2.2u:%2.2u.%5.5u"
-Private Const DEFAULT_DATETIME_FORMAT = "%2.2u.%2.2u.%4u %2.2u:%2.2u:%2.2u.%5.5u"
-Private Const DEFAULT_ISO8601_FORMAT = "%4u-%2.2u-%2.2uT%2.2u:%2.2u:%2.2u.%5.5u"
+Private Const DEFAULT_FORMAT_DATE = "<dd>.<MM>.<yyyy>"
+Private Const DEFAULT_TIME_FORMAT = "<hh>:<mm>:<ss>.<FFF>"
+Private Const DEFAULT_DATETIME_FORMAT = "<dd>.<MM>.<yyyy> <hh>:<mm>:<ss>.<FFF>"
+Private Const DEFAULT_ISO8601_FORMAT = "<yyyy>-<MM>-<dd>T<hh>:<mm>:<ss>.<FFF>"
 
 Public Enum e_DateTimeFormat
   dt_Date = 1
@@ -24,31 +25,113 @@ Public Enum e_DateTimeFormat
   dt_ISO8601
 End Enum
 
-Public Year   As Integer
-Public Month  As Byte
-Public Day    As Byte
+Private Type t_DateTime
+  Time              As SYSTEMTIME
+  FormatString_Date As String
+  FormatString_Time As String
+  FormatString_DateTime As String
+End Type
 
-Public Hour   As Byte
-Public Minute As Byte
-Public Second As Byte
-Public Millisecond As Integer
+Private z As t_DateTime
 
-Private c_FormatString_Date As String
-Private c_FormatString_Time As String
-Private c_FormatString_DateTime As String
+' ----------------------------------------------------------------------------
+' --- Conversion From
 
-Public Function ToString(Optional Display As e_DateTimeFormat = dt_DateAndTime) As String
-  Select Case Display
-    Case dt_Date:
-      ToString = SPrintF(Me.FormatString_Date, Day, Month, Year)
-    Case dt_Time:
-      ToString = SPrintF(Me.FormatString_Time, Hour, Minute, Second, Millisecond)
-    Case dt_DateAndTime:
-      ToString = SPrintF(Me.FormatString_DateTime, Day, Month, Year, Hour, Minute, Second, Millisecond)
-    Case dt_ISO8601:
-      ToString = SPrintF(Me.FormatString_ISO8601, Day, Month, Year, Hour, Minute, Second, Millisecond)
-  End Select
+Public Sub FromSystemTime(ByRef TheSystemTime As SYSTEMTIME)
+  z.Time = TheSystemTime
+End Sub
+
+
+Public Sub FromDate(ByVal TheDate As Date, Optional ByVal IgnoreTimePart As Boolean = False)
+  Year = VBA.Year(TheDate)
+  Month = VBA.Month(TheDate)
+  Day = VBA.Day(TheDate)
+  If Not IgnoreTimePart Then
+    Hour = VBA.Hour(TheDate)
+    Minute = VBA.Minute(TheDate)
+    Second = VBA.Second(TheDate)
+    Millisecond = 0
+  Else
+    Hour = 0
+    Minute = 0
+    Second = 0
+    Millisecond = 0
+  End If
+End Sub
+
+Public Sub FromString(ByVal TheString As String)
+  Call FromDate(NZDate(TheString))
+End Sub
+
+' YearMonth in Format YYYY/MM
+Public Sub FromYM(ByVal YearMonth As String)
+  If Mid(YearMonth, 5, 1) = "/" Then
+    Year = Val(Left(YearMonth, 4))
+    Month = Val(Mid(YearMonth, 6, 2))
+    Day = 1
+  End If
+End Sub
+
+Public Sub FromYearAndMont(ByVal Year As Integer, ByVal Month As Integer)
+  Me.Year = Year
+  Me.Month = Month
+  Me.Day = 1
+End Sub
+
+' YearWeek in Format YYYY/WW or YY/WW
+Public Sub FromYW(ByVal YearWeek As String)
+  Dim y As Integer
+  Dim W As Integer
+  
+  If Len(YearWeek) = 7 Then
+    If Mid(YearWeek, 5, 1) = "/" Then
+      y = Val(Left(YearWeek, 4))
+      W = Val(Mid(YearWeek, 6, 2))
+    End If
+  ElseIf Len(YearWeek) = 5 Then
+    If Mid(YearWeek, 3, 1) = "/" Then
+      y = Val(Left(YearWeek, 2)) + 2000
+      W = Val(Mid(YearWeek, 4, 2))
+    End If
+  ElseIf Len(YearWeek) <= 2 Then
+    y = Utils.DateTime.Today.Year
+    W = Val(YearWeek)
+  End If
+  
+  Call Me.FromYearAndWeek(y, W)
+End Sub
+
+' Monday in Week of Year
+Public Sub FromYearAndWeek(ByVal Year As Integer, ByVal Week As Integer)
+  Dim TheDate As Date
+  
+  If (Year < 1900) Or (Year > 2100) Then
+    Me.SetNullDate
+  ElseIf (Week < 1) Or (Week > 53) Then
+    Me.SetNullDate
+  Else
+  
+    If Year > 1900 Then Year = Year - 1900      ' Bezugsjahr 1900
+    TheDate = VBA.DateAdd("yyyy", Year, #1/1/1900#)   ' Der 01.01. des Jahres
+    If VBA.Weekday(TheDate, vbMonday) <= 4 Then
+      TheDate = TheDate - VBA.Weekday(TheDate, vbMonday) + 1   ' Donnerstag oder kleiner: auf den Montag zurückrechnen.
+    Else
+      TheDate = TheDate + (7 - VBA.Weekday(TheDate, vbMonday) + 1)  ' auf den Montag nach vorne rechnen.
+    End If
+    TheDate = VBA.DateAdd("ww", Week - 1, TheDate)
+    
+    Me.FromDate TheDate
+  End If
+  
+End Sub
+
+Public Function Parse(ByVal TheValue As String) As clsDateTime
+  Call Me.FromString(TheValue)
+  Set Parse = Self
 End Function
+
+' ----------------------------------------------------------------------------
+' --- Conversion To
 
 Public Function ToDate() As Date
   ToDate = DateSerial(Year, Month, Day)
@@ -58,39 +141,427 @@ Public Function ToDateWithTime() As Date
   ToDateWithTime = DateSerial(Year, Month, Day) + TimeSerial(Hour, Minute, Second)
 End Function
 
+Public Function ToFormattedString(ByVal FormatString As String) As String
+  Dim s As String
+  
+  s = FormatString
+  s = Replace(s, "<dddd>", Me.WeekdayName)
+  s = Replace(s, "<ddd>", Me.WeekdayShortName)
+  s = Replace(s, "<dd>", Format(Me.Day, "00"))
+  s = Replace(s, "<d>", CStr(Me.Day))
+  
+  s = Replace(s, "<MMMM>", Me.MonthName)
+  s = Replace(s, "<MMM>", Me.MonthShortName)
+  s = Replace(s, "<MM>", Format(Me.Month, "00"))
+  s = Replace(s, "<M>", CStr(Me.Month))
+  
+  s = Replace(s, "<yyyy>", Format(Me.Year, "0000"))
+  s = Replace(s, "<yy>", Format(Me.Year Mod 100, "00"))
+  
+  s = Replace(s, "<hh>", Format(Me.Hour, "00"))
+  s = Replace(s, "<h>", CStr(Me.Hour))
+  
+  s = Replace(s, "<mm>", Format(Me.Minute, "00"))
+  s = Replace(s, "<m>", CStr(Me.Minute))
+  
+  s = Replace(s, "<ss>", Format(Me.Second, "00"))
+  s = Replace(s, "<s>", CStr(Me.Second))
+  
+  s = Replace(s, "<FFF>", Format(Me.Millisecond, "000"))
+  
+  ToFormattedString = s
+End Function
+
+Public Function ToString(Optional Display As e_DateTimeFormat = dt_DateAndTime) As String
+  Select Case Display
+    Case dt_Date:
+      'ToString = SPrintF(Me.FormatString_Date, Day, Month, Year)
+      ToString = ToFormattedString(Me.FormatString_Date)
+    Case dt_Time:
+      'ToString = SPrintF(Me.FormatString_Time, Hour, Minute, Second, Millisecond)
+      ToString = ToFormattedString(Me.FormatString_Time)
+    Case dt_DateAndTime:
+      'ToString = SPrintF(Me.FormatString_DateTime, Day, Month, Year, Hour, Minute, Second, Millisecond)
+      ToString = ToFormattedString(Me.FormatString_DateTime)
+    Case dt_ISO8601:
+      'ToString = SPrintF(Me.FormatString_ISO8601, Day, Month, Year, Hour, Minute, Second, Millisecond)
+      ToString = ToFormattedString(Me.FormatString_ISO8601)
+  End Select
+End Function
+
+Public Function ToYearAndWeek() As String
+  Dim y As Integer
+  
+  If Me.WeekInYear >= 52 And Me.Month = 1 Then
+    y = Me.Year - 1
+  Else
+    y = Me.Year
+  End If
+
+  ToYearAndWeek = Format(y, "0000") & "/" & Format(Me.WeekInYear, "00")
+
+End Function
+
+
+
 ' ----------------------------------------------------------------------------
 
+Public Function Clone() As clsDateTime
+  Set Clone = New clsDateTime
+  Clone.SetConfig z
+End Function
+
+Friend Sub SetConfig(ByRef TheConfig As t_DateTime)
+  z = TheConfig
+End Sub
+
+' ----------------------------------------------------------------------------
+' --- Properties
+
+Public Property Get Year() As Integer
+    Year = z.Time.wYear
+End Property
+Public Property Let Year(ByVal TheValue As Integer)
+    z.Time.wYear = TheValue
+End Property
+Public Property Get Month() As Integer
+    Month = z.Time.wMonth
+End Property
+Public Property Let Month(ByVal TheValue As Integer)
+  If TheValue <= 0 Or TheValue > 12 Then
+    Err.Raise vbObjectError, , "Invalid Value: " & TheValue
+  Else
+    z.Time.wMonth = TheValue
+  End If
+End Property
+Public Property Get Day() As Integer
+    Day = z.Time.wDay
+End Property
+Public Property Let Day(ByVal TheValue As Integer)
+  If TheValue <= 0 Or TheValue > Me.DaysInMonth Then
+    Err.Raise vbObjectError, , "Invalid Value: " & TheValue
+  Else
+    z.Time.wDay = TheValue
+  End If
+End Property
+
+Public Property Get Hour() As Integer
+    Hour = z.Time.wHour
+End Property
+Public Property Let Hour(ByVal TheValue As Integer)
+  If TheValue < 0 Or TheValue >= 24 Then
+    Err.Raise vbObjectError, , "Invalid Value: " & TheValue
+  Else
+    z.Time.wHour = TheValue
+  End If
+End Property
+Public Property Get Minute() As Integer
+    Minute = z.Time.wMinute
+End Property
+Public Property Let Minute(ByVal TheValue As Integer)
+  If TheValue < 0 Or TheValue >= 60 Then
+    Err.Raise vbObjectError, , "Invalid Value: " & TheValue
+  Else
+    z.Time.wMinute = TheValue
+  End If
+End Property
+Public Property Get Second() As Integer
+    Second = z.Time.wSecond
+End Property
+Public Property Let Second(ByVal TheValue As Integer)
+  If TheValue < 0 Or TheValue >= 60 Then
+    Err.Raise vbObjectError, , "Invalid Value: " & TheValue
+  Else
+    z.Time.wSecond = TheValue
+  End If
+End Property
+Public Property Get Millisecond() As Long
+    Millisecond = z.Time.wMilliseconds
+End Property
+Public Property Let Millisecond(ByVal TheValue As Long)
+  If TheValue < 0 Or TheValue >= 1000 Then
+    Err.Raise vbObjectError, , "Invalid Value: " & TheValue
+  Else
+    z.Time.wMilliseconds = TheValue
+  End If
+End Property
+
+' ----------------------------------------------------------------------------
+
+Public Function DaysInMonth() As Integer
+  Dim md
+  md = Array(0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+  
+  If Me.Month <> 2 Then
+    DaysInMonth = md(Me.Month)
+  Else
+    If (Me.Year Mod 4) <> 0 Then
+      DaysInMonth = md(Me.Month)
+    ElseIf ((Me.Year Mod 100) = 0) And (Me.Year Mod 400 <> 0) Then
+      DaysInMonth = md(Me.Month)
+    Else
+      DaysInMonth = md(Me.Month) + 1
+    End If
+  End If
+End Function
+
+Public Function DayInYear() As Integer
+  DayInYear = VBA.DateTime.DatePart("y", Me.ToDate, vbUseSystemDayOfWeek, vbUseSystem)
+End Function
+Public Function WeekInYear() As Integer
+  WeekInYear = VBA.DateTime.DatePart("ww", Me.ToDate, vbUseSystemDayOfWeek, vbUseSystem)
+End Function
+
+Public Function FirstDayInMonth() As clsDateTime
+  Set FirstDayInMonth = Me.Clone
+  FirstDayInMonth.Day = 1
+End Function
+
+Public Function LastDayInMonth() As clsDateTime
+  Set LastDayInMonth = Me.Clone
+  LastDayInMonth.Day = DaysInMonth
+End Function
+
+' ----------------------------------------------------------------------------
+' --- Functions
+
+Public Function Add(ByVal TheValue As clsTimespan) As clsDateTime
+  Set Add = New clsDateTime
+  With Add
+    .Year = Me.Year
+    .Month = Me.Month
+    .Day = Me.Day + TheValue.Days
+    .Hour = Me.Hour + TheValue.Hours
+    .Minute = Me.Minute + TheValue.Minutes
+    .Second = Me.Second + TheValue.Seconds
+    .Millisecond = Me.Millisecond + TheValue.Milliseconds
+  End With
+End Function
+
+Public Function AddYears(ByVal TheValue As Integer) As clsDateTime
+  Set AddYears = Utils.DateTime.FromDate(VBA.DateTime.DateAdd("yyyy", TheValue, Me.ToDateWithTime))
+  AddYears.Millisecond = Me.Millisecond
+End Function
+Public Function AddMonths(ByVal TheValue As Integer) As clsDateTime
+  Set AddMonths = Utils.DateTime.FromDate(VBA.DateTime.DateAdd("m", TheValue, Me.ToDateWithTime))
+  AddMonths.Millisecond = Me.Millisecond
+End Function
+Public Function AddDays(ByVal TheValue As Integer) As clsDateTime
+  Set AddDays = Utils.DateTime.FromDate(VBA.DateTime.DateAdd("d", TheValue, Me.ToDateWithTime))
+  AddDays.Millisecond = Me.Millisecond
+End Function
+Public Function AddHours(ByVal TheValue As Integer) As clsDateTime
+  Set AddHours = Utils.DateTime.FromDate(VBA.DateTime.DateAdd("h", TheValue, Me.ToDateWithTime))
+  AddHours.Millisecond = Me.Millisecond
+End Function
+Public Function AddMinutes(ByVal TheValue As Integer) As clsDateTime
+  Set AddMinutes = Utils.DateTime.FromDate(VBA.DateTime.DateAdd("n", TheValue, Me.ToDateWithTime))
+  AddMinutes.Millisecond = Me.Millisecond
+End Function
+Public Function AddSeconds(ByVal TheValue As Integer) As clsDateTime
+  Set AddSeconds = Utils.DateTime.FromDate(VBA.DateTime.DateAdd("s", TheValue, Me.ToDateWithTime))
+  AddSeconds.Millisecond = Me.Millisecond
+End Function
+Public Function AddMilliseconds(ByVal TheValue As Integer) As clsDateTime
+  Set AddMilliseconds = Utils.DateTime.FromDate(VBA.DateTime.DateAdd("s", TheValue / 1000, Me.ToDateWithTime))
+  AddMilliseconds.Millisecond = Me.Millisecond + (TheValue \ 1000)
+End Function
+
+Public Function MonthName() As String
+  MonthName = Format(Me.ToDate, "MMMM")
+End Function
+Public Function MonthShortName() As String
+  MonthShortName = Format(Me.ToDate, "MMM")
+End Function
+
+Public Function Weekday() As VbDayOfWeek
+  Weekday = VBA.DateTime.Weekday(Me.ToDate)
+End Function
+Public Function WeekdayName() As String
+  WeekdayName = Format(Me.ToDate, "dddd")
+End Function
+Public Function WeekdayShortName() As String
+  WeekdayShortName = Format(Me.ToDate, "ddd")
+End Function
+
+Public Function StartOfDay() As clsDateTime
+  Set StartOfDay = Me.Clone
+  With StartOfDay
+    .Hour = 0
+    .Minute = 0
+    .Second = 0
+    .Millisecond = 0
+  End With
+End Function
+
+Public Function EndOfDay() As clsDateTime
+  Set EndOfDay = Me.Clone
+  With EndOfDay
+    .Hour = 23
+    .Minute = 59
+    .Second = 59
+    .Millisecond = 999
+  End With
+End Function
+
+Public Function NextWorkingDay() As clsDateTime
+' skips Saturdays/Sundays
+  Select Case Me.Weekday
+      Case vbFriday: Set NextWorkingDay = Me.AddDays(3)
+      Case vbSaturday: Set NextWorkingDay = Me.AddDays(2)
+      Case Else:: Set NextWorkingDay = Me.AddDays(1)
+  End Select
+End Function
+
+Public Function PrevWorkingDay() As clsDateTime
+' skips Saturdays/Sundays
+  Select Case Me.Weekday
+      Case vbMonday: Set PrevWorkingDay = Me.AddDays(-3)
+      Case vbSunday: Set PrevWorkingDay = Me.AddDays(-2)
+      Case Else:: Set PrevWorkingDay = Me.AddDays(-1)
+  End Select
+End Function
+
+' ----------------------------------------------------------------------------
+' --- Comparator
+
+'---------------------------------------------------------------------------------------
+' Procedure : Compare
+' Author    : K.Gundermann
+' Date      : 21.02.2012
+' Purpose   : Returns:
+'               -1  if Me < TheValue
+'                0  if Me = TheValue
+'               +1  if Me > TheValue
+'---------------------------------------------------------------------------------------
+'
+Public Function CompareTo(ByVal TheValue As clsDateTime) As Integer
+  If Me.Year < TheValue.Year Then
+    CompareTo = -1: Exit Function
+  ElseIf Me.Year > TheValue.Year Then
+    CompareTo = 1: Exit Function
+  End If
+  
+  If Me.Month < TheValue.Month Then
+    CompareTo = -1: Exit Function
+  ElseIf Me.Month > TheValue.Month Then
+    CompareTo = 1: Exit Function
+  End If
+  
+  If Me.Day < TheValue.Day Then
+    CompareTo = -1: Exit Function
+  ElseIf Me.Day > TheValue.Day Then
+    CompareTo = 1: Exit Function
+  End If
+  
+  If Me.Hour < TheValue.Hour Then
+    CompareTo = -1: Exit Function
+  ElseIf Me.Hour > TheValue.Hour Then
+    CompareTo = 1: Exit Function
+  End If
+  
+  If Me.Minute < TheValue.Minute Then
+    CompareTo = -1: Exit Function
+  ElseIf Me.Minute > TheValue.Minute Then
+    CompareTo = 1: Exit Function
+  End If
+  
+  If Me.Second < TheValue.Second Then
+    CompareTo = -1: Exit Function
+  ElseIf Me.Second > TheValue.Second Then
+    CompareTo = 1: Exit Function
+  End If
+  
+  If Me.Millisecond < TheValue.Millisecond Then
+    CompareTo = -1: Exit Function
+  ElseIf Me.Millisecond > TheValue.Millisecond Then
+    CompareTo = 1: Exit Function
+  End If
+  
+End Function
+
+Public Function GreaterThan(ByVal TheValue As clsDateTime) As Boolean
+  GreaterThan = Me.CompareTo(TheValue) > 0
+End Function
+Public Function GreaterThanOrEqual(ByVal TheValue As clsDateTime) As Boolean
+  GreaterThanOrEqual = Me.CompareTo(TheValue) >= 0
+End Function
+Public Function LessThan(ByVal TheValue As clsDateTime) As Boolean
+  LessThan = Me.CompareTo(TheValue) < 0
+End Function
+Public Function LessThanOrEqual(ByVal TheValue As clsDateTime) As Boolean
+  LessThanOrEqual = Me.CompareTo(TheValue) <= 0
+End Function
+
+Public Function IsEqual(ByVal TheValue As clsDateTime) As Boolean
+  IsEqual = Me.CompareTo(TheValue) = 0
+End Function
+Public Function IsAfter(ByVal TheValue As clsDateTime) As Boolean
+  IsAfter = Me.CompareTo(TheValue) > 0
+End Function
+Public Function IsBefore(ByVal TheValue As clsDateTime) As Boolean
+  IsBefore = Me.CompareTo(TheValue) < 0
+End Function
+
+
+Public Function DateDiff(ByVal TheValue As clsDateTime) As clsTimespan
+  Set DateDiff = Utils.Timespan.FromDateDiff(Me, TheValue)
+End Function
+
+Public Property Get IsNullDate() As Boolean
+  If Me.Year <> 1899 Then Exit Property
+  If Me.Month <> 12 Then Exit Property
+  If Me.Day <> 31 Then Exit Property
+  If Me.Hour <> 0 Then Exit Property
+  If Me.Minute <> 0 Then Exit Property
+  If Me.Second <> 0 Then Exit Property
+  If Me.Millisecond <> 0 Then Exit Property
+  IsNullDate = True
+End Property
+
+Public Sub SetNullDate()
+  Me.Year = 1899
+  Me.Month = 12
+  Me.Day = 31
+  Me.Hour = 0
+  Me.Minute = 0
+  Me.Second = 0
+  Me.Millisecond = 0
+End Sub
+' ----------------------------------------------------------------------------
+' --- FormatStrings
+
 Public Property Get FormatString_Date() As String
-  If Not IsNullString(c_FormatString_Date) Then
-    FormatString_Date = c_FormatString_Date
+  If Not IsNullString(z.FormatString_Date) Then
+    FormatString_Date = z.FormatString_Date
   Else
     FormatString_Date = DEFAULT_FORMAT_DATE
   End If
 End Property
 Public Property Let FormatString_Date(ByVal TheValue As String)
-    c_FormatString_Date = TheValue
+    z.FormatString_Date = TheValue
 End Property
 
 Public Property Get FormatString_Time() As String
-  If Not IsNullString(c_FormatString_Time) Then
-    FormatString_Time = c_FormatString_Time
+  If Not IsNullString(z.FormatString_Time) Then
+    FormatString_Time = z.FormatString_Time
   Else
     FormatString_Time = DEFAULT_TIME_FORMAT
   End If
 End Property
 Public Property Let FormatString_Time(ByVal TheValue As String)
-    c_FormatString_Time = TheValue
+    z.FormatString_Time = TheValue
 End Property
 
 Public Property Get FormatString_DateTime() As String
-  If Not IsNullString(c_FormatString_DateTime) Then
-    FormatString_DateTime = c_FormatString_DateTime
+  If Not IsNullString(z.FormatString_DateTime) Then
+    FormatString_DateTime = z.FormatString_DateTime
   Else
     FormatString_DateTime = DEFAULT_DATETIME_FORMAT
   End If
 End Property
 Public Property Let FormatString_DateTime(ByVal TheValue As String)
-    c_FormatString_DateTime = TheValue
+    z.FormatString_DateTime = TheValue
 End Property
 
 Public Property Get FormatString_ISO8601() As String

@@ -7,7 +7,165 @@ Attribute VB_Exposed = False
 ' Author    : K.Gundermann
 ' Date      : 17.01.2012
 ' Purpose   : Sends Logger Events to a EMail Recipient using Outlook
+' Remark    : Needs Microsoft Outlook xx.x Object Library
 '---------------------------------------------------------------------------------------
 
 Option Compare Database
 Option Explicit
+
+#Const Outlook = 1
+#If Outlook Then
+
+Implements ILogSaver
+
+Private WithEvents c_Logger   As clsLogger
+Attribute c_Logger.VB_VarHelpID = -1
+Private WithEvents c_Session  As clsLogSession
+Attribute c_Session.VB_VarHelpID = -1
+Private c_Filters             As clsLogFilterCollection
+
+' Private Const olMailItem = 0
+
+Private c_Name                As String
+
+Private c_EmailTo       As String
+Private c_EMailSubject  As String
+
+
+Private Sub Class_Initialize()
+  Set c_Session = Logger.Log.Session
+  Set c_Filters = New clsLogFilterCollection
+End Sub
+Private Sub Class_Terminate()
+  Call StopLog
+End Sub
+
+
+' --- Public Interface ---
+Public Sub StartLog()
+  Set c_Logger = Logger.Log
+End Sub
+
+Public Sub StopLog()
+  Set c_Logger = Nothing
+End Sub
+
+Public Sub SaveToLog(ByRef objLogEntry As clsLogEntry)
+  If Filters.MatchFilter(objLogEntry) Then
+    Call SaveToMyLog(objLogEntry)
+  End If
+End Sub
+
+Public Function AddFilter(ByVal TheFilter As clsLogFilter) As ILogSaver
+  Filters.AddFilter TheFilter
+  Set AddFilter = Me
+End Function
+
+Public Property Get ID() As Long
+  ID = ObjPtr(Me)
+End Property
+Public Property Get Name() As String
+  If c_Name = vbNullString Then
+    Name = TypeName(Me)
+  Else
+    Name = c_Name
+  End If
+End Property
+Public Property Let Name(ByVal TheName As String)
+  c_Name = TheName
+End Property
+
+
+' --- Private Functions ---
+Private Property Get Filters() As clsLogFilterCollection
+  Set Filters = c_Filters
+End Property
+
+' --- Event Handler for Logger/Session Class ---
+Private Sub c_Logger_SaveToLog(objLogEntry As clsLogEntry)
+  Call Me.SaveToLog(objLogEntry)
+End Sub
+
+Private Sub c_Session_Login()
+  ' ToDo: We have now a logged In User
+End Sub
+
+Private Sub c_Session_Logout()
+  ' ToDo: The user has logged out
+End Sub
+
+' --- Implements ILogSaver ---
+Private Sub ILogSaver_StartLog()
+  Me.StartLog
+End Sub
+Private Sub ILogSaver_StopLog()
+  Me.StopLog
+End Sub
+Private Function ILogSaver_AddFilter(ByVal TheFilter As clsLogFilter) As ILogSaver
+  Set ILogSaver_AddFilter = Me.AddFilter(TheFilter)
+End Function
+Private Property Get ILogSaver_ID() As Long
+  ILogSaver_ID = Me.ID
+End Property
+Private Property Get ILogSaver_Name() As String
+  ILogSaver_Name = Me.Name
+End Property
+Private Property Let ILogSaver_Name(ByVal TheName As String)
+  Me.Name = TheName
+End Property
+Private Sub ILogSaver_SaveToLog(objLogEntry As clsLogEntry)
+  Call Me.SaveToLog(objLogEntry)
+End Sub
+
+
+' ---------------------------------------------------------------------------------
+' -- Specific Functions for that logger here
+
+Public Property Get EmailTo() As String
+  EmailTo = c_EmailTo
+End Property
+Public Property Let EmailTo(ByVal TheReceiver As String)
+  c_EmailTo = TheReceiver
+End Property
+
+Public Property Get EMailSubject() As String
+  If IsNullString(c_EMailSubject) Then
+    EMailSubject = TypeName(Me)
+  Else
+    EMailSubject = c_EMailSubject
+  End If
+End Property
+Public Property Let EMailSubject(ByVal TheSubject As String)
+  c_EMailSubject = TheSubject
+End Property
+
+Private Sub SendMail(ByVal TheMessage As String)
+  Dim olApp   As Outlook.Application
+  Dim olNS    As Outlook.NameSpace
+  Dim olMail  As Outlook.MailItem
+  
+  Set olApp = New Outlook.Application
+  If olApp Is Nothing Then Exit Sub
+  
+  Set olNS = olApp.GetNamespace("MAPI")
+  Set olMail = olApp.CreateItem(olMailItem)
+  With olMail
+    .To = Me.EmailTo
+    .Subject = Me.EMailSubject
+    .Body = TheMessage
+    .Send
+  End With
+  
+End Sub
+
+Private Function LogEntry2String(ByVal objLogEntry As clsLogEntry) As String
+  LogEntry2String = Logger.Log.Session.ToString & vbCrLf & objLogEntry.ToString
+End Function
+
+
+Private Sub SaveToMyLog(ByRef objLogEntry As clsLogEntry)
+  SendMail LogEntry2String(objLogEntry)
+End Sub
+
+
+#End If

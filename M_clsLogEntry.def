@@ -23,29 +23,141 @@ Public Enum e_Severity
   Sev_All = 1 + 2 + 4 + 8 + 16
 End Enum
 
-Public Enum e_EventType
+Public Enum e_EventType     ' Only for Sev_Trace
   Evt_Status = 1
   Evt_Entering = 2
   Evt_Leaving = 4
   Evt_Creating = 8
   Evt_Destroying = 16
+  Evt_Performance = 32
   
-  Evt_All = 1 + 2 + 4 + 8 + 16
+  Evt_All = 1 + 2 + 4 + 8 + 16 + 32
   Evt_EnterLeave = 2 + 4
   Evt_CreateDestroy = 8 + 16
 End Enum
 
 
-Public Timestamp      As clsDateTime
-Public Category       As String
-Public FromModule     As String
-Public FromProcedure  As String
-Public EntryType      As e_EventType
-Public Severity       As e_Severity
-Public MessageNumber  As Long
-Public MessageText    As String
-Public MessageDisplayed As Boolean
-Public AdditionalInfo As String
+Private Type t_LogEntry
+  ts             As SYSTEMTIME
+  TimeStamp      As clsDateTime
+  Category       As String
+  Module         As String
+  Procedure      As String
+  Severity       As e_Severity
+  EventType      As e_EventType
+  MessageNumber  As Long
+  MessageText    As String
+  MessageDisplayed As Boolean
+  AdditionalInfo As String
+End Type
+
+Private z       As t_LogEntry
+Private z_Empty As t_LogEntry
+
+Private Declare Sub api_GetLocalTime Lib "kernel32" Alias "GetLocalTime" (lpSystemTime As SYSTEMTIME)
+
+
+Public Sub Init(Optional ByVal Category As String, Optional ByVal Module As String, Optional ByVal Procedure As String, _
+                    Optional ByVal Severity As e_Severity = Sev_Informational, Optional ByVal EventType As e_EventType = Evt_Status, _
+                    Optional ByVal MessageNumber As Long, Optional ByVal MessageText As String, _
+                    Optional ByVal AdditionalInfo As String, _
+                    Optional ByVal MessageDisplayed As Boolean)
+  
+  Set z.TimeStamp = Nothing
+  ' Set z.Timestamp = OS.Time.Now   ' Creating an object is expensive
+  api_GetLocalTime z.ts
+  
+  z.Category = Category
+  z.Module = Module
+  z.Procedure = Procedure
+  z.Severity = Severity
+  z.EventType = EventType
+  z.MessageNumber = MessageNumber
+  z.MessageText = MessageText
+  z.AdditionalInfo = AdditionalInfo
+  z.MessageDisplayed = MessageDisplayed
+End Sub
+
+'Public Sub Reset()
+'  Set z.TimeStamp = Nothing
+'  z = z_Empty
+'End Sub
+
+' ---------------------------------------------------------------------------------------------
+
+Public Property Get TimeStamp() As clsDateTime
+  If z.TimeStamp Is Nothing Then
+    ' Set z.Timestamp = OS.Time.Now
+    Set z.TimeStamp = New clsDateTime
+    z.TimeStamp.FromSystemTime z.ts
+  End If
+  Set TimeStamp = z.TimeStamp
+End Property
+Public Property Set TimeStamp(ByVal TheValue As clsDateTime)
+  Set z.TimeStamp = TheValue
+End Property
+
+Public Property Get Category() As String
+  Category = z.Category
+End Property
+Public Property Let Category(ByVal TheValue As String)
+  z.Category = TheValue
+End Property
+Public Property Get Module() As String
+  Module = z.Module
+End Property
+Public Property Let Module(ByVal TheValue As String)
+  z.Module = TheValue
+End Property
+Public Property Get Procedure() As String
+  Procedure = z.Procedure
+End Property
+Public Property Let Procedure(ByVal TheValue As String)
+  z.Procedure = TheValue
+End Property
+
+Public Property Get Severity() As e_Severity
+  Severity = z.Severity
+End Property
+Public Property Let Severity(ByVal TheValue As e_Severity)
+  z.Severity = TheValue
+End Property
+Public Property Get EventType() As e_EventType
+  EventType = z.EventType
+End Property
+Public Property Let EventType(ByVal TheValue As e_EventType)
+  z.EventType = TheValue
+End Property
+
+
+Public Property Get MessageNumber() As Long
+  MessageNumber = z.MessageNumber
+End Property
+Public Property Let MessageNumber(ByVal TheValue As Long)
+  z.MessageNumber = TheValue
+End Property
+Public Property Get MessageText() As String
+  MessageText = z.MessageText
+End Property
+Public Property Let MessageText(ByVal TheValue As String)
+  z.MessageText = TheValue
+End Property
+
+Public Property Get AdditionalInfo() As String
+  AdditionalInfo = z.AdditionalInfo
+End Property
+Public Property Let AdditionalInfo(ByVal TheValue As String)
+  z.AdditionalInfo = TheValue
+End Property
+
+Public Property Get MessageDisplayed() As Boolean
+  MessageDisplayed = z.MessageDisplayed
+End Property
+Public Property Let MessageDisplayed(ByVal TheValue As Boolean)
+  z.MessageDisplayed = TheValue
+End Property
+
+' ---------------------------------------------------------------------------------------------
 
 Public Property Get SeverityText() As String
   Select Case Severity
@@ -58,22 +170,50 @@ Public Property Get SeverityText() As String
   End Select
 End Property
 
-Public Property Get TraceEventText() As String
-  If Me.Severity = Sev_Trace Then
-    Select Case EntryType
-      Case Evt_Creating:    TraceEventText = "Create"
-      Case Evt_Destroying:  TraceEventText = "Destroy"
-      Case Evt_Entering:    TraceEventText = "Enter"
-      Case Evt_Leaving:     TraceEventText = "Leave"
-      Case Evt_Status:      TraceEventText = "Status"
+Public Property Get EventTypeText() As String
+  'If Me.Severity = Sev_Trace Then
+    Select Case EventType
+      Case Evt_Creating:    EventTypeText = "Create"
+      Case Evt_Destroying:  EventTypeText = "Destroy"
+      Case Evt_Entering:    EventTypeText = "Enter"
+      Case Evt_Leaving:     EventTypeText = "Leave"
+      Case Evt_Status:      EventTypeText = "Status"
+      Case Evt_Performance: EventTypeText = "Perf"
     End Select
-  End If
+  'End If
 End Property
+
+Public Function ToString() As String
+  With Me
+    ToString = "" _
+        & "Timestamp: " & .TimeStamp.ToString & vbCrLf _
+        & "Category:" & .Category & vbCrLf _
+        & "Module: " & .Module & vbCrLf _
+        & "Procedure: " & .Procedure & vbCrLf _
+        & "EventType: " & .EventTypeText & vbCrLf _
+        & "Severity: " & .SeverityText & vbCrLf _
+        & "MessageNumber: " & .MessageNumber & vbCrLf _
+        & "MessageText: " & .MessageText & vbCrLf _
+        & "MessageDisplayed: " & .MessageDisplayed & vbCrLf _
+        & "AdditionalInfo: " & .AdditionalInfo & vbCrLf
+  End With
+End Function
+
+
+' ---------------------------------------------------------------------------------------------
 
 Public Property Get Self() As clsLogEntry
   Set Self = Me
 End Property
 
-Private Sub Class_Initialize()
-  Set Timestamp = OS.Time.GetDateTime
+Public Function Clone() As clsLogEntry
+  Set Clone = New clsLogEntry
+  Clone.SetConfig z
+End Function
+
+Friend Sub SetConfig(ByRef Config As t_LogEntry)
+  z = Config
+  If IsSomething(Config.TimeStamp) Then
+    Set z.TimeStamp = Config.TimeStamp.Clone
+  End If
 End Sub

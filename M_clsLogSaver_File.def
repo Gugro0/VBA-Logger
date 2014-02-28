@@ -14,12 +14,11 @@ Option Explicit
 
 Implements ILogSaver
 
-
-
 Private WithEvents c_Logger   As clsLogger
 Attribute c_Logger.VB_VarHelpID = -1
 Private WithEvents c_Session  As clsLogSession
 Attribute c_Session.VB_VarHelpID = -1
+
 Private c_Filters             As clsLogFilterCollection
 
 Private c_Name                As String
@@ -121,6 +120,9 @@ Public Property Get LogDir() As String
   LogDir = c_LogDir
 End Property
 Public Property Let LogDir(ByVal TheValue As String)
+  If TheValue <> "" Then
+    If Right(TheValue, 1) <> "\" Then TheValue = TheValue & "\"
+  End If
   c_LogDir = TheValue
 End Property
 
@@ -134,7 +136,7 @@ Private Sub SaveToFile(ByRef objLogEntry As clsLogEntry)
   Dim str As String
 
   With objLogEntry
-    str = SPrintF("%s %-10s, %-8s, %-20s, %-10s, %-10s, %-80s", .Timestamp.ToString, .SeverityText, .Category, .FromModule, .FromProcedure, .MessageNumber, .MessageText)
+    str = SPrintF("%s %-10s, %-8s, %-20s, %-10s, %-10s, %-80s", .TimeStamp.ToString, .SeverityText, .Category, .Module, .Procedure, .MessageNumber, .MessageText)
   End With
   
   nf = FreeFile

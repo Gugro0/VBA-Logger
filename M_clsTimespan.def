@@ -1,0 +1,206 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+'---------------------------------------------------------------------------------------
+' Module    : clsTimespan
+' Author    : K.Gundermann
+' Date      : 20.02.2012
+' Purpose   : Working with a Timespan( in Seconds )
+'---------------------------------------------------------------------------------------
+
+Option Compare Binary
+Option Explicit
+
+
+Private c_Millisceconds As Long
+Private c_Seconds       As Long
+
+Public Function Create(Optional ByVal Days As Integer, _
+                        Optional ByVal Hours As Integer, _
+                        Optional ByVal Minutes As Integer, _
+                        Optional ByVal Seconds As Integer, _
+                        Optional ByVal Milliseconds As Long) As clsTimespan
+  c_Seconds = (((Days * 24&) + Hours) * 60& + Minutes) * 60& + Seconds
+  c_Millisceconds = Milliseconds
+  Set Create = Me
+End Function
+
+Public Sub Parse(ByVal TheValue As String)
+  Err.Raise vbObjectError, , "Not implemented"
+End Sub
+
+
+
+Public Property Get TotalMilliseconds() As Long
+  TotalMilliseconds = TotalSeconds * 1000 + c_Millisceconds     ' Achtung Überlauf ab 24 Tage
+End Property
+Public Property Let TotalMilliseconds(ByVal TheValue As Long)
+  c_Millisceconds = TheValue Mod 1000
+  c_Seconds = TheValue \ 1000
+End Property
+
+Public Property Get TotalSeconds() As Double
+    TotalSeconds = c_Seconds
+End Property
+Public Property Let TotalSeconds(ByVal TheValue As Double)
+    c_Seconds = TheValue
+End Property
+
+Public Property Get TotalMinutes() As Double
+    TotalMinutes = c_Seconds / 60
+End Property
+Public Property Let TotalMinutes(ByVal TheValue As Double)
+    c_Seconds = TheValue * 60
+End Property
+
+Public Property Get TotalHours() As Double
+    TotalHours = Me.TotalMinutes / 60
+End Property
+Public Property Let TotalHours(ByVal TheValue As Double)
+    Me.TotalMinutes = TheValue * 60
+End Property
+
+Public Property Get TotalDays() As Double
+    TotalDays = Me.TotalHours / 24
+End Property
+Public Property Let TotalDays(ByVal TheValue As Double)
+    Me.TotalHours = TheValue * 24
+End Property
+
+
+Private Sub SplitParts(Days As Integer, Hours As Integer, Minutes As Integer, Seconds As Integer)
+  Dim d As Double
+  d = c_Seconds
+  
+  Days = Int(d / 60 / 60 / 24)    '<<<< blöd !!
+  d = d - Days * 60& * 60& * 24&
+  Hours = Int(d / 60 / 60)
+  d = d - Hours * 60& * 60&
+  Minutes = Int(d / 60)
+  d = d - Minutes * 60&
+  Seconds = d
+
+End Sub
+
+Public Property Get Milliseconds() As Long
+  Milliseconds = c_Millisceconds
+End Property
+Private Property Let Milliseconds(ByVal TheValue As Long)
+  If TheValue >= 1000 Then
+    Me.Seconds = Me.Seconds + (TheValue \ 1000)
+    Milliseconds = (TheValue Mod 1000)
+  Else
+    c_Millisceconds = TheValue
+  End If
+End Property
+Public Property Get Seconds() As Long
+  Dim d As Integer, h As Integer, m As Integer, s As Integer
+  Call SplitParts(d, h, m, s)
+  Seconds = s
+End Property
+Public Property Let Seconds(ByVal TheValue As Long)
+  If TheValue >= 60 Then
+    Stop
+  Else
+    c_Seconds = TheValue
+  End If
+End Property
+
+Public Property Get Minutes() As Long
+  Dim d As Integer, h As Integer, m As Integer, s As Integer
+  Call SplitParts(d, h, m, s)
+  Minutes = m
+End Property
+Public Property Get Hours() As Long
+  Dim d As Integer, h As Integer, m As Integer, s As Integer
+  Call SplitParts(d, h, m, s)
+  Hours = h
+End Property
+Public Property Get Days() As Long
+  Dim d As Integer, h As Integer, m As Integer, s As Integer
+  Call SplitParts(d, h, m, s)
+  Days = d
+End Property
+
+' --------------------------------------------------------------------------------
+
+Public Property Get DateTime() As clsDateTime
+  Dim d As Double
+  
+  Set DateTime = New clsDateTime
+  With DateTime
+    Call SplitParts(.Day, .Hour, .Minute, .Second)
+  End With
+  
+End Property
+Public Property Let DateTime(ByVal TheValue As clsDateTime)
+  With TheValue
+    c_Seconds = (((.Day * 24) + .Hour) * 60 + .Minute) * 60 + .Second
+    c_Millisceconds = 0
+  End With
+End Property
+
+' --------------------------------------------------------------------------------
+
+Public Function ToString(Optional ByVal StringFormat As String = "%dd%h:%m:%s.%S") As String
+  Dim str As String
+  
+  str = StringFormat
+  If Me.Days = 0 Then
+    str = Utils.Strings.Replace(str, "%dd", "")
+  Else
+    str = Utils.Strings.Replace(str, "%d", CStr(Me.Days))
+  End If
+  str = Utils.Strings.Replace(str, "%h", Format(Me.Hours, "00"))
+  str = Utils.Strings.Replace(str, "%m", Format(Me.Minutes, "00"))
+  str = Utils.Strings.Replace(str, "%s", Format(Me.Seconds, "00"))
+  If Me.Milliseconds <> 0 Then
+    str = Utils.Strings.Replace(str, "%S", Format(Me.Milliseconds, "000"))
+  Else
+    str = Utils.Strings.Replace(str, ".%S", "")
+  End If
+  ToString = str
+End Function
+
+' --------------------------------------------------------------------------------
+
+Public Function AddToDate(ByVal TheValue As Date) As Date
+  AddToDate = DateAdd("s", Me.TotalSeconds, TheValue)
+End Function
+
+Public Function Add(ByVal TheValue As clsTimespan) As clsTimespan
+  Set Add = New clsTimespan
+  Add.TotalSeconds = Me.TotalSeconds + TheValue.TotalSeconds
+End Function
+
+Public Function AddMilliseconds(ByVal TheValue As Long) As clsTimespan
+  Set AddMilliseconds = New clsTimespan
+  AddMilliseconds.TotalMilliseconds = Me.TotalMilliseconds + TheValue
+End Function
+Public Function AddSeconds(ByVal TheValue As Long) As clsTimespan
+  Set AddSeconds = New clsTimespan
+  AddSeconds.TotalSeconds = Me.TotalSeconds + TheValue
+End Function
+Public Function AddMinutes(ByVal TheValue As Long) As clsTimespan
+  Set AddMinutes = Me.AddSeconds(TheValue * 60)
+End Function
+Public Function AddHours(ByVal TheValue As Long) As clsTimespan
+  Set AddHours = Me.AddMinutes(TheValue * 60)
+End Function
+Public Function AddDays(ByVal TheValue As Long) As clsTimespan
+  Set AddDays = Me.AddHours(TheValue * 24)
+End Function
+
+
+' --------------------------------------------------------------------------------
+
+Public Function CompareTo(ByVal TheValue As clsTimespan) As Integer
+  If Me.TotalSeconds < TheValue.TotalSeconds Then
+    CompareTo = -1
+  ElseIf Me.TotalSeconds = TheValue.TotalSeconds Then
+    CompareTo = 0
+  Else
+    CompareTo = 1
+  End If
+End Function

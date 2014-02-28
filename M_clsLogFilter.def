@@ -170,7 +170,7 @@ Private Function MatchesModule(ByRef objEntry As clsLogEntry) As Boolean
   If Me.ModuleMatcher Is Nothing Then
     MatchesModule = True
   Else
-    MatchesModule = Me.ModuleMatcher.MatchesString(objEntry.FromModule)
+    MatchesModule = Me.ModuleMatcher.MatchesString(objEntry.Module)
   End If
 End Function
 
@@ -180,7 +180,7 @@ Private Function MatchesProcedure(ByRef objEntry As clsLogEntry) As Boolean
   If Me.ProcedureMatcher Is Nothing Then
     MatchesProcedure = True
   Else
-    MatchesProcedure = Me.ProcedureMatcher.MatchesString(objEntry.FromProcedure)
+    MatchesProcedure = Me.ProcedureMatcher.MatchesString(objEntry.Procedure)
   End If
 End Function
 
@@ -191,11 +191,11 @@ Private Function MatchesType(ByRef objEntry As clsLogEntry) As Boolean
   If EntryTypeMatcher Is Nothing Then
     MatchesType = True
   Else
-    If objEntry.EntryType = 0 Then
+    If objEntry.EventType = 0 Then
       ' No Type for this Entry ?!
       MatchesType = True
     Else
-      MatchesType = EntryTypeMatcher.MatchesBitmap(objEntry.EntryType)
+      MatchesType = EntryTypeMatcher.MatchesBitmap(objEntry.EventType)
     End If
   End If
 End Function
@@ -256,7 +256,7 @@ End Function
 
 Private Function EntryType_ToString() As String
   If Not (Me.EntryTypeMatcher Is Nothing) Then
-    EntryType_ToString = Me.EntryTypeMatcher.ToString("Status", "Enter", "Leave", "Create", "Destroy")
+    EntryType_ToString = Me.EntryTypeMatcher.ToString("Perf", "Status", "Enter", "Leave", "Create", "Destroy")
   End If
 End Function
 

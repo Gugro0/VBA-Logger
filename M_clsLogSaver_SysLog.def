@@ -11,3 +11,59 @@ Attribute VB_Exposed = False
 
 Option Compare Database
 Option Explicit
+
+Private Declare Function RegisterEventSource Lib "advapi32.dll" Alias _
+                                     "RegisterEventSourceA" (ByVal lpUNCServerName As String, _
+                                                             ByVal lpSourceName As String) As Long
+Private Declare Function DeregisterEventSource Lib "advapi32.dll" ( _
+                                       ByVal hEventLog As Long) As Long
+Private Declare Function ReportEvent Lib "advapi32.dll" Alias _
+                             "ReportEventA" ( _
+                             ByVal hEventLog As Long, ByVal wType As Integer, _
+                             ByVal wCategory As Integer, ByVal dwEventID As Long, _
+                             ByVal lpUserSid As Any, ByVal wNumStrings As Integer, _
+                             ByVal dwDataSize As Long, plpStrings As Long, _
+                             lpRawData As Any) As Boolean
+Private Declare Function GetLastError Lib "kernel32" () As Long
+Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" ( _
+                       hpvDest As Any, hpvSource As Any, _
+                       ByVal cbCopy As Long)
+Private Declare Function GlobalAlloc Lib "kernel32" ( _
+                             ByVal wFlags As Long, _
+                             ByVal dwBytes As Long) As Long
+Private Declare Function GlobalFree Lib "kernel32" ( _
+                            ByVal hMem As Long) As Long
+
+Private Enum EVENTLOG_TYPE
+  EVENTLOG_SUCCESS = 0
+  EVENTLOG_ERROR_TYPE = 1
+  EVENTLOG_WARNING_TYPE = 2
+  EVENTLOG_INFORMATION_TYPE = 4
+  EVENTLOG_AUDIT_SUCCESS = 8
+  EVENTLOG_AUDIT_FAILURE = 10
+End Enum
+
+Public ApplicationName As String
+
+Public Sub LogNTEvent(ByVal sString As String, ByVal iLogType As Long, ByVal iEventID As Long)
+  Dim bRC As Boolean
+  Dim iNumStrings As Integer
+  Dim hEventLog As Long
+  Dim hMsgs As Long
+  Dim cbStringSize As Long
+  
+  hEventLog = RegisterEventSource("", ApplicationName)
+  cbStringSize = Len(sString) + 1
+  hMsgs = GlobalAlloc(&H40, cbStringSize)
+  CopyMemory ByVal hMsgs, ByVal sString, cbStringSize
+  iNumStrings = 1
+  If ReportEvent(hEventLog, _
+                 iLogType, 0, _
+                 iEventID, 0&, _
+                 iNumStrings, cbStringSize, _
+                 hMsgs, hMsgs) = 0 Then
+    MsgBox GetLastError()
+  End If
+  Call GlobalFree(hMsgs)
+  DeregisterEventSource (hEventLog)
+End Sub

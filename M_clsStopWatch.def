@@ -1,0 +1,105 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+'---------------------------------------------------------------------------------------
+' Module    : clsStopwatch
+' Author    : K.Gundermann
+' Date      : 27.09.2013
+' Purpose   : Creates a Stopwatch which can be started with Start
+'             and asked for the elapsed time with Elapsedms
+'             Can be used to profile code segments, e.g.
+'             With Utils.StopWatch "Profiling Section .."
+'                ... do something
+'             End With
+'             will generate a Log Entry
+'---------------------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+'Private Type LongLong
+'  LowPart   As Long
+'  HighPart  As Long
+'End Type
+
+Private Type t_StopWatch
+ Description     As String
+ Start           As Currency ' LongLong
+ Frequency       As Currency ' LongLong
+ LogOnTerminate  As Boolean
+ LogCategory     As String
+ LogModule       As String
+ LogProcedure    As String
+End Type
+
+Private z As t_StopWatch
+
+Private Declare Function QueryPerformanceCounter Lib "kernel32" (x As Currency) As Long
+Private Declare Function QueryPerformanceFrequency Lib "kernel32" (x As Currency) As Long
+
+Public Sub Init(Optional ByVal strDescription As String, _
+                  Optional ByVal LogCategory As String = "StopWatch", _
+                  Optional ByVal LogModule As String = "", _
+                  Optional ByVal LogProcedure As String = "")
+  
+  Description = strDescription
+  LogOnTerminate = Not IsNullString(strDescription)
+  z.LogCategory = LogCategory
+  z.LogModule = LogModule
+  z.LogProcedure = LogProcedure
+End Sub
+
+
+Public Property Get Description() As String
+  Description = z.Description
+End Property
+Public Property Let Description(ByVal TheValue As String)
+  z.Description = TheValue
+End Property
+
+Public Property Get LogOnTerminate() As Boolean
+  LogOnTerminate = z.LogOnTerminate
+End Property
+Public Property Let LogOnTerminate(ByVal TheValue As Boolean)
+  z.LogOnTerminate = TheValue
+End Property
+
+Public Sub Start()
+  If QueryPerformanceFrequency(z.Frequency) = 0 Then
+    Err.Raise "Your hardware does not support a high-resolution counter!"
+  Else
+    z.Frequency = z.Frequency
+    QueryPerformanceCounter z.Start
+  End If
+End Sub
+
+Public Property Get Frequency() As Currency     ' 1 / msec
+  Frequency = z.Frequency ' LongLongToCurrency(z.Frequency)
+End Property
+
+Public Property Get Elapsedms() As Currency ' in milliseconds
+  Dim lStop As Currency ' LongLong
+  'Dim diff As Currency
+  
+  QueryPerformanceCounter lStop
+  '  diff = (LongLongToCurrency(lStop) - LongLongToCurrency(z.Start)) * 1000
+  '  Elapsedms = diff / LongLongToCurrency(z.Frequency)
+  Elapsedms = (lStop - z.Start) / z.Frequency * 1000
+End Property
+
+Public Function ToString() As String
+  ToString = Format(Elapsedms, "#,##0.0 msec")
+End Function
+
+'Private Function LongLongToCurrency(llValue As LongLong) As Currency
+'  ' Copy 8 bytes from LongLong to empty currency
+'  apiCopyMemory LongLongToCurrency, llValue, Len(llValue)
+'  LongLongToCurrency = LongLongToCurrency * 10000
+'End Function
+
+Private Sub Class_Terminate()
+  If LogOnTerminate Then
+    Logger.Log.Performance z.LogCategory, z.LogModule, z.LogProcedure, Me.Description, Me.ToString
+  End If
+End Sub

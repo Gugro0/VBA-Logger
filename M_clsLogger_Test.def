@@ -14,29 +14,35 @@ Option Explicit
 
 'AccUnit:TestClass
 
-Private objLogger As clsLogger
-Private objLogSaver1   As clsLogSaver_Mock
+Private objLogger     As clsLogger
+Private objLogSaver1  As clsLogSaver_Mock
 
-
-Private lStartTime  As Long
-Private lStopTime   As Long
 Private lDuration   As Long
+Private lBase       As Currency
 Private l           As Long
 
 Private Const ONE_SECOND As Double = 1 / 24 / 60 / 60 ' TimeSerial(0, 0, Second:=1)
+Private Const LOOPS = 10000
+
+Implements SimplyVBUnit.ITestFixture
+Implements AccUnit_Integration.ITestManagerBridge
+Private TestManager As AccUnit_Integration.TestManager
+Private Sub ITestManagerBridge_InitTestManager(ByVal NewTestManager As AccUnit_Integration.ITestManagerComInterface): Set TestManager = NewTestManager: End Sub
+Private Function ITestManagerBridge_GetTestManager() As AccUnit_Integration.ITestManagerComInterface: Set ITestManagerBridge_GetTestManager = TestManager: End Function
+Private Sub ITestFixture_AddTestCases(ByVal Tests As SimplyVBUnit.TestCaseCollector): TestManager.AddTestCases Tests: End Sub
 
 ' ---  Infrastructure ---
 
 Public Sub Setup()
 
    Set objLogger = Logger.Log             ' New clsLogger
+   objLogger.Enabled = True
    
    Logger.LogSaver.KillAll
    
    Set objLogSaver1 = Logger.LogSaver.Mock
    objLogSaver1.StartLog
    
-   ' Logger.LogSaver.FormLogger.StartLog
 End Sub
 
 Public Sub Teardown()
@@ -64,7 +70,7 @@ Public Sub Log_WithAnyText_LogsATimeStamp()
   objLogger.Message "Dummy"
 
   ' Assert
-  result = objLogSaver1.LastEntry.Timestamp.ToDateWithTime()
+  result = objLogSaver1.LastEntry.TimeStamp.ToDateWithTime()
   Assert.That result, Iz.EqualTo(Now).Within(ONE_SECOND)
 
 End Sub
@@ -102,106 +108,115 @@ End Sub
 ' ------- Performance Tests --------------
 
 Public Sub Log_Base_Performance()
-  Const LOOPS = 1000000
-  Const MAX_TIME = 200 ' ms   ( 168 ms on a Virtual Machine with x GHz Intel Core2Duo )
-  Const MIN_LOGS_PER_SECOND = 1000000
-  
-  Dim s As String
+  Const MAX_TIME = 5 ' ms   ( 2,7 ms on a Intel Core i7-2600K 3,4 GHz )
   
   ' Arrange
   objLogSaver1.StopLog
   
-  lStartTime = timeGetTime
-  For l = 1 To LOOPS
-    s = "HAllo Welt"
-  Next
-  lStopTime = timeGetTime
-  lDuration = lStopTime - lStartTime
+  With Utils.StopWatch
+    For l = 1 To LOOPS
+      DoNothing "HAllo Welt"
+    Next
+    lDuration = .Elapsedms
+  End With
   
+  lBase = lDuration
   Debug.Print "Base: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
   Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
-  Assert.That LOOPS / (lDuration / 1000#), Iz.GreaterThan(MIN_LOGS_PER_SECOND), "Logs/sec"
 End Sub
 
-
-Public Sub Log_WithoutAnyLogger_Performance()
-  Const LOOPS = 10000
-  Const MAX_TIME = 300 ' ms   ( 218 ms on a Virtual Machine with x GHz Intel Core2Duo )
-  Const MIN_LOGS_PER_SECOND = 35000
+Public Sub Log_WithDisabledLogger_Performance()
+  Const MAX_TIME = 300 ' ms   ( 101 ms on a Intel Core i7-2600K 3,4 GHz )
+  Const MAX_OVERHEAD = 5000 ' %
   
   ' Arrange
   objLogSaver1.StopLog
   
-  lStartTime = timeGetTime
-  For l = 1 To LOOPS
-    objLogger.Message "HAllo Welt"
-  Next
-  lStopTime = timeGetTime
-  lDuration = lStopTime - lStartTime
+  objLogger.Enabled = False
+  With Utils.StopWatch
+    For l = 1 To LOOPS
+      objLogger.Message "HAllo Welt"
+    Next
+    lDuration = .Elapsedms
+  End With
   
-  Debug.Print "WithoutLogger: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
+  Debug.Print "WithDisabledLogger: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
   Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
-  Assert.That LOOPS / (lDuration / 1000#), Iz.GreaterThan(MIN_LOGS_PER_SECOND), "Logs/sec"
+  If lBase > 0 Then Assert.That (lDuration / lBase * 100), Iz.LessThan(MAX_OVERHEAD), "Overhead of " & Int(lDuration / lBase * 100) & "%"
+End Sub
+
+Public Sub Log_WithoutAnyLogSaver_Performance()
+  Const MAX_TIME = 300 ' ms   ( 101 ms on a Intel Core i7-2600K 3,4 GHz )
+  Const MAX_OVERHEAD = 5000 ' %
+  
+  ' Arrange
+  objLogSaver1.StopLog
+  
+  With Utils.StopWatch
+    For l = 1 To LOOPS
+      objLogger.Message "HAllo Welt"
+    Next
+    lDuration = .Elapsedms
+  End With
+  
+  Debug.Print "WithoutLogSaver: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
+  Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
+  If lBase > 0 Then Assert.That (lDuration / lBase * 100), Iz.LessThan(MAX_OVERHEAD), "Overhead of " & Int(lDuration / lBase * 100) & "%"
 End Sub
 
 
 Public Sub Log_WithFilterAndMocker_Performance()
-  Const LOOPS = 10000
-  Const MAX_TIME = 300 ' ms   ( 218 ms on a Virtual Machine with x GHz Intel Core2Duo )
-  Const MIN_LOGS_PER_SECOND = 35000
-  
+  Const MAX_TIME = 250 ' ms   ( 192 ms on a Intel Core i7-2600K 3,4 GHz )
+  Const MAX_OVERHEAD = 10000 ' %
   
   ' Arrange
   objLogSaver1.AddFilter Logger.LogFilter.WithMessageText(Contains, "HAllo Welt")
   
-  lStartTime = timeGetTime
-  For l = 1 To LOOPS
-    objLogger.Message "HAllo Welt"
-  Next
-  lStopTime = timeGetTime
-  lDuration = lStopTime - lStartTime
+  With Utils.StopWatch
+    For l = 1 To LOOPS
+      objLogger.Message "HAllo Welt"
+    Next
+    lDuration = .Elapsedms
+  End With
   
   Debug.Print "WithFilterAndMocker: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
   Assert.That objLogSaver1.LoggedCount, Iz.EqualTo(LOOPS)
   Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
-  Assert.That LOOPS / (lDuration / 1000#), Iz.GreaterThan(MIN_LOGS_PER_SECOND), "Logs/sec"
+  If lBase > 0 Then Assert.That (lDuration / lBase * 100), Iz.LessThan(MAX_OVERHEAD), "Overhead of " & Int(lDuration / lBase * 100) & "%"
 End Sub
 
 
 Public Sub Log_WithFilterAndMockerAndTextLogger_Performance()
-  Const LOOPS = 1000
-  Const MAX_TIME = 400 ' ms   ( 387 ms on a Virtual Machine with x GHz Intel Core2Duo )
-  Const MIN_LOGS_PER_SECOND = 2500
+  Const MAX_TIME = 6000 ' ms   ( 5895 ms on a Intel Core i7-2600K 3,4 GHz )
+  Const MAX_OVERHEAD = 70000 ' %
   
-  Dim lStartTime  As Long
-  Dim lStopTime   As Long
-  Dim lDuration   As Long
-  Dim l           As Long
   Dim objLogFile  As clsLogSaver_File
   
   ' Arrange
   objLogSaver1.AddFilter Logger.LogFilter.WithMessageText(Contains, "HAllo Welt")
   
   Set objLogFile = Logger.LogSaver.File
+  objLogFile.Name = "NUL"
+  
   Call objLogFile.AddFilter(Logger.LogFilter.WithMessageText(Contains, "HAllo Welt")).StartLog
   
-  lStartTime = timeGetTime
-  For l = 1 To LOOPS
-    objLogger.Error "Test", Me, "Log_WithFilterAndMockerAndTextLogger_Performance", l, "HAllo Welt"
-  Next
-  lStopTime = timeGetTime
-  lDuration = lStopTime - lStartTime
+  With Utils.StopWatch
+    For l = 1 To LOOPS
+      objLogger.Error "Test", Me, "Log_WithFilterAndMockerAndTextLogger_Performance", l, "HAllo Welt"
+    Next
+    lDuration = .Elapsedms
+  End With
   
   Debug.Print "WithFilterAndMockerAndTextLogger: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
   Assert.That objLogSaver1.LoggedCount, Iz.EqualTo(LOOPS)
   Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
-  Assert.That LOOPS / (lDuration / 1000#), Iz.GreaterThan(MIN_LOGS_PER_SECOND), "Logs/sec"
+  If lBase > 0 Then Assert.That (lDuration / lBase * 100), Iz.LessThan(MAX_OVERHEAD), "Overhead of " & Int(lDuration / lBase * 100) & "%"
 End Sub
 
+
 Public Sub Log_With7ActiveLoggerAndNoMatchingFilter_Performance()
-  Const LOOPS = 10000
-  Const MAX_TIME = 1000 ' ms   ( 891 ms on a Virtual Machine with x GHz Intel Core2Duo )
-  Const MIN_LOGS_PER_SECOND = 10000
+  Const MAX_TIME = 400 ' ms   ( 380 ms on a Intel Core i7-2600K 3,4 GHz )
+  Const MAX_OVERHEAD = 16000 ' %
   
   Dim objLogCons   As clsLogSaver_Console
   Dim objLogFile1  As clsLogSaver_File
@@ -233,15 +248,23 @@ Public Sub Log_With7ActiveLoggerAndNoMatchingFilter_Performance()
   
   Logger.LogSaver.StartAll
   
-  lStartTime = timeGetTime
-  For l = 1 To LOOPS
-    objLogger.Error "Test", "Dummy", "Dummy", l, "Dummy"
-  Next
-  lStopTime = timeGetTime
-  lDuration = lStopTime - lStartTime
+  With Utils.StopWatch
+    For l = 1 To LOOPS
+      objLogger.Error "Test", "Dummy", "Dummy", l, "Dummy"
+    Next
+    lDuration = .Elapsedms
+  End With
   
   Debug.Print "With7ActiveLoggerAndNoMatchingFilter: " & Int(LOOPS / (lDuration / 1000#)) & " Logs/Sec"
   Assert.That objLogSaver1.LoggedCount, Iz.EqualTo(0)
   Assert.That lDuration, Iz.LessThan(MAX_TIME), "Duration"
-  Assert.That LOOPS / (lDuration / 1000#), Iz.GreaterThan(MIN_LOGS_PER_SECOND), "Logs/sec"
+  If lBase > 0 Then Assert.That (lDuration / lBase * 100), Iz.LessThan(MAX_OVERHEAD), "Overhead of " & (lDuration / lBase * 100) & "%"
+End Sub
+
+
+' ----------------------------------------------------------------------------------------
+
+Private Sub DoNothing(ByVal s As String)
+  Dim x As String
+  x = s
 End Sub

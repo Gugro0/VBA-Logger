@@ -1,6 +1,6 @@
 Version =20
 VersionRequired =20
-Checksum =-746818648
+Checksum =996428002
 Begin Form
     PopUp = NotDefault
     RecordSelectors = NotDefault
@@ -20,6 +20,7 @@ Begin Form
     Top =2565
     Right =15255
     Bottom =11865
+    DatasheetGridlinesColor =15062992
     OnUnload ="[Event Procedure]"
     RecSrcDt = Begin
         0x8f6b6adb20fbe340
@@ -28,7 +29,7 @@ Begin Form
         0x2b49ff8d2557094bb37057930034f54d
     End
     NameMap = Begin
-        0x0acc0e5500000000000000000000000000000000000000000c00000004000000 ,
+        0x0acc0e5500000000000000000000000000000000000000000c00000005000000 ,
         0x0000000000000000000000000000
     End
     OnOpen ="[Event Procedure]"
@@ -39,53 +40,14 @@ Begin Form
         0x010000006801000000000000a10700000100000001000000
     End
     PrtDevMode = Begin
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x010403019c00000843ef80050100280000000000640001000800f00001000100 ,
-        0x9000020001000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000040000000000000000000000000000000000000001000000 ,
-        0x030000002201000000000000000000000000000000000000000000006450634b ,
-        0x0100000035010000c003000090000900000034089a0b2a0023009812c21a2300 ,
-        0x2a00c21a981234089a0b2a0023009812c21a23002a00c21a9812000004000200 ,
-        0x0000000000000000020000000400000000000000000000000000000000000000 ,
-        0x0000000001000000000000000100000000000000450200000000000000000000 ,
-        0x0000000000000000000000008a04000000000000450200000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000100000030303030000000000500000000000000 ,
-        0x3030303000000000000000004c200000ae2d0000000000000200000000000000 ,
-        0x000000000000000000000000000000000000000000000000000000004c200000 ,
-        0xae2d000000000000020000000000000000000000000000000000000000000000 ,
-        0x000000000000000000000000000000000400000004000000000aa08064006400 ,
-        0x0000000000000000000000000000000000000000000000000100000001000000 ,
-        0x0000000001000000101002000200000001000000010000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000020000000 ,
-        0x00000000000000000000803f0000000001001e00000000000c0000000000803f ,
-        0x00000000000000000200000000000000580200005802000000000000ffffffff ,
-        0x0001000001000000020000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000030000000800200004a0100002c01000058020000960000003c000000 ,
-        0x160000000000000005000000ec00c201ec00c201ec00c201ec00c20100000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000100000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000100 ,
-        0x000000040a000000000000000000000000000000000000000000000000000000 ,
-        0x00000000000000000200000000000000000000000000e703000000006450634b ,
-        0x50c3000035010000300100000000000000000000000000000100010000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000010000006450634b10270000350100001800000000000000 ,
-        0x000000006450634b204e000035010000c4000000000000000000000056006500 ,
-        0x720074007200610075006c006900630068002000310000000000000000000000 ,
+        0x00c55005336e9c640000000080011600c434530530c5500568453e00cf659c64 ,
+        0x010400069c00ec0343ef8005010009009a0b3408640001000800f00001000100 ,
+        0x9000020001004134003453050000000064957a007c453e0040463e00bcd69865 ,
+        0x0000000095640000000000000000000000000000010000000000000001000000 ,
+        0x0200000044010000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200b001ec03000096f99d4a0000000000000000000000000000000000000000 ,
+        0x0000000000000000120000000100000000000100000000000a000a0000000000 ,
+        0x0000000000000000000005000300000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
@@ -100,19 +62,25 @@ Begin Form
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000010000000000000000000000b0010000534d544a ,
+        0x000000001000a0014b0079006f0063006500720061002000460053002d004300 ,
+        0x350033003000300044004e000000496e70757442696e004175746f0052455344 ,
+        0x4c4c00556e69726573444c4c0045636f5072696e740046616c73650047726170 ,
+        0x686963734d6f6465005241535445524d4f444500476c6f73734d6f6465004f66 ,
+        0x6600436f6c6f72526570726f64756374696f6e0050726e5365740047616d6d61 ,
+        0x004e6f726d616c00436f6e7472617374004e6f726d616c004a6f62526574656e ,
+        0x74696f6e004f6666004a6f62526574656e74696f6e557365724944004f707469 ,
+        0x6f6e31004d616e6167656d656e74436f6465004f6666004f7269656e74617469 ,
+        0x6f6e00504f525452414954004475706c6578004e4f4e45004d65646961547970 ,
+        0x6500556e737065636966696564005265736f6c7574696f6e0036303064706900 ,
+        0x506170657253697a65004c455454455200436f6c6f724d6f6465003234627070 ,
+        0x0048616c66746f6e650048545f50415453495a455f4155544f00000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x00000000000000000000000000000000000000000000000000000000
+        0x0000000000000000
     End
     PrtDevNames = Begin
-        0x08001e0045000100000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x00000000006b6d34336245453700
+        0x08001b002e000100000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000003139322e3136382e302e33330000000000
     End
     OnTimer ="[Event Procedure]"
     OnLoad ="[Event Procedure]"
@@ -121,47 +89,70 @@ Begin Form
     AllowPivotChartView =0
     AllowPivotChartView =0
     FilterOnLoad =0
-    DatasheetBackColor12 =16777215
     ShowPageMargins =0
     DisplayOnSharePointSite =1
     DatasheetAlternateBackColor =16053492
     DatasheetGridlinesColor12 =15062992
     FitToScreen =1
+    PrtDevModeW = Begin
+        0x00003f00f57140778621a101feffffffd33c3c77fe3c3c772800000030000000 ,
+        0x42102c0340102c030000000090052c030100000000040000880d2c0308a01402 ,
+        0x01040006dc00ec0343ef8005010009009a0b3408640001000800f00001000100 ,
+        0x90000200010041003400000009000000af2c3c770016180600000000d33c3c77 ,
+        0x1643a57600000000cc011806000018065001180600ff00002a0b0a0050011806 ,
+        0x1e330ae8feff0000000000000000000000000000010000000000000001000000 ,
+        0x0200000044010000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200b001ec03000096f99d4a0000000000000000000000000000000000000000 ,
+        0x0000000000000000120000000100000000000100000000000a000a0000000000 ,
+        0x0000000000000000000005000300000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000010000000000000000000000b0010000534d544a ,
+        0x000000001000a0014b0079006f0063006500720061002000460053002d004300 ,
+        0x350033003000300044004e000000496e70757442696e004175746f0052455344 ,
+        0x4c4c00556e69726573444c4c0045636f5072696e740046616c73650047726170 ,
+        0x686963734d6f6465005241535445524d4f444500476c6f73734d6f6465004f66 ,
+        0x6600436f6c6f72526570726f64756374696f6e0050726e5365740047616d6d61 ,
+        0x004e6f726d616c00436f6e7472617374004e6f726d616c004a6f62526574656e ,
+        0x74696f6e004f6666004a6f62526574656e74696f6e557365724944004f707469 ,
+        0x6f6e31004d616e6167656d656e74436f6465004f6666004f7269656e74617469 ,
+        0x6f6e00504f525452414954004475706c6578004e4f4e45004d65646961547970 ,
+        0x6500556e737065636966696564005265736f6c7574696f6e0036303064706900 ,
+        0x506170657253697a65004c455454455200436f6c6f724d6f6465003234627070 ,
+        0x0048616c66746f6e650048545f50415453495a455f4155544f00000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000
+    End
+    PrtDevNamesW = Begin
+        0x040017002a000100000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000000000003100390032002e0031003600 ,
+        0x38002e0030002e003300330000000000000000000000
+    End
     Begin
         Begin Label
             BackStyle =0
             FontSize =11
             FontName ="Calibri"
-            LeftPadding =30
-            TopPadding =30
-            RightPadding =30
-            BottomPadding =30
-            GridlineStyleLeft =0
-            GridlineStyleTop =0
-            GridlineStyleRight =0
-            GridlineStyleBottom =0
-            GridlineWidthLeft =1
-            GridlineWidthTop =1
-            GridlineWidthRight =1
-            GridlineWidthBottom =1
         End
         Begin Rectangle
             SpecialEffect =3
             BackStyle =0
+            BorderLineStyle =0
             Width =850
             Height =850
-            LeftPadding =30
-            TopPadding =30
-            RightPadding =30
-            BottomPadding =30
-            GridlineStyleLeft =0
-            GridlineStyleTop =0
-            GridlineStyleRight =0
-            GridlineStyleBottom =0
-            GridlineWidthLeft =1
-            GridlineWidthTop =1
-            GridlineWidthRight =1
-            GridlineWidthBottom =1
         End
         Begin CommandButton
             Width =1701
@@ -170,115 +161,48 @@ Begin Form
             FontWeight =400
             ForeColor =-2147483630
             FontName ="Calibri"
-            LeftPadding =30
-            TopPadding =30
-            RightPadding =30
-            BottomPadding =30
-            GridlineStyleLeft =0
-            GridlineStyleTop =0
-            GridlineStyleRight =0
-            GridlineStyleBottom =0
-            GridlineWidthLeft =1
-            GridlineWidthTop =1
-            GridlineWidthRight =1
-            GridlineWidthBottom =1
+            BorderLineStyle =0
         End
         Begin CheckBox
             SpecialEffect =2
+            BorderLineStyle =0
             LabelX =230
             LabelY =-30
-            LeftPadding =30
-            TopPadding =30
-            RightPadding =30
-            BottomPadding =30
-            GridlineStyleLeft =0
-            GridlineStyleTop =0
-            GridlineStyleRight =0
-            GridlineStyleBottom =0
-            GridlineWidthLeft =1
-            GridlineWidthTop =1
-            GridlineWidthRight =1
-            GridlineWidthBottom =1
         End
         Begin OptionGroup
             SpecialEffect =3
+            BorderLineStyle =0
             Width =1701
             Height =1701
-            LeftPadding =30
-            TopPadding =30
-            RightPadding =30
-            BottomPadding =30
-            GridlineStyleLeft =0
-            GridlineStyleTop =0
-            GridlineStyleRight =0
-            GridlineStyleBottom =0
-            GridlineWidthLeft =1
-            GridlineWidthTop =1
-            GridlineWidthRight =1
-            GridlineWidthBottom =1
         End
         Begin TextBox
             FELineBreak = NotDefault
+            BorderLineStyle =0
             Width =1701
             LabelX =-1701
             FontSize =11
             BorderColor =12632256
             FontName ="Calibri"
             AsianLineBreak =1
-            LeftPadding =30
-            TopPadding =30
-            RightPadding =30
-            BottomPadding =30
-            GridlineStyleLeft =0
-            GridlineStyleTop =0
-            GridlineStyleRight =0
-            GridlineStyleBottom =0
-            GridlineWidthLeft =1
-            GridlineWidthTop =1
-            GridlineWidthRight =1
-            GridlineWidthBottom =1
-            ShowDatePicker =1
         End
         Begin ListBox
+            BorderLineStyle =0
             Width =1701
             Height =1417
             LabelX =-1701
             FontSize =11
             BorderColor =12632256
             FontName ="Calibri"
-            LeftPadding =30
-            TopPadding =30
-            RightPadding =30
-            BottomPadding =30
-            GridlineStyleLeft =0
-            GridlineStyleTop =0
-            GridlineStyleRight =0
-            GridlineStyleBottom =0
-            GridlineWidthLeft =1
-            GridlineWidthTop =1
-            GridlineWidthRight =1
-            GridlineWidthBottom =1
             AllowValueListEdits =1
             InheritValueList =1
         End
         Begin ComboBox
+            BorderLineStyle =0
             Width =1701
             LabelX =-1701
             FontSize =11
             BorderColor =12632256
             FontName ="Calibri"
-            LeftPadding =30
-            TopPadding =30
-            RightPadding =30
-            BottomPadding =30
-            GridlineStyleLeft =0
-            GridlineStyleTop =0
-            GridlineStyleRight =0
-            GridlineStyleBottom =0
-            GridlineWidthLeft =1
-            GridlineWidthTop =1
-            GridlineWidthRight =1
-            GridlineWidthBottom =1
             AllowValueListEdits =1
             InheritValueList =1
         End
@@ -289,18 +213,7 @@ Begin Form
             FontWeight =400
             ForeColor =-2147483630
             FontName ="Calibri"
-            LeftPadding =30
-            TopPadding =30
-            RightPadding =30
-            BottomPadding =30
-            GridlineStyleLeft =0
-            GridlineStyleTop =0
-            GridlineStyleRight =0
-            GridlineStyleBottom =0
-            GridlineWidthLeft =1
-            GridlineWidthTop =1
-            GridlineWidthRight =1
-            GridlineWidthBottom =1
+            BorderLineStyle =0
         End
         Begin FormHeader
             Height =3855
@@ -1046,10 +959,15 @@ Begin Form
                             GUID = Begin
                                 0xbc0b328bb4f2e64fbf06f4a0d7af1ea5
                             End
+
                             LayoutCachedLeft =7653
                             LayoutCachedTop =3223
                             LayoutCachedWidth =8238
                             LayoutCachedHeight =3613
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =1
+                            WebImagePaddingBottom =1
                         End
                         Begin ToggleButton
                             OverlapFlags =87
@@ -1063,10 +981,15 @@ Begin Form
                             GUID = Begin
                                 0x6f5767bcd81eea4ba3bfa3d5b6326427
                             End
+
                             LayoutCachedLeft =8276
                             LayoutCachedTop =3223
                             LayoutCachedWidth =8846
                             LayoutCachedHeight =3613
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =1
+                            WebImagePaddingBottom =1
                         End
                     End
                 End
@@ -1124,7 +1047,7 @@ Begin Form
                     LayoutCachedHeight =4138
                     Begin
                         Begin ToggleButton
-                            OverlapFlags =87
+                            OverlapFlags =95
                             Left =6179
                             Top =3798
                             Width =553
@@ -1135,13 +1058,18 @@ Begin Form
                                 0xd88997ece733f44280d816033a7822ac
                             End
                             VerticalAnchor =1
+
                             LayoutCachedLeft =6179
                             LayoutCachedTop =3798
                             LayoutCachedWidth =6732
                             LayoutCachedHeight =4081
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =1
+                            WebImagePaddingBottom =1
                         End
                         Begin ToggleButton
-                            OverlapFlags =87
+                            OverlapFlags =95
                             Left =6732
                             Top =3798
                             Width =688
@@ -1152,13 +1080,18 @@ Begin Form
                                 0x17cbce0609c8864481b20620cb2464d5
                             End
                             VerticalAnchor =1
+
                             LayoutCachedLeft =6732
                             LayoutCachedTop =3798
                             LayoutCachedWidth =7420
                             LayoutCachedHeight =4081
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =1
+                            WebImagePaddingBottom =1
                         End
                         Begin ToggleButton
-                            OverlapFlags =87
+                            OverlapFlags =95
                             Left =7420
                             Top =3798
                             Width =688
@@ -1169,10 +1102,15 @@ Begin Form
                                 0x0848c37b5e283d458b0a87eacbcef83d
                             End
                             VerticalAnchor =1
+
                             LayoutCachedLeft =7420
                             LayoutCachedTop =3798
                             LayoutCachedWidth =8108
                             LayoutCachedHeight =4081
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =1
+                            WebImagePaddingBottom =1
                         End
                         Begin ToggleButton
                             OverlapFlags =87
@@ -1186,10 +1124,15 @@ Begin Form
                                 0x919073732fbf9349bc88008ed0094501
                             End
                             VerticalAnchor =1
+
                             LayoutCachedLeft =8108
                             LayoutCachedTop =3798
                             LayoutCachedWidth =8856
                             LayoutCachedHeight =4081
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =1
+                            WebImagePaddingBottom =1
                         End
                     End
                 End
@@ -1248,6 +1191,10 @@ Begin Form
                     LayoutCachedTop =3798
                     LayoutCachedWidth =5102
                     LayoutCachedHeight =4081
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
             End
         End
@@ -1396,9 +1343,9 @@ Public Sub SaveToMyLog(ByRef objLogEntry As clsLogEntry)
 
   With objLogEntry
     If .Severity = Sev_Trace Then
-      str = SPrintF("%s;%s;%s;%s;%s;%s;%s", .Timestamp.ToString(dt_Time), .SeverityText, .Category, .FromModule, .FromProcedure, .TraceEventText, .MessageText)
+      str = SPrintF("%s;%s;%s;%s;%s;%s;%s", .TimeStamp.ToString(dt_Time), .SeverityText, .Category, .Module, .Procedure, .EventTypeText, .MessageText)
     Else
-      str = SPrintF("%s;%s;%s;%s;%s;%s;%s", .Timestamp.ToString(dt_Time), .SeverityText, .Category, .FromModule, .FromProcedure, .MessageNumber, .MessageText)
+      str = SPrintF("%s;%s;%s;%s;%s;%s;%s", .TimeStamp.ToString(dt_Time), .SeverityText, .Category, .Module, .Procedure, .MessageNumber, .MessageText)
     End If
   End With
 

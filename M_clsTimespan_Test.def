@@ -1,0 +1,122 @@
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+Option Compare Text
+Option Explicit
+
+'AccUnit:TestClass
+
+Dim TheTimespan As clsTimespan
+
+'--------------------------------------------------------------------
+' AccUnit Infrastructure
+'--------------------------------------------------------------------
+
+Implements SimplyVBUnit.ITestFixture
+Implements AccUnit_Integration.ITestManagerBridge
+Private TestManager As AccUnit_Integration.TestManager
+Private Sub ITestManagerBridge_InitTestManager(ByVal NewTestManager As AccUnit_Integration.ITestManagerComInterface): Set TestManager = NewTestManager: End Sub
+Private Function ITestManagerBridge_GetTestManager() As AccUnit_Integration.ITestManagerComInterface: Set ITestManagerBridge_GetTestManager = TestManager: End Function
+Private Sub ITestFixture_AddTestCases(ByVal Tests As SimplyVBUnit.TestCaseCollector): TestManager.AddTestCases Tests: End Sub
+
+Public Sub Setup()
+  Set TheTimespan = New clsTimespan
+End Sub
+
+'--------------------------------------------------------------------
+' Tests
+'--------------------------------------------------------------------
+
+Public Sub TimeSpan_With6000Second()
+   ' Arrange
+   ' Act
+   TheTimespan.TotalSeconds = 36000
+   ' Assert
+   Assert.That TheTimespan.TotalMilliseconds, Iz.EqualTo(36000000)
+   
+   Assert.AreEqualFloats 36000, TheTimespan.TotalSeconds, , "Seconds"
+   Assert.AreEqualFloats 600, TheTimespan.TotalMinutes, , "Minutes"
+   Assert.AreEqualFloats 10, TheTimespan.TotalHours, , "Hours"
+   Assert.AreEqualFloats 0.4166, TheTimespan.TotalDays, 0.001, "Days"
+End Sub
+
+Public Sub TimeSpan_With6000Second_InParts()
+   ' Arrange
+   ' Act
+   TheTimespan.TotalSeconds = 36061
+   ' Assert
+   Assert.That TheTimespan.Milliseconds, Iz.EqualTo(0)
+   
+   Assert.That TheTimespan.Seconds, Iz.EqualTo(1), "Seconds"
+   Assert.That TheTimespan.Minutes, Iz.EqualTo(1), "Minutes"
+   Assert.That TheTimespan.Hours, Iz.EqualTo(10), "Hours"
+   Assert.That TheTimespan.Days, Iz.EqualTo(0), "Days"
+End Sub
+
+Public Sub TimeSpan_Add()
+  ' Arrange
+  ' Act
+  Set TheTimespan = TheTimespan.AddDays(1).AddHours(1).AddMinutes(1).AddSeconds(1).AddMilliseconds(1)
+  
+  Assert.AreEqualFloats 90061, TheTimespan.TotalSeconds, , "Seconds"
+  Assert.AreEqualFloats 1501.0166, TheTimespan.TotalMinutes, 0.001, "Minutes"
+  Assert.AreEqualFloats 25.0169, TheTimespan.TotalHours, 0.001, "Hours"
+  Assert.AreEqualFloats 1.04237, TheTimespan.TotalDays, 0.001, "Days"
+  
+End Sub
+
+Public Sub AddTimeSpan_ToDateTime()
+   ' Arrange
+   Dim dt1 As clsDateTime
+   Dim dt2 As clsDateTime
+   Dim dt3 As clsDateTime
+   
+   Set dt1 = New clsDateTime
+   dt1.Parse "1.1.2010 08:00:00"
+   
+   Set dt3 = New clsDateTime
+   dt3.Parse "2.1.2010 09:01:01"
+   
+   ' Act
+   Call TheTimespan.Create(1, 1, 1, 1)
+   Set dt2 = dt1.Add(TheTimespan)
+   
+   ' Assert
+   Assert.IsTrue dt2.IsEqual(dt3)
+End Sub
+
+Public Sub TimeSpan_ToString()
+  Assert.AreEqualStrings "1d00:00:00", TheTimespan.Create(Days:=1).ToString
+  Assert.AreEqualStrings "1d01:01:01", TheTimespan.Create(Days:=1, Hours:=1, Minutes:=1, Seconds:=1).ToString
+  
+  Assert.AreEqualStrings "01:01:01", TheTimespan.Create(Hours:=1, Minutes:=1, Seconds:=1).ToString
+  Assert.AreEqualStrings "1d01:01:01.123", TheTimespan.Create(Days:=1, Hours:=1, Minutes:=1, Seconds:=1, Milliseconds:=123).ToString
+  
+  ' Noch nicht so richtig schön:
+  Assert.AreEqualStrings "1 Tag, 01 Stunden, 10 Minuten", TheTimespan.Create(Days:=1, Hours:=1, Minutes:=10).ToString("%d Tag, %h Stunden, %m Minuten")
+  
+End Sub
+
+' AccUnit:Row( "13.09.2012", "14.09.2012", 1, 60& * 60 * 24)
+' AccUnit:Row( "14.09.2012", "13.09.2012", -1, -60& * 60 * 24)
+' AccUnit:Row( "13.09.2012", "13.10.2012", 30, 30& * 60& * 60 * 24)
+' AccUnit:Row( "13.09.2012", "30.09.2012", 17, 17 * 60& * 60 * 24)
+' AccUnit:Row( "13.09.2012", "01.10.2012", 18, 18 * 60& * 60 * 24)
+' AccUnit:Row( "13.09.2012 12:00:00", "13.09.2012 18:00:00", 0, 6 * 60& * 60 )
+' AccUnit:Row( "13.09.2012 12:00:00", "14.09.2012 08:00:00", 0, 20 * 60& * 60 )   ' Kein voller Tag !!
+' AccUnit:Row( "13.09.2012 12:00:00", "14.09.2012", 0, 12 * 60& * 60 )            ' Kein voller Tag !!
+
+Public Sub TimeSpan_Diff_OnDates(ByVal Date1 As String, ByVal Date2 As String, ByVal DayDiff As Integer, ByVal SecondsDiff As Long)
+  Dim dt1 As clsDateTime
+  Dim dt2 As clsDateTime
+  
+  Set dt1 = Utils.DateTime.FromString(Date1)
+  Set dt2 = Utils.DateTime.FromString(Date2)
+  
+  Set TheTimespan = Utils.Timespan.FromDateDiff(dt1, dt2)
+  
+  Assert.That TheTimespan.Days, Iz.EqualTo(DayDiff)
+  Assert.That TheTimespan.TotalSeconds, Iz.EqualTo(SecondsDiff)
+  
+End Sub
