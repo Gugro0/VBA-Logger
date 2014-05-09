@@ -20,28 +20,15 @@ End Enum
 Private Declare Function api_GetComputerNameEx Lib "kernel32.dll" Alias "GetComputerNameExA" (ByVal NameType As eCOMPUTER_NAME_FORMAT, ByVal lpBuffer As String, ByRef nSize As Long) As Long
 Private Declare Function api_GetComputerName Lib "kernel32" Alias "GetComputerNameA" (ByVal lpBuffer As String, nSize As Long) As Long
 
-Private Type TYP_GUID
-    bytes(15) As Byte
-End Type
- 
-Private Declare Function CoCreateGuid Lib "OLE32.dll" _
-                       (Guid As TYP_GUID) As Long
-Private Declare Function StringFromGUID2 Lib "OLE32.dll" _
-                       (Guid As TYP_GUID, _
-                        ByVal lpszString As String, _
-                        ByVal iMax As Long) As Long
 
-
-Public Function GetComputerName() As String
 '**************************************************
 'Purpose:  Returns the ComputerName
 'Returns:  The Windows Networking name of the computer
 '**************************************************
-On Error Resume Next
-
-Dim NBuffer As String
-Dim Buffsize As Long
-Dim Wok As Long
+Public Function GetComputerName() As String
+  Dim NBuffer As String
+  Dim Buffsize As Long
+  Dim Wok As Long
        
   Buffsize = 256
   NBuffer = Space$(Buffsize)
@@ -51,17 +38,16 @@ Dim Wok As Long
   End If
 End Function
 
-Public Function GetComputerNameEx(ByVal lIndex As eCOMPUTER_NAME_FORMAT) As String
 '**************************************************
 'Purpose:  Returns the ComputerName
 'Input:    A value from the COMPUTER_NAME_FORMAT enumeration type that specifies the type of name to retrieve.
 'Returns:  The Windows Networking name of the computer
 '**************************************************
-On Error Resume Next
+Public Function GetComputerNameEx(ByVal lIndex As eCOMPUTER_NAME_FORMAT) As String
 
-Dim NBuffer As String
-Dim Buffsize As Long
-Dim Wok As Long
+  Dim NBuffer As String
+  Dim Buffsize As Long
+  Dim Wok As Long
        
   Buffsize = 256
   NBuffer = Space$(Buffsize)

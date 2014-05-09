@@ -27,6 +27,7 @@ Private Declare Function RegisterEventSource Lib "advapi32.dll" Alias _
                                                              ByVal lpSourceName As String) As Long
 Private Declare Function DeregisterEventSource Lib "advapi32.dll" ( _
                                        ByVal hEventLog As Long) As Long
+                                       
 Private Declare Function ReportEvent Lib "advapi32.dll" Alias _
                              "ReportEventA" ( _
                              ByVal hEventLog As Long, ByVal wType As Integer, _
@@ -34,10 +35,12 @@ Private Declare Function ReportEvent Lib "advapi32.dll" Alias _
                              ByVal lpUserSid As Any, ByVal wNumStrings As Integer, _
                              ByVal dwDataSize As Long, plpStrings As Long, _
                              lpRawData As Any) As Boolean
+
 Private Declare Function GetLastError Lib "kernel32" () As Long
 Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" ( _
                        hpvDest As Any, hpvSource As Any, _
                        ByVal cbCopy As Long)
+
 Private Declare Function GlobalAlloc Lib "kernel32" ( _
                              ByVal wFlags As Long, _
                              ByVal dwBytes As Long) As Long
