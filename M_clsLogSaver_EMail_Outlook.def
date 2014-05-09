@@ -14,7 +14,6 @@ Option Compare Database
 Option Explicit
 
 #Const Outlook = 1
-#If Outlook Then
 
 Implements ILogSaver
 
@@ -140,6 +139,7 @@ Public Property Let EMailSubject(ByVal TheSubject As String)
 End Property
 
 Private Sub SendMail(ByVal TheMessage As String)
+#If Outlook Then
   Dim olApp   As Outlook.Application
   Dim olNS    As Outlook.NameSpace
   Dim olMail  As Outlook.MailItem
@@ -155,7 +155,9 @@ Private Sub SendMail(ByVal TheMessage As String)
     .Body = TheMessage
     .Send
   End With
-  
+#Else
+  Err.Raise vbObjectError, , "Outlook Integration is not enabled in this App!"
+#End If
 End Sub
 
 Private Function LogEntry2String(ByVal objLogEntry As clsLogEntry) As String
@@ -166,6 +168,3 @@ End Function
 Private Sub SaveToMyLog(ByRef objLogEntry As clsLogEntry)
   SendMail LogEntry2String(objLogEntry)
 End Sub
-
-
-#End If

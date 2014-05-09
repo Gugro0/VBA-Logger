@@ -14,7 +14,6 @@ Option Compare Database
 Option Explicit
 
 #Const SMTP = 1
-#If SMTP Then
 
 Implements ILogSaver
 
@@ -198,12 +197,16 @@ End Property
 
 
 Private Sub SendMail(ByVal TheMessage As String)
+
+#If SMTP Then
     Dim imsg  As CDO.Message         '    Object
     Dim iconf As CDO.Configuration  ' Object
     Dim flds  As Object  ' ADODB.Fields ???
     Dim schema As String
 
-    Set imsg = CreateObject("CDO.Message")
+    On Error GoTo SendMail_Error
+      Set imsg = CreateObject("CDO.Message")
+    On Error GoTo 0
     Set iconf = CreateObject("CDO.Configuration")
     Set flds = iconf.Fields
 
@@ -230,6 +233,16 @@ Private Sub SendMail(ByVal TheMessage As String)
     Set iconf = Nothing
     Set imsg = Nothing
     Set flds = Nothing
+
+   On Error GoTo 0
+   Exit Sub
+#Else
+  Err.Raise vbObjectError, , "SMTP Integration is not enabled in this App!"
+#End If
+
+SendMail_Error:
+
+  MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure SendMail of Klassenmodul clsLogSaver_EMail_SMTP"
 End Sub
 
 Private Function LogEntry2String(ByVal objLogEntry As clsLogEntry) As String
@@ -240,6 +253,3 @@ End Function
 Private Sub SaveToMyLog(ByRef objLogEntry As clsLogEntry)
   SendMail LogEntry2String(objLogEntry)
 End Sub
-
-
-#End If
